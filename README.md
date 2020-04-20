@@ -24,14 +24,22 @@ rails new appname --database=postgresql
 ```html
 rails s 
 ```
+to start the server
 
 * Go to localhost:3000
 
 * **Generate a controller:**
 
 ```html
-rails g controller pages
+rails g controllername
 ```
+
+or
+
+```html
+rails generate controllername
+```
+
 or create a controller yourself:
 
 ```html
@@ -40,7 +48,7 @@ end
 ```
 
 * All controllers inherit from the Application Controller
-* Methods in the Application Controller are available to all other Controllers
+* Methods in the Application Controller are available to all other controllers
 * Routing determines which controller and its public method (action) to call.
 
 **Routes** are defined in config/routes.rb
@@ -49,21 +57,28 @@ end
 **rails routes**
 or
 **rails routes --expanded** (for a more legible format)
+or
+**rake routes**
 
-  
+**Controllers**
 
-reviews#edit = call the ReviewsController and its public method(action) edit
+* Methods in the controllers are also known as actions
 
-**Templates** are stored in app/views
+* **reviews#edit** = calls the ReviewsController and its public method(action) - edit
+
+ * **Templates** are stored in app/views
+
 *They are erb files - using embedded Ruby and have an extension of .html.erb
 
 **application.html.erb** in views/layouts/application.html.erb is where everything gets rendered
 
 **<% yield %>** - renders the requested template
 
+
 ### Using Bootstrap with Rails
 
 **To use Bootstap with Rails, add the following gems to Gemfile:**
+
 bootstrap-sass
 sass-rails
 jquery-rails
@@ -120,6 +135,7 @@ https://getbootstrap.com/docs/3.3/components/
 ```html
 gem 'devise'
 ```
+
 * Run **bundle install**
 * run **rails generate devise:install**
 
@@ -139,7 +155,7 @@ or
 
 * It can also be done in the following way
 
-sqlite3
+**Migrations using Rails' default database - sqlite3:**
 
 * Generate a migration:
 
@@ -180,7 +196,7 @@ rails generate scaffold Review title:string description: text
 ```
 
 * **Scaffold generators** generate the following actions:
-* indexxx
+* index
 * new
 * edit
 * show
@@ -190,9 +206,10 @@ rails generate scaffold Review title:string description: text
 
 
 **timestamps** are fields that provide us with information about when posts etc where created and updated.
+
 * tracked and maintained by Rails
 
-development.sqlite3 file is the database in the development environment
+* development.sqlite3 file is the database in the development environment
 
 * The model is singular ---  User
 * the table is plural --- users
@@ -201,11 +218,7 @@ development.sqlite3 file is the database in the development environment
 * Models inherit from ApplicationRecord, which itself inherits from ActiveRecord::Base - so it can talk to the database 
 
 
-
-Adding **resources** to a routes.rb file
-
-
-**Authentication systems**
+### Authentication systems
 
 **One-to-many association:**
 
@@ -216,14 +229,99 @@ Users - Posts
 
 * This relationships can be expressed through an ERD - Entity Relationship Diagram
 
-
-
-
 **Add columns to tables**
 
-**Delete columns from tables**
+* This is done with a migration
+* Generate a migration file by doing the following:
+
+```html
+rails generate migrations add_whatever_we_want_to_target_table
+```
+
+* This creates a migration file
+* We can edit this file by manually adding in the information in the change method e.g.
+
+```html
+add_column :name_of_table_we're_adding_to, :column_to_add_name :type
+```
+e.g.
+
+```html
+add_column :posts, :user_id, :int
+```
 
 
+* The type might be int. It might be string etc
+* Then run rake:db migrate
+* The schema.rb file changes as a result
+
+**Make an association between the two tables:**
+
+* Update a model with an association e.g.
+
+```html
+has_many :things
+```
+
+* Update the other model in the relationship with:
+
+```html
+belongs_to :thing
+```
+
+**Validations** -  adding constraints
+
+* In the relevant model:
+
+```html
+validates :thing, presence:true { minimum: 3, maximum: 50}
+```
+
+* We can test that the validations work in the Rails Console.
+
+* **Regexes** can we used to test for the format of an email
+
+e.g.
+
+```html
+validates: email, presence: true,
+   uniqueness: { case_sensitiveL false },
+   length: { maximum: 105 },
+   format: { with: VALID_EMAIL_REGEX}
+```
+
+**Authentication**
+
+**Devise** is a gem that can be used for authentication
+
+**Bcrypt** is a gem used to hash passwords. (A hashed password can't be converted back into the original string, thus protecting against database attacks).
+
+* rainbow tables attacks
+
+**has_secure_password** method
+
+* This is added to the (User) model
+
+**password-digest** - needs to be added to the users table via a migration
+
+```html
+def change
+  add column :users, :password_digest, :string
+end 
+```
+
+* When we are in the Rails console, the passwords associated with each user will be hashed
+
+**authenticate()** method - can be used to verify a user.
+When the user logs in using other details in conjunction with their password - that information is checked against the password_digest_field using the authenticate() method
+
+
+
+
+
+
+
+ 
 
 **Deployment**
 
@@ -263,10 +361,31 @@ heroku open
 **action** - a public method
 
 * **rails routes**  - lists all of the available routes 
+**Restful routes** 
+
+* Restful routes provide mapping between HTTP verbs (patch put, delete, post, get) to 
+Controll CRUD actions
+
+* **REST** - is an architectural style for defining routes - a way of mapping HTTP routes and the CRUD functionalities 
 
 * The prefixes listed can be used to generate a path to a particular page. 
 * Take a prefix name and add _path to it. 
 root_path - would generate a path to the root page
+
+Adding **resources** to a routes.rb file
+
+Adding for example  **resources :users**
+gives us all of the rotues for users
+
+If we want to omit a particular route because it or they have already been defined we can do the following:
+
+```html
+resources :users, except: [:new]
+```
+
+etc.
+
+
 
 
 
