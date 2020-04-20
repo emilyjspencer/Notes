@@ -44,6 +44,13 @@ end
 * Routing determines which controller and its public method (action) to call.
 
 **Routes** are defined in config/routes.rb
+* View routes by entering the command:
+
+**rails routes**
+or
+**rails routes --expanded** (for a more legible format)
+
+  
 
 reviews#edit = call the ReviewsController and its public method(action) edit
 
@@ -125,8 +132,10 @@ rails generate devise User
 
 rails db:create
 
-* Create new tables
-rails db:migrate
+* Create new tables: 
+**rake db:migrate**
+or
+**rails db:migrate**
 
 * It can also be done in the following way
 
@@ -140,6 +149,35 @@ rails g migration create_user
 
 * This creates a migration file which can then be edited - add columns etc to it
 * Running rails db:migrate then adds the columns to the table and change the schema.rb file
+
+
+
+
+*Scaffolding**
+
+In practice, it's better not to use this, but scaffold can be used to generate code quickly e.g.
+
+```html
+rails generate scaffold Review title:string description: text
+```
+
+**timestamps** are fields that provide us with information about when posts etc where created and updated.
+* tracked and maintained by Rails
+
+development.sqlite3 file is the database in the development environment
+
+* The model is singular ---  User
+* the table is plural --- users
+* the controller is plural  --- UsersController 
+
+* Models inherit from ApplicationRecord, which itself inherits from ActiveRecord::Base - so it can talk to the database 
+
+
+
+Adding **resources** to a routes.rb file
+
+
+
 
 
 
@@ -167,21 +205,21 @@ root_path - would generate a path to the root page
 
 # Databases
 
-* A database forms the persistence layer
+* A database forms the **persistence layer**
 * Databases are made up of multiple tables.
-* Some of these tables are linked - thus the name: relational databases
+* Some of these tables are linked - thus the name: **relational databases**
 
 * Column names are called attributes
-* Tables can be linked using a foreign-key (a column).
+* Tables can be linked using a **foreign-key** 
 * An example of this could be a user_id column in a posts table, which makes the link
-* between a particular user in  a users table.
+between a particular user in  a users table.
 * The id columns in the users table would be automatically generated.
 
-* CRUD operations - create read update delete
+* **CRUD** operations - create read update delete
 * A query language is required to talk to the database for the application to perform CRUD operations.
 * The most commonly used language is SQL.
 * Database management systems that use SQL include:
-PostGresSQL
+PostGreSQL
 Microsoft SQL Server
 Oracle
 
@@ -192,6 +230,139 @@ Oracle
 * ORM stands for Object Relational Mapper
 * Using an ORM means that we don't have to construct SQL queries ourselves to perform operations with the database
 * Ruby code gets translated into SQL queries
+
+
+# SQL
+
+* SQL stands for Structured Query Language
+* SQL is used to store, manipulate and retrieve data in a database
+* Single quotes (' ') must be used with SQL
+* SQL statements end with a ;
+
+SQL can:
+* execute queries against a database
+* retrieve data from a database
+* insert records in a database
+* update records in a database
+* delete records from a database
+* create new databases
+* create new tables in a database
+* create stored procedures in a database
+* create views in a database
+* set permissions on tables, procedures, and views
+
+**Relational Database Management Systems**
+
+The data in RDBMS is stored in database objects called tables.
+A table is a collection of related data entries and it consists of columns and rows.
+A row is also called a record - which is a horizontal entity in a table
+
+SQL keywords are **NOT** case sensitive
+
+**SELECT** - extracts data from a database
+**UPDATE** - updates data in a database
+**DELETE** - deletes data from a database
+**INSERT INTO** - inserts new data into a database
+**CREATE DATABASE** - creates a new database
+**ALTER DATABASE** - modifies a database
+**CREATE TABLE** - creates a new table
+**ALTER TABLE** - modifies a table
+**DROP TABLE** - deletes a table
+**CREATE INDEX** - creates an index (search key)
+**DROP INDEX** - deletes an index
+
+**SELECT DISTINCT** - only shows one from all duplicate values
+
+**WHERE** clause is used to filter records.
+- Used to extract only those records that fulfill a specified condition.
+
+```html
+SELECT * FROM Customers
+WHERE Country='Canada';
+```
+
+```html
+SELECT * FROM Customers
+WHERE City = 'Berlin';
+```
+* Operators used with WHERE clause: 
+
+**BETWEEN**	Between a certain range	
+**LIKE**	Search for a pattern	
+**IN**	To specify multiple possible values for a column
+
+**WHERE** can be used with AND, OR, and NOT
+**AND** and **OR**  used to filter records based on more than one condition:
+
+**AND** shows a record if all the conditions separated by AND are TRUE.
+**OR** shows a record if any of the conditions separated by OR is TRUE.
+**NOT** shows a record if the condition(s) is NOT TRUE.
+
+**Use of AND**
+
+```html
+SELECT
+ * FROM Customers
+WHERE City = 'Berlin'
+AND Item = 'Lamp';
+```
+
+**Use of OR**
+
+```html
+SELECT * FROM Customers
+WHERE City = 'Paris'
+OR City 'NYC';
+```
+
+**Use of NOT**
+
+```html
+SELECT * FROM Customers
+WHERE NOT Country='Germany';
+```
+
+**ORDER BY**
+
+**Order By** is used to sort results in asc/ desc order
+**ASC** is the default
+**DESC** to sort in descending order
+
+```html
+SELECT * FROM Customers
+ORDER BY Country;
+```
+
+```html
+SELECT * FROM Customers
+ORDER BY Country DESC;
+```
+**Order by several columns**
+
+```html
+SELECT * FROM Customers
+ORDER BY Country, Item;
+```
+
+**INSERT INTO** - to insert data into the database
+
+```html
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES ('Helen','Helen Byrne','Worple Road','Wimbledon','SW19','England');
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
    
 
 
@@ -293,3 +464,5 @@ localStorage.storageName = "stuff";
 ```html
 localStorage.storageName = "";
 ``` 
+
+
