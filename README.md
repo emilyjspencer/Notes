@@ -148,18 +148,46 @@ rails g migration create_user
 ```
 
 * This creates a migration file which can then be edited - add columns etc to it
-* Running rails db:migrate then adds the columns to the table and change the schema.rb file
+* Running rails db:migrate  or rake db:migrate then adds the columns to the table and change the schema.rb file
+
+* To undo changes made by the last migration file that was run, use the following commandL
+
+```html
+rails db:rollback
+```
+
+* **Generate a new migration file** in order to make changes to a table:
+
+```html
+rails generate migration name_of_migration_file
+```
+
+**Validations** - adding constraints
+
+* In the relevant model:
+
+```html
+validates :thing, presence:true { minimum: 3, maximum: 50}
+```
 
 
-
-
-*Scaffolding**
+**Scaffolding**
 
 In practice, it's better not to use this, but scaffold can be used to generate code quickly e.g.
 
 ```html
 rails generate scaffold Review title:string description: text
 ```
+
+* **Scaffold generators** generate the following actions:
+* indexxx
+* new
+* edit
+* show
+* create
+* update
+* destroy
+
 
 **timestamps** are fields that provide us with information about when posts etc where created and updated.
 * tracked and maintained by Rails
@@ -177,8 +205,56 @@ development.sqlite3 file is the database in the development environment
 Adding **resources** to a routes.rb file
 
 
+**Authentication systems**
+
+**One-to-many association:**
+
+* Primary key of one table is the foreign key of another table
+Users - Posts
+* One user can create many posts
+* Each post has only one creator
+
+* This relationships can be expressed through an ERD - Entity Relationship Diagram
 
 
+
+
+**Add columns to tables**
+
+**Delete columns from tables**
+
+
+
+**Deployment**
+
+* Move sqlite gem into the following section in the Gemfile:
+```html
+group :development, :test  
+```
+
+**Heroku's** default database is **PostgreSQL** so we should use the pg gem
+in production
+
+Run the following before deployment :
+
+```html
+bundle install --without production
+```
+
+The local database and tables don't get pushed to production - only the migration files do
+so, migrations need to be run
+
+**Run the following to tell Heroku to run the migrations:**
+
+```html
+heroku run rails db:migrate
+```
+
+**Preview production application:**
+
+```html
+heroku open
+```
 
 
 # Terms and commands
@@ -259,17 +335,17 @@ A row is also called a record - which is a horizontal entity in a table
 
 SQL keywords are **NOT** case sensitive
 
-**SELECT** - extracts data from a database
-**UPDATE** - updates data in a database
-**DELETE** - deletes data from a database
-**INSERT INTO** - inserts new data into a database
-**CREATE DATABASE** - creates a new database
-**ALTER DATABASE** - modifies a database
-**CREATE TABLE** - creates a new table
-**ALTER TABLE** - modifies a table
-**DROP TABLE** - deletes a table
-**CREATE INDEX** - creates an index (search key)
-**DROP INDEX** - deletes an index
+* **SELECT** - extracts data from a database
+* **UPDATE** - updates data in a database
+* **DELETE** - deletes data from a database
+* **INSERT INTO** - inserts new data into a database
+* **CREATE DATABASE** - creates a new database
+* **ALTER DATABASE** - modifies a database
+* **CREATE TABLE** - creates a new table
+* **ALTER TABLE** - modifies a table
+* **DROP TABLE** - deletes a table
+* **CREATE INDEX** - creates an index (search key)
+* **DROP INDEX** - deletes an index
 
 **SELECT DISTINCT** - only shows one from all duplicate values
 
@@ -350,6 +426,69 @@ ORDER BY Country, Item;
 INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
 VALUES ('Helen','Helen Byrne','Worple Road','Wimbledon','SW19','England');
 ```
+
+**NULL**
+
+* Insert a new record into a table without adding a value to the field by using NULL
+
+**Using IS NULL**
+
+```html
+SELECT CustomerName, Item, Country
+FROM Customers
+WHERE Item IS NULL;
+```
+
+**Using IS NOT NULL**
+
+```html
+SELECT CustomerName, Item, Country
+FROM Customers
+WHERE Item IS NOT NULL;
+```
+
+**Edit records using UPDATE**
+
+* Change the details of the customer in the table whose id is 5:
+
+```html
+UPDATE Customers
+SET CustomerName = 'Emily', City= 'London'
+WHERE CustomerID = 5;
+```
+
+**Edit multiple records using UPDATE and WHERE
+* Sets the name of all Japanese-based customers to Ayako
+
+```html
+UPDATE Customers
+SET CustomerName='Ayako'
+WHERE Country='Japan';
+```
+
+**DELETE records from tables using the DELETE keyword**
+
+**Delete ALL records:**
+
+```html
+DELETE FROM Customers;
+```
+
+**Delete specific records:**
+* Delete the customer with name of Minnie Mouse
+
+```html
+DELETE FROM Customers WHERE CustomerName='Minnie Mouse';
+```
+
+**LIKE** operator
+
+LIKE is used in a WHERE clause to search for a specified pattern in a column.
+
+There are two wildcards often used in conjunction with the LIKE operator:
+
+% - The percent sign represents zero, one, or multiple characters
+_ - The underscore represents a single character
 
 
 
