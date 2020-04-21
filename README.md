@@ -60,6 +60,16 @@ or
 or
 **rake routes**
 
+* To view particular route, use grep e.g
+
+```html
+rails routes --expanded | grep delete
+```
+
+* grep is more generally used to search for a specific keyword in search results from a terminal command 
+
+
+
 **Controllers**
 
 * Methods in the controllers are also known as actions
@@ -384,6 +394,80 @@ resources :users, except: [:new]
 ```
 
 etc.
+
+**ByeBug** - is a debugging tool for Rails.
+
+* Used to pause the server. 
+* Can be placed withint a Controller action. We can then enter:
+
+```html
+params[:review]
+params[:user]
+``` 
+
+in the Rails console to see what has been entered.
+
+* We can also gain visibility by printing out params:
+```html
+p params
+```
+**new_record?** method - can be used to check whether something is new or already exists, whether that
+be a user, a review, a post etc
+* Used with the ternary operator e.g.
+```html
+@review.new_record? ? "Create review" : "Edit review"
+```
+**pluralize** - a helper method - from the TextHelper module - provides methods for filtering and formatting strings. 
+They extend the Action View, making them callable within templates.
+
+**Pagination**
+
+* Pagination limits the number of posts/reviews etc that are showed on a page at any one time
+
+**will-paginate** if a pagination library, whose gem can be added
+
+**patch** - analogous to update of CRUD
+
+**Rails console** - like irb. Allows us to play with db data e.g. user = User.find_by(email: "bob@example.com")
+
+**Model-backed forms**
+
+**Modelless forms**
+
+**Flash messages**
+
+* **Flash** is a helper method that behaves in a similar way to a Ruby hash.
+Flash has methods such as: **any? keys? each**
+Flash messages aren't automatically shown - they have to be **rendered** in views
+
+```html
+<% flash.each do |type, msg| %>
+  <div class="alert alert-info">
+    <%= msg %>
+  </div>
+<% end %>
+``` 
+
+or similar needs to be added.
+The alert alert-info Bootstrap class can be used to improve the appearance of flash messages
+
+* Flash persists for **one full HTTP request-response cycle**
+
+* In the case of a **redirect** - the flash message appears **after** the redirect has taken place
+Therefore, when flash messages are used with **redirect**, it suffices to use **flash[:notice]** or **flash[:alert]**
+* However, if there is **no redirect** i.e in the case of rendering a template - flash.now needs to be used.
+* If flash[:notice] or flash[:alert] was used when rendering, the flash message would remain and when a new HTTP request takes place - the same flash message would appear again.
+Therefore - we need to use flash.now in the case of a render
+
+flash[:notice]
+
+flash[:success]
+
+flash.now
+
+
+
+
 
 
 
