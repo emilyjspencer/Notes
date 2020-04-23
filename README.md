@@ -52,6 +52,8 @@ end
 * Routing determines which controller and its public method (action) to call.
 
 **Routes** are defined in config/routes.rb
+* Routes tell Rails where to find te code to handle incoming requests
+
 * View routes by entering the command:
 
 **rails routes**
@@ -67,6 +69,9 @@ rails routes --expanded | grep delete
 ```
 
 * grep is more generally used to search for a specific keyword in search results from a terminal command 
+
+* Each route is a combination of am HTTp verb and a URL pattern - mapping to a combination of controller and action
+
 
 
 
@@ -85,6 +90,8 @@ rails routes --expanded | grep delete
 **<% yield %>** - renders the requested template
 
 
+### Styling with Rails 
+
 ### Using Bootstrap with Rails
 
 **To use Bootstap with Rails, add the following gems to Gemfile:**
@@ -92,6 +99,8 @@ rails routes --expanded | grep delete
 bootstrap-sass
 sass-rails
 jquery-rails
+
+* As of Rails 5, Rails doesn't ship with jQuery, so the gem 'jquery-rails' needs to be added, due to frontend frameworks having a dependency on it.
 
 run bundle install 
 
@@ -118,6 +127,11 @@ Add the following to app/assets/stylesheets/application.css
 ```html
 https://getbootstrap.com/docs/3.3/components/
 ```
+
+**Semantic UI** can also be used 
+
+
+
 
 **Partials**
 
@@ -237,7 +251,14 @@ Users - Posts
 * One user can create many posts
 * Each post has only one creator
 
-* This relationships can be expressed through an ERD - Entity Relationship Diagram
+**Many-to-many association:**
+
+* One article can belong to several categories
+* A category can have a list of different articles
+article_id  vs  category_id
+
+* These relationships can be expressed through an ERD - Entity Relationship Diagram
+
 
 **Add columns to tables**
 
@@ -411,6 +432,21 @@ in the Rails console to see what has been entered.
 ```html
 p params
 ```
+
+* We can also use:
+
+```html
+params.inspect
+```
+
+
+* The following can also be added to views/layouts/application.html.erb, for useful debugging messages:
+
+```html
+<%= debug(params) if Rails.env.development? %>
+```
+
+
 **new_record?** method - can be used to check whether something is new or already exists, whether that
 be a user, a review, a post etc
 * Used with the ternary operator e.g.
@@ -464,6 +500,84 @@ flash[:notice]
 flash[:success]
 
 flash.now
+
+**Sessions**
+
+* Apps have a session for each user in which small amounts of info can be stored e.g. username, password, and which is persisted across requests
+
+* The session is only available in the controller and the view
+
+* Sessions enable an app to maintain a user-specific state
+
+* The session object can be used to store information e.g. about a user who we want to track
+e.g. set the session user_id to be equal to the authenticated user
+
+* All session stores use a cookies to store a unique id for each session
+
+* Cookie data is encrypted an cryptographically signed to make it tamper-proof and its contents are unreadable
+
+
+**Filters**
+
+* **Filters** are methods that are run **before**, **after**, or **around** a controller action.
+
+* Filters added to the ApplicationController will be inherited by all other controllers since all controllers inherit from the ApplicationController
+
+* **before_action** is a filter - more specifically - it is a 'before' filter
+This particular 'before' filter requires that a user be logged in for an action to be run
+So, a before_action added to the ApplicationController like this:
+
+```html
+class ApplicationController < ActionController::Base
+  before_action :require_login
+ 
+  private
+ 
+  def require_user
+    if logged_in?
+      flash[:danger] = "You must be logged in to perform that action"
+      redirect_to root_path
+    end
+  end
+end
+```
+
+will make everything in the application require the user to be logged in.
+
+* before_actions work in order, so it is important to list the before actions in the order that you want them to be executed 
+
+* Another example of before_action
+
+```html
+before_action :require_user, except: [:index, :show]
+```
+
+all actions except the index and show actions require a user to be logged in
+
+**skip_before_action:**  - skip_before_actioin can be used to prevent filters from running before particular actions
+
+**memoization** 
+
+**strong parameters**
+
+* By default, Active Record models distrust params - so we have to explicitly state which params we want to permit. Done in the relevant controller 
+
+```html
+params.permit :username, :login
+```
+
+etc.
+
+**toggle¬** - is a method that can be used to switch a column value from false to true or true to false
+
+
+
+
+
+
+
+
+
 
 
 
@@ -694,7 +808,7 @@ There are two wildcards often used in conjunction with the LIKE operator:
 _ - The underscore represents a single character
 
 
-
+**SQL Injection** - web hacking technique
 
 
 
