@@ -92,6 +92,9 @@ rails routes --expanded | grep delete
 
 ### Styling with Rails 
 
+* Code can be added to app/views/layouts/application.html.erb and it will show up in all views.
+* Place code in body
+
 ### Using Bootstrap with Rails
 
 **To use Bootstap with Rails, add the following gems to Gemfile:**
@@ -570,6 +573,11 @@ etc.
 
 **toggle¬** - is a method that can be used to switch a column value from false to true or true to false
 
+**Active Storage**
+
+
+**Turbo Links**
+
 
 
 
@@ -920,5 +928,48 @@ localStorage.storageName = "stuff";
 ```html
 localStorage.storageName = "";
 ``` 
+
+<hr>
+
+
+**Node.js**
+
+
+
+
+**Express**
+
+
+
+
+
+**Big O Notation**
+
+
+
+
+**Searching Algorithms**
+
+
+
+**Binary Trees**
+
+
+
+**Graph Traversal**
+
+
+
+**Hash Tables**
+
+
+
+**Bubble Sort**
+
+
+
+**Merge Sort**
+
+
 
 
