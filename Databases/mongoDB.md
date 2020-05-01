@@ -1,8 +1,8 @@
-# Mongodb
+# MongoDB
 
 # Notes
 
-* To install mongodb:
+* To install mongoDB:
 
 ```html
 brew tap mongodb/brew
@@ -69,7 +69,7 @@ use database_name
 
 * To use an already existing database: 
 ```html
-use database name
+use database_name
 ```
 example:
 create a database called books
@@ -77,7 +77,7 @@ create a database called books
 use books
 ```
 
-* To add things to the database, we create collections
+* To add data/items/resources to the database, we create collections
 e.g. historical fictions
 
 ```html
