@@ -16,19 +16,25 @@ brew install mongodb-community@4.2
 brew services start mongodb-community@4.2
 ```
 
-* to stop mongoldb:
+* to stop mongodb:
 
 ```html
 brew services stop mongodb-community@4.2
 ```
 
+* to restart mongodb:
+
+```html
+brew services restart mongodb-community
+``` 
+
 
 Mongod process - refers to the running of Mongodb
 
-To run MongoDB (i.e. the mongod process) manually as a background process, issue the following:
-copy
-copied
+* To run MongoDB (i.e. the mongod process) manually as a background process, issue the following:
+```html
 mongod --config /usr/local/etc/mongod.conf --fork
+```
 
 
 **Mongo commands**
@@ -77,7 +83,7 @@ e.g. historical fictions
 ```html
 db.fiction.insert({title: "Frankenstein", author: "Mary Shelley"})
 ```
-* T check that the collection was indeed created:
+* To check that the collection was indeed created:
 
 ```html
 show collections
@@ -98,4 +104,31 @@ db.fiction.find({title: "Frankenstein"})
 ```
 ```html
 // { "_id" : ObjectId("5eac8357ba5368267cbf2ff4"), "title" : "Frankenstein", "author" : "Mary Shelley" }
+```
+
+* To update data, use **update():**
+
+```html
+> db.fiction.insert({title: "Wonder", author: "R.J.Palacio"})
+WriteResult({ "nInserted" : 1 })
+> db.fiction.insert({title: "Frankenstein", author: "Mary Shelley"})
+WriteResult({ "nInserted" : 1 })
+> db.fiction.update({title: "Frankenstein"}, {$set: {title: "The Last Man"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.fiction.find()
+{ "_id" : ObjectId("5eac8b59bbe91fccfd7d150b"), "title" : "Wonder", "author" : "R.J.Palacio" }
+{ "_id" : ObjectId("5eac8b72bbe91fccfd7d150c"), "title" : "The Last Man", "author" : "Mary Shelley" }
+> 
+```
+
+* First arg = data to select
+* Second arg = what we want to change the data to
+
+* To delete data, use **remove**:
+
+```html
+> db.fiction.remove({title: "The Last Man"})
+WriteResult({ "nRemoved" : 1 })
+> db.fiction.find()
+{ "_id" : ObjectId("5eac8b59bbe91fccfd7d150b"), "title" : "Wonder", "author" : "R.J.Palacio" }
 ```
