@@ -132,5 +132,3 @@ WriteResult({ "nRemoved" : 1 })
 > db.fiction.find()
 { "_id" : ObjectId("5eac8b59bbe91fccfd7d150b"), "title" : "Wonder", "author" : "R.J.Palacio" }
 ```
-
-
