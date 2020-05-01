@@ -1,11 +1,12 @@
 # Databases
 
 * A database forms the persistence layer
+* Two types of database: relational and non-relational or SQL or noSQL
+* SQL databases are tabular and flat. Less flexible
+* noSQL don't have any relations. Things can be nested - not flat. Flexible structure
 
-* Databases are made up of multiple tables.
 
-* Some of these tables are linked - thus the name: relational databases
-
+* Relational databases are made up of multiple tables.
 * Column names are called attributes
 
 * Tables can be linked using a foreign-key
