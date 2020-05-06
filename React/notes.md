@@ -33,13 +33,19 @@ export default App;
 
 ![output](react.png)
 
-* Creating components
-* Components can be class-based or functional
+
+* Components can be **class-based** or **functional**
+
+* **Class-based** 
+
+* Class-based components can also be referred to as **stateful** components or 
+**smart** components.
+* The render() method is used
+* The class and extends keywords are used
 
 * The following is a class-based component:
 
 ```html
-
 
 import React, {Component} from 'react';
 
@@ -79,7 +85,11 @@ function Photo(props)
 
     export default Photo
 ```
+* **Functional components**
 
+* Functional components look like a function
+* render() is not used
+* Functional components are also known as stateless components or dumb components 
 
 * The following code shows App.js. Three components - Cat, Dog and Rabbit
 have been created and then rendered.
