@@ -124,6 +124,7 @@ The above looks like this in the browser:
 
 * **Props**
 
+* Props provide access to the attributes we give to our components
 * We can pass properties/attributes to our components in App.js
 * Pass props into the individual components as an argument
 * Reference these attributes by using JavaScript expressions, using {}
@@ -169,5 +170,58 @@ const cat = (props) => {
 export default cat;
 ```
 The above renders as folows:
+
+![output](reactprops.png)
+
+* **children**
+
+* Children refers to elements that are passed between the opening and closing tags of the 
+component
+
+App.js
+
+```html
+import React, { Component } from 'react';
+
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+class App extends Component {
+    render() {
+      return (
+        <div className="App">
+          <h1>I am a H1</h1>
+          <h3>I am a H3</h3>
+          <Cat favouriteFood = "fish" color="black" favouriteNeighbour = "Bob" />
+          <Dog favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit />
+        </div>
+      ) 
+    }
+}
+
+export default App;
+```
+
+Dog.js
+```html
+import React from 'react';
+
+const dog = (props) => {
+    return ( 
+        <div>
+    <p>I'm a terrier. My name is Toby I'm also super cute</p>
+    <p>{props.children}</p>
+    <h1>{props.children}</h1>
+    <h6>{props.children}</h6>
+    </div>
+    )
+};
+  
+export default dog;
+```
+The above renders as follows:
 
 ![output](reactprops.png)
