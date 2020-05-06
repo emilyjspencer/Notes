@@ -1,4 +1,3 @@
-
 # Notes 
 
 * In App.js:
