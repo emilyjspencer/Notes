@@ -225,3 +225,80 @@ export default dog;
 The above renders as follows:
 
 ![output](reactprops.png)
+
+* **State**
+
+* State is managed from within a component
+* State should live in App.js
+
+App.js
+```html
+
+import React, { Component } from 'react';
+
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+class App extends Component {
+  state = {
+    animals: [
+      {name: 'Millie', age: 2},
+      {name: 'Sally', age: 3},
+      {name: 'Clover', age: 4}
+    ]
+  }
+    render() {
+      return (
+        <div className="App">
+          <h1>I am a H1</h1>
+          <h3>I am a H3</h3>
+          <Cat name ={this.state.animals[0].name} age ={this.state.animals[0].age} favouriteFood = "fish" color="black" favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name} age={this.state.animals[1].age} favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} age={this.state.animals[2].age} />
+        </div>
+      ) 
+    }
+}
+
+export default App;
+```
+Cat.js
+
+```html
+import React from 'react';
+
+const cat = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+};
+  
+
+export default cat;
+```
+
+Dog.js
+```html
+const dog = (props) => {
+    return ( 
+        <div>
+    <p>My name is {props.name} I am {props.age} years old. I'm a terrier. My name is Toby I'm also super cute</p>
+    <p>{props.children}</p>
+    </div>
+    )
+};
+  
+export default dog;
+```
+Rabbit.js
+```html
+import React from 'react';
+
+
+const rabbit = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old I'm a dwarf house rabbit. I love carrots</p>
+};
+  
+
+export default rabbit;
+```
+![output](state.png)
