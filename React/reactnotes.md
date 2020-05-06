@@ -124,7 +124,10 @@ The above looks like this in the browser:
 
 * **Props**
 
-* Props provide access to the attributes we give to our components
+* **Props** allow the passing of data from a parent component to a child component
+* This could be described as passing data down the component tree and triggering 
+a re-render
+Props provide access to the attributes we give to our components
 * We can pass properties/attributes to our components in App.js
 * Pass props into the individual components as an argument
 * Reference these attributes by using JavaScript expressions, using {}
@@ -176,7 +179,7 @@ The above renders as folows:
 * **children**
 
 * Children refers to elements that are passed between the opening and closing tags of the 
-component
+component. The embedded/nested components
 
 App.js
 
@@ -228,8 +231,13 @@ The above renders as follows:
 
 * **State**
 
-* State is managed from within a component
-* State should live in App.js
+* **State** is used to change the component from within 
+* It is a property of the component class
+* It can be accessed via this.state which is returned in the
+lifecycle method - render()
+* Changes to the state result in an update of the UI - when the state
+changesg, the component re-renders to reflect the new state in the browser
+* Only class-based components can define and use state
 
 App.js
 ```html
@@ -301,4 +309,7 @@ const rabbit = (props) => {
 
 export default rabbit;
 ```
+
+The above outputs the following in the browser:
+
 ![output](state.png)
