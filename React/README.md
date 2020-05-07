@@ -316,3 +316,282 @@ export default rabbit;
 The above outputs the following in the browser:
 
 ![output](state.png)
+
+* **State Manipulation**
+
+
+* Only two things cause the DOM to be updated:
+1. props
+2. change of state 
+
+App.js
+
+```html
+import React, { Component } from 'react';
+
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+class App extends Component {
+  state = {
+    animals: [
+      {name: 'Millie', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ]
+  }
+
+  changeFavouriteFood = () => {
+  
+    this.setState( {
+      animals: [
+        {name: 'Millie', age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+
+    render() {
+      return (
+        <div className="App">
+          <h1>I am a H1</h1>
+          <h3>I am a H3</h3>
+          <button onClick={this.changeFavouriteFood}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} age ={this.state.animals[0].age} favouriteFood ={this.state.animals[0].favouriteFood} color="black" favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name} age={this.state.animals[1].age} favouriteFood={this.state.animals[1].favouriteFood} favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} age={this.state.animals[2].age} favouriteFood={this.state.animals[2].favouriteFood} />
+        </div>
+      ) 
+    }
+}
+
+export default App;
+```
+
+Cat.js
+```html
+import React from 'react';
+
+const cat = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+};
+  
+
+export default cat;
+```
+
+Dog.js
+```html
+import React from 'react';
+
+const dog = (props) => {
+    return ( 
+        <div>
+    <p>My name is {props.name} I am {props.age} years old. I'm a terrier. My name is Toby. My favourite food is: {props.favouriteFood}</p>
+    <p>{props.children}</p>
+    </div>
+    )
+};
+  
+export default dog;
+```
+
+Rabbit.js
+```html
+import React from 'react';
+
+
+const rabbit = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old I'm a dwarf house rabbit. My favourite food is {props.favouriteFood} </p>
+};
+  
+
+export default rabbit;
+```
+The above renders as follows:
+
+1. Before clicking the button:
+![output](beforeStateChange.png)
+
+2. After clicking the button:
+![output](afterStateChange.png)
+
+
+* React merges the old state with the new state
+The DOM gets updated because React recognises that the state of the application has changed
+
+
+### State manipulation with functional components
+
+#### React Hooks
+React Hooks are functions that let you “hook into” React state and lifecycle features from function components. 
+* React Hooks typically start with **use** and the most commonly used hook is **useState**
+* Add it to the top of the App.js file like so: 
+
+```html
+import React, { useState } from 'react';
+```
+
+* The **useState** hook is the hook that enables state management in functional components
+* The initial state is passed to useState()
+* useState() returns an array with two elements:
+a) the current state value
+b) the function that updates that current state value 
+
+* **Array destructuring** facilitates the extraction of elements from the array you get back
+
+* With class-based components, the old state is merged with the new.
+* this.setState automatically merges the old state with the new
+However, with functional components, this doesn't happen. 
+We have to manually copy the old state by using useState as many times as it needed
+
+Example of converting a class-based component into a functional component:
+
+The class-based component:
+
+App.js
+
+```html
+import React, { Component } from 'react';
+
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+class App extends Component {
+  state = {
+    animals: [
+      {name: 'Millie', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ]
+  }
+
+  changeFavouriteFood = () => {
+  
+    this.setState( {
+      animals: [
+        {name: 'Millie', age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+    render() {
+      return (
+        <div className="App">
+          <button onClick={this.changeFavouriteFood}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} 
+            age ={this.state.animals[0].age} 
+            favouriteFood ={this.state.animals[0].favouriteFood} 
+            color="black" favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name} 
+          age={this.state.animals[1].age} 
+          favouriteFood={this.state.animals[1].favouriteFood} favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          favouriteFood={this.state.animals[2].favouriteFood} />
+        </div>
+      ) 
+    }
+}
+
+export default App;
+```
+
+Cat.js
+```html
+import React from 'react';
+
+const cat = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+};
+  
+
+export default cat;
+```
+
+Dog.js
+```html
+import React from 'react';
+
+const dog = (props) => {
+    return ( 
+        <div>
+    <p>My name is {props.name} I am {props.age} years old. I'm a terrier. My name is Toby. My favourite food is: {props.favouriteFood}</p>
+    <p>{props.children}</p>
+    </div>
+    )
+};
+  
+export default dog;
+```
+
+Rabbit.js
+```html
+import React from 'react';
+
+
+const rabbit = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old I'm a dwarf house rabbit. My favourite food is {props.favouriteFood} </p>
+};
+  
+
+export default rabbit;
+```
+
+The new functional component that has been translated from the class-based component:
+
+```html
+import React, { useState } from 'react';
+import './App.css';
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+const App = props => {
+  const [ animalsState, setStateOfAnimals ] = useState({
+    animals: [
+      {name: 'Millie', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ]
+  });
+
+  console.log(animalsState)
+
+  const changeFavouriteFood = () => {
+    setStateOfAnimals( {
+      animals: [
+        {name: 'Millie', age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+  
+      return (
+        <div className="App">
+          <button onClick={changeFavouriteFood}>What else do they like to eat?</button>
+          <Cat name ={animalsState.animals[0].name} 
+          age ={animalsState.animals[0].age} 
+          favouriteFood ={animalsState.animals[0].favouriteFood} 
+          color="black" favouriteNeighbour = "Bob" />
+          <Dog name = {animalsState.animals[1].name} 
+          age={animalsState.animals[1].age} 
+          favouriteFood={animalsState.animals[1].favouriteFood} 
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={animalsState.animals[2].name} age={animalsState.animals[2].age} favouriteFood={animalsState.animals[2].favouriteFood} />
+        </div>
+      ) 
+      }
+
+export default App;
+```

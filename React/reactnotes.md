@@ -422,9 +422,9 @@ The above renders as follows:
 The DOM gets updated because React recognises that the state of the application has changed
 
 
-* **State manipulation with functional components**
+### State manipulation with functional components
 
-* React Hooks
+#### React Hooks
 React Hooks are functions that let you “hook into” React state and lifecycle features from function components. 
 * React Hooks typically start with **use** and the most commonly used hook is **useState**
 * Add it to the top of the App.js file like so: 
