@@ -543,7 +543,7 @@ const rabbit = (props) => {
 export default rabbit;
 ```
 
-The new functional component that has been translated from the class-based component:
+**The new functional component that has been translated from the class-based component:**
 
 ```html
 import React, { useState } from 'react';
@@ -592,3 +592,26 @@ const App = props => {
 
 export default App;
 ```
+# Stateful vs. stateless components
+
+* **Stateful components** - manage state, whether that be through React Hooks (functional components), or by using the state property and setState() (class-based components)
+* Also known as 'smart' or 'container' components
+
+* **Stateless components** - don't manage state.
+* Also know as 'dumb' or 'presentational components'
+
+An example of a stateless component:
+
+```html
+
+import React from 'react';
+
+const cat = (props) => {
+    return <p>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+};
+  
+
+export default cat;
+```
+* The focus should be on making stateless components, for the most part, and only creating
+one or two stateful components, depending on the size of the application. 
