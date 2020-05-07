@@ -616,6 +616,8 @@ export default cat;
 * The focus should be on making stateless components, for the most part, and only creating
 one or two stateful components, depending on the size of the application. 
 
+### Passing props and references to event handlers
+
 **Passing method references between components**
 
 * References to event handlers can be passed e.g. by adding a reference to the event handler - 

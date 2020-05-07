@@ -618,3 +618,116 @@ export default cat;
 ```
 * The focus should be on making stateless components, for the most part, and only creating
 one or two stateful components, depending on the size of the application. 
+
+### Passing props and references to event handlers
+
+**Passing method references between components**
+
+* References to event handlers can be passed e.g. by adding a reference to the event handler - 
+changeAnimalsProperties, in each instance of each component as shown below, and then adding
+onClick={props.click} to each individual component, each component achieves the same goal as the button - that is to stay that is changes the state - all of the animals' properties are updating whether you click on the button, or on each of Cat, Dog or Rabbit
+App.js
+
+```html
+render() {
+      return (
+        <div className="App">
+          <button onClick={this.changeAnimalsProperties}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+          favouriteFood ={this.state.animals[0].favouriteFood} 
+          color="black" 
+          click={this.changeAnimalsProperties}
+          favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name}
+           age={this.state.animals[1].age} 
+           favouriteFood={this.state.animals[1].favouriteFood}
+           click={this.changeAnimalsProperties}
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          click={this.changeAnimalsProperties}
+          favouriteFood={this.state.animals[2].favouriteFood} />
+        </div>
+        ```
+
+        Cat.js
+
+        ```html
+        import React from 'react';
+
+const cat = (props) => {
+    return (
+    <div>
+        <p onClick={props.click}>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+        <p>I am a cat</p>
+     </div>
+    )
+};
+  
+
+export default cat;
+```
+Dog.js and Rabbit.js look that same 
+
+**Passing arguments**
+
+* Arguments can be passed using bind() e.g.
+
+Code omitted for the sake of brevity 
+
+```html
+class App extends Component {
+ state = { 
+    animals: [
+      {name: 'Milly', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ]
+  }
+
+  changeAnimalsProperties = (newName) => {
+  
+    this.setState( {
+      animals: [
+        {name: newName, age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+    render() {
+      return (
+        <div className="App">
+          <button onClick={this.changeAnimalsProperties.bind(this, "Lulu")}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+
+  ```
+* newName is passed in as an arg to changeAnimalsProperties
+* This data is passed using bind()
+```html
+<button onClick{this.changeAnimalsProperties.bind(this, "Lulu")}>
+
+In the Cat component (Cat.js) 
+```html
+import React from 'react';
+
+const cat = (props) => {
+    return (
+    <div>
+        <p onClick={props.click}>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+        <p>I am a cat</p>
+     </div>
+    )
+};
+
+export default cat;
+```
+
+* When the button is cliked - the cat's name changes from Milly to Lulu - the new value
+(newName)
+
+
+
