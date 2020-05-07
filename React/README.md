@@ -234,13 +234,15 @@ The above renders as follows:
 
 * **State**
 
-* **State** is used to change the component from within 
-* It is a property of the component class
+* **State**
+
+* **State** the state of a component is an object that holds some information that may change over the lifetime of the component
+* It is used to change the component from within 
+* It is a property of the Component class
 * It can be accessed via this.state which is returned in the
 lifecycle method - render()
 * Changes to the state result in an update of the UI - when the state
-changesg, the component re-renders to reflect the new state in the browser
-* Only class-based components can define and use state
+changes, the component re-renders to reflect the new state in the browser
 
 App.js
 ```html
@@ -618,6 +620,23 @@ export default cat;
 ```
 * The focus should be on making stateless components, for the most part, and only creating
 one or two stateful components, depending on the size of the application. 
+
+### Props
+
+**Props** are inputs to components.
+* They are single values or objects containing a set of values that are passed to components upon creating.
+* They can be descibed as data passed down from a parent component to a child component 
+
+**Uses of Props**
+
+* Pass custom data to components
+* Trigger state changes
+
+**Props vs. State**
+
+* State and props are simply JS objects.
+* Props get passed to the component
+* State is managed within the component 
 
 ### Passing props and references to event handlers
 
