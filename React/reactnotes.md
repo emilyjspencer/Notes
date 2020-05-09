@@ -917,7 +917,28 @@ const rabbit = (props) => {
 export default rabbit;
 ```
 
+### Styling React
 
+* There are different ways to style React components
+* 1 - Use stylesheets
+* 2 - Use inline styling
+
+* **Stylesheets**
+
+* The important thing to remember is to import the .css file into the component file e.g.
+I created a Dog.css file, so in my Dog.js file, I had to add the following:
+
+```html
+import './Dog.css';
+```
+
+I did the same for the Rabbit and Cat components.
+
+The following shows three differently styled components, although the styling is not something I'd want to use in 'real' code:
+
+![output](undesirableStyling.png)
+
+**Inline Styling**
 
 **Lifecycle Methods**
 
