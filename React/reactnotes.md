@@ -763,7 +763,7 @@ The following shows how we can change the name of the rabbit, in the browser
 ```html
 changeNameDynamicallyCat()
 changeNameDynamicallyDog()
-changeNameDynamicallyRabiit()
+changeNameDynamicallyRabbit()
 ```
 
 all three of which update the state.

@@ -128,9 +128,9 @@ The above looks like this in the browser:
 * **Props**
 
 * **Props** allow the passing of data from a parent component to a child component
-* This could be described as passing data down the component tree and triggering 
+* This could be described as passing data down the component tree, and it triggers
 a re-render
-Props provide access to the attributes we give to our components
+* Props provide access to the attributes we give to our components
 * We can pass properties/attributes to our components in App.js
 * Pass props into the individual components as an argument
 * Reference these attributes by using JavaScript expressions, using {}
@@ -182,7 +182,7 @@ The above renders as folows:
 * **children**
 
 * Children refers to elements that are passed between the opening and closing tags of the 
-component. The embedded/nested components
+component - the embedded/nested components
 
 App.js
 
@@ -234,13 +234,11 @@ The above renders as follows:
 
 * **State**
 
-* **State**
-
 * **State** the state of a component is an object that holds some information that may change over the lifetime of the component
 * It is used to change the component from within 
 * It is a property of the Component class
 * It can be accessed via this.state which is returned in the
-lifecycle method - render()
+render() lifecycle method 
 * Changes to the state result in an update of the UI - when the state
 changes, the component re-renders to reflect the new state in the browser
 
@@ -449,7 +447,7 @@ b) the function that updates that current state value
 * With class-based components, the old state is merged with the new.
 * this.setState automatically merges the old state with the new
 However, with functional components, this doesn't happen. 
-We have to manually copy the old state by using useState as many times as it needed
+We have to manually copy the old state by using useState as many times as is needed
 
 Example of converting a class-based component into a functional component:
 
@@ -747,6 +745,187 @@ export default cat;
 
 * When the button is cliked - the cat's name changes from Milly to Lulu - the new value
 (newName)
+
+* **Two-way binding and dynamic updates**
+
+We can dynamically change the names of the different animals in the browser by entering a new new into the relevant text box
+
+The following shows how we can change the name of the cat, in the browser
+![output](beforeChange.png)
+![output](changeNameDynamicallyCat.png)
+The following shows how we can change the name of the dog, in the browser
+![output](changeNameDynamicallyDog.png)
+The following shows how we can change the name of the rabbit, in the browser
+![output](changeNameDynamicallyRabbit.png)
+
+**How was this achieved?**
+
+* The event listener - onChange was used. (onChange is fired whenever the input value changes)
+* Three new methods were created: 
+```html
+changeNameDynamicallyCat()
+changeNameDynamicallyDog()
+changeNameDynamicallyRabbit()
+```
+
+all three of which update the state.
+
+* These methods were passed an event object, each of which have a target - the input boxes in the respective components.
+* Each target also has a value - which is the value entered into the text box(target)
+* We bind onChange to the changed props in each component - each of which hold a reference to their respective event handler
+* The default event object extracts the target 
+* We utilize two-way binding by adding value={props.name}
+to each component, so that the initial value is shown in the input box, before we start to change its value
+* All in all, the state is updated, the props are updated and hence the changes in the input are reflected in the browser.
+
+
+* The code for App.js, Cat.js, Dog.js and Rabbit.js:
+
+App.js
+```html
+import React, { Component } from 'react';
+import './App.css';
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+class App extends Component {
+ state = { 
+    animals: [
+      {name: 'Millie', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ]
+  }
+
+  changeAnimalsProperties = (newName) => {
+  
+    this.setState( {
+      animals: [
+        {name: newName, age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyCat = (event) => {
+    this.setState( {
+      animals: [
+        { name: event.target.value, age: 12, favouriteFood: 'Cabbage'},
+        { name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        { name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyRabbit= (event) => {
+    this.setState( {
+      animals: [
+        { name: "Millie", age: 12, favouriteFood: 'Cabbage'},
+        { name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        { name: event.target.value, age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyDog= (event) => {
+    this.setState( {
+      animals: [
+        { name: "Millie", age: 12, favouriteFood: 'Cabbage'},
+        { name: event.target.value, age: 2, favouriteFood: 'Chocolate'},
+        { name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+    render() {
+      return (
+        <div className="App">
+          <button onClick={this.changeAnimalsProperties}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+          favouriteFood ={this.state.animals[0].favouriteFood} 
+          color="black" 
+          click={this.changeAnimalsProperties}
+          changed={this.changeNameDynamicallyCat}
+          favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name}
+           age={this.state.animals[1].age} 
+           favouriteFood={this.state.animals[1].favouriteFood}
+           click={this.changeAnimalsProperties}
+           changed={this.changeNameDynamicallyDog}
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          click={this.changeAnimalsProperties}
+          favouriteFood={this.state.animals[2].favouriteFood}
+          changed={this.changeNameDynamicallyRabbit} />
+        </div>
+      ) 
+    }
+}
+
+export default App;
+```
+
+Cat.js
+```html
+import React from 'react';
+
+const cat = (props) => {
+    return (
+    <div>
+        <p onClick={props.click}>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+        <p>I am a cat</p>
+        <input type="text" onChange={props.changed} value = {props.name}/>
+     </div>
+    )
+};
+  
+
+export default cat;
+```
+Dog.js
+```html
+const dog = (props) => {
+    return ( 
+        <div>
+    <p onClick={props.click}>My name is {props.name} I am {props.age} years old. I'm a terrier. My name is Toby. My favourite food is: {props.favouriteFood}</p>
+    <p>{props.children}</p>
+    <input type="text" onChange={props.changed} value={props.name}/>
+    </div>
+    )
+};
+  
+export default dog;
+```
+
+Rabbit.js
+```html
+import React from 'react';
+
+
+const rabbit = (props) => {
+    return (
+    <div>
+    <p onClick={props.click}>My name is {props.name} I am {props.age} years old I'm a dwarf house rabbit. My favourite food is {props.favouriteFood} </p>
+<input type="text" onChange={props.changed} value={props.name}/>
+</div>
+    )
+};
+  
+export default rabbit;
+```
+
+
+
+**Lifecycle Methods**
+
+* **Lifecycle methods** - let you define pieces of code you want to execute according to the state of the component like mounting, rendering, updating and un-mounting.
+
+
 
 
 
