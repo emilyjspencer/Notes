@@ -917,7 +917,7 @@ const rabbit = (props) => {
 export default rabbit;
 ```
 
-### Styling React
+### Styling React Application
 
 * There are different ways to style React components
 * 1 - Use stylesheets
@@ -939,6 +939,37 @@ The following shows three differently styled components, although the styling is
 ![output](undesirableStyling.png)
 
 **Inline Styling**
+
+* Inline styling can also be used.
+* To style an element with the inline style attribute, the value must be a JavaScript object
+* Since the inline CSS is written in a JavaScript object, properties such as background-color, which normally utilize a -, must be written with camel case syntax e.g.
+backgroundColor
+
+* An object can also be created with styling information, and referred to in the style attribute.
+Below, I have styled the button using the style attribute, and camelCase. No stylesheets required.
+
+Other code ommitted for brevity:
+
+```html
+render() {
+
+      const style = {
+        backgroundColor: '#e6ffff',
+        font: 'inherit',
+        border: '6px solid #e6ccff',
+        padding: '10px'
+      }
+
+      return (
+        <div className="App">
+          <button style={style} onClick={this.changeAnimalsProperties}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+  ```
+  The above button looks like this:
+
+![output](styledButton.png)
+
 
 **Lifecycle Methods**
 
