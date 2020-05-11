@@ -942,7 +942,7 @@ The following shows three differently styled components, although the styling is
 
 **Inline Styling**
 
-* Inline styling can also be used.
+* Inline styling can also be used to scope the style and make sure it only applies to particular elements
 * To style an element with the inline style attribute, the value must be a JavaScript object
 * Since the inline CSS is written in a JavaScript object, properties such as background-color, which normally utilize a -, must be written with camel case syntax e.g.
 backgroundColor
@@ -972,6 +972,306 @@ render() {
 
 ![output](styledButton.png)
 
+With inline styling, it is difficult to leverage the full power of CSS
+
+**Global Styling**
+
+* The CSS defined in the App.cs file is global
+
+<hr>
+
+**Conditionals**
+
+* Output can be rendered conditionally, e.g. we can choose to hide or chose specific content.
+One way of achieving this is to use a ternary operator ( a default JS construct) and adding a property to the state.
+* In the initial state, I create a property called showAnimals and set it to false, so that the animals are hidden by default.
+* In order to render the animals upon a click of the button, the following must be done:
+* Create an event handler e.g.
+
+```html
+showHideAnimals = () => {
+  const showing = this.state.showAnimals;
+  this.setState({showAnimals: !showing});
+}
+```
+Save the current state to a variable and then update the state using setState() show that when showing is true - we set the showAnimals property to false and if showing is false, we set the showAnimals property to true
+
+* Use the ternary operator and wrap the content in a div
+
+```html
+{ 
+          this.state.showAnimals   === true ?
+          <div>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+          favouriteFood ={this.state.animals[0].favouriteFood} 
+          color="black" 
+          click={this.changeAnimalsProperties}
+          changed={this.changeNameDynamicallyCat}
+          favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name}
+           age={this.state.animals[1].age} 
+           favouriteFood={this.state.animals[1].favouriteFood}
+           click={this.changeAnimalsProperties}
+           changed={this.changeNameDynamicallyDog}
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          click={this.changeAnimalsProperties}
+          favouriteFood={this.state.animals[2].favouriteFood}
+          changed={this.changeNameDynamicallyRabbit} />
+          </div> : null
+    }
+    </div>
+    ```
+
+The whole file (App.js) would look like this:
+
+```html
+import React, { Component } from 'react';
+import './App.css';
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+class App extends Component {
+ state = { 
+    animals: [
+      {name: 'Millie', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ],
+    showAnimals: false
+  }
+
+  changeAnimalsProperties = (newName) => {
+  
+    this.setState( {
+      animals: [
+        {name: newName, age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyCat = (event) => {
+    this.setState( {
+      animals: [
+        { name: event.target.value, age: 12, favouriteFood: 'Cabbage'},
+        { name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        { name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyRabbit= (event) => {
+    this.setState( {
+      animals: [
+        { name: "Millie", age: 12, favouriteFood: 'Cabbage'},
+        { name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        { name: event.target.value, age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyDog= (event) => {
+    this.setState( {
+      animals: [
+        { name: "Millie", age: 12, favouriteFood: 'Cabbage'},
+        { name: event.target.value, age: 2, favouriteFood: 'Chocolate'},
+        { name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+
+  showHideAnimals = () => {
+    const doesshow = this.state.showAnimals;
+    this.setState({showAnimals: !doesshow});
+  }
+
+    render() {
+      const style = {
+        backgroundColor: '#e6ffff',
+        font: 'inherit',
+        border: '6px solid #e6ccff',
+        padding: '10px'
+      }
+
+      return (
+          <div className="App">
+          <button style={style} onClick={this.showHideAnimals}>What else do they like to eat?</button>
+          { 
+          this.state.showAnimals   === true ?
+          <div>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+          favouriteFood ={this.state.animals[0].favouriteFood} 
+          color="black" 
+          click={this.changeAnimalsProperties}
+          changed={this.changeNameDynamicallyCat}
+          favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name}
+           age={this.state.animals[1].age} 
+           favouriteFood={this.state.animals[1].favouriteFood}
+           click={this.changeAnimalsProperties}
+           changed={this.changeNameDynamicallyDog}
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          click={this.changeAnimalsProperties}
+          favouriteFood={this.state.animals[2].favouriteFood}
+          changed={this.changeNameDynamicallyRabbit} />
+          </div> : null
+    }
+    </div>
+      ) 
+    }
+}
+
+
+
+export default App;
+```
+
+Now, when we click the button, the content is rendered, when we click the button again, the content disappears.
+
+* An alternative (perhaps neater) way to achieve the above is to do the following:
+
+* Create a variable and place between the render() and return statement
+
+```html
+let animals = null;
+
+if(this.state.showAnimals) {
+
+
+}
+```
+
+So, by default animals is null
+
+Paste the content - the Cat, Dog and Rabbit instances in the if statement and then render the animals variable in its place :
+
+```html
+import React, { Component } from 'react';
+import './App.css';
+import Cat from './Cat/Cat'
+import Dog from './Dog/Dog'
+import Rabbit from './Rabbit/Rabbit'
+
+
+class App extends Component {
+ state = { 
+    animals: [
+      {name: 'Millie', age: 2, favouriteFood: 'Fish'},
+      {name: 'Sally', age: 3, favouritefood: 'Peanut Butter'},
+      {name: 'Clover', age: 4, favouriteFood: 'Carrots'}
+    ],
+    showAnimals: false
+  }
+
+  changeAnimalsProperties = (newName) => {
+  
+    this.setState( {
+      animals: [
+        {name: newName, age: 12, favouriteFood: 'Cabbage'},
+        {name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        {name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyCat = (event) => {
+    this.setState( {
+      animals: [
+        { name: event.target.value, age: 12, favouriteFood: 'Cabbage'},
+        { name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        { name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyRabbit= (event) => {
+    this.setState( {
+      animals: [
+        { name: "Millie", age: 12, favouriteFood: 'Cabbage'},
+        { name: 'Sally', age: 2, favouriteFood: 'Chocolate'},
+        { name: event.target.value, age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+  changeNameDynamicallyDog= (event) => {
+    this.setState( {
+      animals: [
+        { name: "Millie", age: 12, favouriteFood: 'Cabbage'},
+        { name: event.target.value, age: 2, favouriteFood: 'Chocolate'},
+        { name: 'Clover', age: 11, favouriteFood: 'peppers'}
+      ]
+    })
+  }
+
+
+  showHideAnimals = () => {
+    const doesshow = this.state.showAnimals;
+    this.setState({showAnimals: !doesshow});
+  }
+
+    render() {
+      const style = {
+        backgroundColor: '#e6ffff',
+        font: 'inherit',
+        border: '6px solid #e6ccff',
+        padding: '10px'
+      }
+      
+      let animals = null;
+      
+      if(this.state.showAnimals) {
+        animals = (
+        <div>
+          <Cat 
+          name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+          favouriteFood ={this.state.animals[0].favouriteFood} 
+          color="black" 
+          click={this.changeAnimalsProperties}
+          changed={this.changeNameDynamicallyCat}
+          favouriteNeighbour = "Bob" />
+          <Dog 
+          name = {this.state.animals[1].name}
+           age={this.state.animals[1].age} 
+           favouriteFood={this.state.animals[1].favouriteFood}
+           click={this.changeAnimalsProperties}
+           changed={this.changeNameDynamicallyDog}
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit 
+          name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          click={this.changeAnimalsProperties}
+          favouriteFood={this.state.animals[2].favouriteFood}
+          changed={this.changeNameDynamicallyRabbit} /> 
+          </div>
+          )
+      }
+
+      return (
+          <div className="App">
+            <button style={style} onClick={this.showHideAnimals}>What else do they like to eat?</button>
+            {animals}      
+          </div>
+      ) 
+    }
+}
+
+
+
+export default App;
+```
+* When the button is clicked, the content is rendered, when the button is clicked again, the content is hidden. 
 
 **Lifecycle Methods**
 
