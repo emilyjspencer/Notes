@@ -14,7 +14,8 @@ What is meant by 'best' in the context of a 'best' implementation?
 
 Mostly interested in the first two
 
-* The execution of different implementations can be timed. However, calculating this can be problematic. why?
+* The execution of different implementations can be timed. However, calculating this can be problematic. 
+Why?
 
 * Different machines record different times for the same implementation
 * The same machine can records different times for the same implementation
@@ -36,22 +37,22 @@ Algorithm running times grow at different rates
 
 **Visualizing algorithm growth with graphs**
 
-An algorithm is said to take constant time- **O(f(n))** if the number of simple operations the computer has to do is eventually less than a constant timesf(n) as n increases
+An algorithm is said to run in constant time- **O(f(n))** if the number of simple operations the computer has to do is eventually less than a constant timesf(n) as n increases
 As n grows - it doesn’t really have an impact, because runtime is always constant
 The value of T(n) is bound by a value that does not depend on the size of the input
 The algorithm will execute in the same time regardless of the size of the input
 Represented by a flat line
 
-An algorithm is said to take linear time if **(fn) = n)** - as n (the input scales - the runtime scales) proportionally, represented by a diagonal, upward sloping line
+An algorithm is said to run in linear time if **(fn) = n)** - as n (the input scales - the runtime scales) proportionally, represented by a diagonal, upward sloping line
 Its worst case complexity is O(n) - meaning that the greater the input, the more time will be required to execute the code.
 Its complexity grows in direct proportion to the size of the input
 
-An algorithm is said to take quadratic time if **(f(n) = n^2**
+An algorithm is said to run in quadratic time if **(f(n) = n^2**
 As n - the input grows - the runtime squares relative to the square of n
 
-An alrogithm is said to take logarithmic time if it runs proportionally to the logarithm of the input size.
+An alrogithm is said to run logarithmic time if it runs proportionally to the logarithm of the input size.
 
-An algorithm is said to take exponential time if its growth doubles with each additon to the input  
+An algorithm is said to run in exponential time if its growth doubles with each additon to the input  
 
 **Big O notation**:
 * provides a numeric representation of code written
