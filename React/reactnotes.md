@@ -1,5 +1,121 @@
 # Notes 
 
+
+* Rendering content dynamically 
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom'
+
+
+ const App = () => {
+   const now = new Date()
+   const a = 10
+   const b = 20
+
+   console.log('Hello from component')
+   return (
+   <div>
+     <p>Hello world</p>
+     <p>
+       {a} plus {b} is { a + b }
+     </p>
+   </div>
+   )
+ }
+
+export default App;
+```
+**JSX**
+
+* The layout of React components is mostly written using JSX>
+* The JSX returned by React components is compiled into JavaScript, by Babel
+* Projects created using create-react-app are configured to compile automatically 
+* It is also possible to write React as "pure JavaScript" without using JSX.
+* JSX is similar to HTML. However, with JSX< dynamic content can be embedded by writing appropriate JS within curly braces
+* JSX is 'XML-like' in that every tag must be closed />
+
+
+After compiling, the application looks like this:
+
+```html
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const App = () => {
+  const now = new Date()
+  const a = 10
+  const b = 20
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'p', null, 'Hello world, it is ', now.toString()
+    ),
+    React.createElement(
+      'p', null, a, ' plus ', b, ' is ', a + b
+    )
+  )
+}
+
+ReactDOM.render(
+  React.createElement(App, null),
+  document.getElementById('root')
+)
+```
+
+**Components**
+
+* Components should be capitalized 
+* Writing components with React is easy, and by combining components, even a more complex application can be kept fairly maintainable. 
+Indeed, a core philosophy of React is composing applications from many specialized reusable components.
+* Oftentimes, the App component is the 'root' component. Sometimes, however, this is not the case
+
+**props**
+
+* Data can be passed to components using props
+
+App.js
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Hello from './Hello';
+
+
+ const App = () => {
+
+   return (
+   <div>
+     <p>Hello world</p>
+     <Hello name="Emily" />
+     <Hello name="Lucy" />
+   </div>
+   )
+ }
+
+export default App;
+```
+
+Hello.js
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom'
+
+
+
+const Hello = (props) => {
+    return (
+      <div>
+        <p>Hello {props.name}</p>
+      </div>
+    )
+    }
+
+export default Hello
+```
+
 * In App.js:
 
 ```html
@@ -32,6 +148,7 @@ export default App;
 * The above outputs the following in the browser:
 
 ![output](react.png)
+
 
 * Creating components
 * Components can be class-based or functional
@@ -314,6 +431,60 @@ export default rabbit;
 The above outputs the following in the browser:
 
 ![output](state.png)
+
+**More component state**
+
+App.js
+
+```html
+import React from 'react';
+import Hello from './Hello';
+
+const App = () => {
+  const name = 'Marvin'
+  const age = 20
+
+  return (
+    <div>
+      <h1>Greetings</h1>
+      <Hello name="Jess" age={16 + 10} />
+      <Hello name={name} age={age} />
+    </div>
+  )
+}
+
+export default App;
+``` 
+
+Hello.js
+```html
+import React from 'react';
+
+const Hello = (props) => {
+    const yearBorn = () => {
+        const yearNow = new Date().getFullYear()
+        return yearNow - props.age
+    }
+  return (
+    <div>
+      <p>
+        Hello {props.name}, you are {props.age} years old
+      </p>
+      <p>You were born in {yearBorn()}</p>
+      </div>
+  )
+}
+
+export default Hello
+```
+
+This outputs the following in the browser:
+
+![output](greetings.png)
+
+* The logic for guessing the person's birth year is separated into its own function that is called when the component is rendered.
+
+T* he person's age needn't be passed as a param to the function, since it can directly access all props that are passed to the component.
 
 * **State Manipulation**
 
@@ -1263,8 +1434,75 @@ export default App;
 ```
 * When the button is clicked, the content is rendered, when the button is clicked again, the content is hidden. 
 
+**Lists**
+
+```html
+{this.state.animals.map(animal => {
+            return <Cat name={cat.name} age={cat.age} favouriteFood = {cat.favouriteFood} />
+          })}
+```
+
+* We map through the array of JS objects and a new array is produced, which constains JSX elements.
+* We are essentially converts an array of JS objects into an array of JSX objects, apart from the fact that map() is NOT a destructive method and doens't modify the original array - just returns a new one.
+* These new JSX elements are rendered to the DOM
 
 **Lifecycle Methods**
 
 * **Lifecycle methods** - let you define pieces of code you want to execute according to the state of the component like mounting, rendering, updating and un-mounting.
 
+**Random**
+
+**render()** - is called whenever React checks whether the page needs to be updated
+
+**onClick** 
+**onChange** - are both attributes which can be added to elements. When the event occurs, e.g. the element, such as a button is clicked, the method that has been defined, will be executed e.g.
+```html
+<button onClick = "sayHello()">Click to say Hi</button>
+```
+upon clicking said button, the sayHello() method is executed 
+
+In vanilla JavaScript - the onclick attribute is written without the capital c, as it is in React
+
+``html
+<button onclick="SayGoodbye()">Click to say Bye</button>
+```
+
+**Event handlers/event listeners** - methods that are executed in response to events. Events could be anything from a mouse click, a page stroll, to a keystroke or a mouse hover.
+
+**event.target** - 
+- target is an event property which is used to get or 'target' the element on which the event originally occurred - returns the element that triggered the event.
+
+**Methods**
+
+Methods can be assisnged to objects even after the creation of the object: 
+
+```
+person = {
+  name: 'Jonanthan SacconeJoly',
+  age: 40,
+  nationality: 'Irish,
+  greet: function() {
+    console.log('hello, my name is ' + this.name)
+  },
+}
+
+person.growOlder = function() {
+  this.age += 1
+}
+
+console.log(arto.age)   // 41 is printed
+arto.growOlder()
+console.log(arto.age)   // 42 is printed
+
+```
+
+With React, functional programming techniques are often used.
+Once characteristic of functional programming is the use of immutable data structures e.g.
+concat()
+
+* **concat()** doesn't add an item to an array - it creates a new array with the old and the new array combined e.g.
+```html
+const t = [1, -1, 3]
+const t2 = t.concat(5)
+console.log(t) // [1, -1, 3]
+console.log(t2) // [1, -1, 3, 5]

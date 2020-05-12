@@ -1,7 +1,154 @@
 
 # React
 
-# Notes 
+
+* Rendering content dynamically 
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom'
+
+
+ const App = () => {
+   const now = new Date()
+   const a = 10
+   const b = 20
+
+   console.log('Hello from component')
+   return (
+   <div>
+     <p>Hello world</p>
+     <p>
+       {a} plus {b} is { a + b }
+     </p>
+   </div>
+   )
+ }
+
+export default App;
+```
+**JSX**
+
+* The layout of React components is mostly written using JSX>
+* The JSX returned by React components is compiled into JavaScript, by Babel
+* Projects created using create-react-app are configured to compile automatically 
+* It is also possible to write React as "pure JavaScript" without using JSX.
+* JSX is similar to HTML. However, with JSX< dynamic content can be embedded by writing appropriate JS within curly braces
+* JSX is 'XML-like' in that every tag must be closed />
+
+
+After compiling, the application looks like this:
+
+```html
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+const App = () => {
+  const now = new Date()
+  const a = 10
+  const b = 20
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'p', null, 'Hello world, it is ', now.toString()
+    ),
+    React.createElement(
+      'p', null, a, ' plus ', b, ' is ', a + b
+    )
+  )
+}
+
+ReactDOM.render(
+  React.createElement(App, null),
+  document.getElementById('root')
+)
+```
+
+**Components**
+
+* Components should be capitalized 
+* Writing components with React is easy, and by combining components, even a more complex application can be kept fairly maintainable. 
+Indeed, a core philosophy of React is composing applications from many specialized reusable components.
+* Oftentimes, the App component is the 'root' component. Sometimes, however, this is not the case
+
+**props**
+
+* Data can be passed to components using props
+
+App.js
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Hello from './Hello';
+
+
+ const App = () => {
+
+   return (
+   <div>
+     <p>Hello world</p>
+     <Hello name="Emily" />
+     <Hello name="Lucy" />
+   </div>
+   )
+ }
+
+export default App;
+```
+
+**Hello.js**
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom'
+
+
+
+const Hello = (props) => {
+    return (
+      <div>
+        <p>Hello {props.name}</p>
+      </div>
+    )
+    }
+
+export default Hello
+```
+
+* In App.js:
+
+```html
+import React, { Component } from 'react';
+import './App.css';
+
+
+class App extends Component {
+    render() {
+      return (
+        <div className="App">
+          <h1>I am a H1</h1>
+          <h3>I am a H3</h3>
+          <h5>I am a H5</h5>
+          <p>I am a p</p>
+          <p>I am also a p</p>
+          <h4>I am a H4</h4>
+          <ul>
+            <li>1.</li>
+            <li>2.</li>
+          </ul>
+        </div>
+      ) 
+    }
+}
+
+export default App;
+```
+
+* The above outputs the following in the browser:
+
+![output](greetings.png)
 
 * In App.js:
 
@@ -36,8 +183,8 @@ export default App;
 
 ![output](react.png)
 
-* Creating components
-* Components can be class-based or functional
+### Creating components
+* Components can be **class-based** or **functional**
 
 * The following is a class-based component:
 
@@ -1272,6 +1419,12 @@ class App extends Component {
 export default App;
 ```
 * When the button is clicked, the content is rendered, when the button is clicked again, the content is hidden. 
+
+**Lists**
+
+**map()** is a method that creates a new array, without altering the original array
+* It calls a function on each element of the array
+
 
 **Lifecycle Methods**
 
