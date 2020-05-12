@@ -1,3 +1,47 @@
+# Notes
+
+* The official name of the JS standards is EcmaScript.
+* Not all browsers support JS' newest features, hences a lot of code run in browsers has to be transpiled from the newer JS to an olrder, more compatible version.
+* This transpiling is often done by Babel
+
+**Array methods**
+
+**map()**
+
+* **map()** calls a function on each element of the array
+* **map()** also returns a new array
+```html
+const t = [1, 2, 3]
+const m = t.map(value => value * 2)
+console.log(m) // [2, 4, 6]
+* It can transform the array into something completely different
+```html
+const t = [1,2,3]
+const m = t.map(value  => '<li> + value + </li>')
+
+console.log(m)
+
+// ['<li>1<li>', '<li>2</li>', '<li>3</li>']
+
+**Destructuring assignment**
+
+Individual items of an array can be easily assigned variables with the help fo the destructuring assignment
+
+```html
+const t = [1,2,3,4,5]
+const [first, second ...rest] = remaining
+console.log(first, second) // 1 2
+console.log(remaining) // [3,4,5]
+```
+The variabels first and second receive the first two integers of the array as their values.
+The remaining integers are collected into an array of their own array which is then assigned to the variable remaining.
+
+
+
+
+
+
+
 **Callbacks**
 
 * A callback function is a function that is passed into another function as a parameter and then invoked by that other function
@@ -118,9 +162,64 @@ a truthy value
 
 **Arrow functions**
 
+* Array functions are often used with the map() array method
+* The parentheses around the argument can be omitted if there is only one argument
+* If the function only contains a single expression then the braces are not needed
+
+**Functions and this**
+
+```html
+const person = {
+  name: 'Bob',
+  age: 40,
+  education: 'PhD',
+  greet: function() {
+    console.log('hello, my name is ' + this.name)
+  },
+  doAddition: function(a, b) {
+    console.log(a + b)
+  },
+}
+
+person.doAddition(5, 4)        // 9
+
+const referenceToAddition = person.doAddition
+referenceToAddition(10, 15)   // 25 
+
+person.greet()  // hello, my name is Bob
+
+const referenceToGreet = person.greet
+referenceToGreet() // hello, my name is undefined
+
+```
+
+* When calling a method through a reference, as is the case with referenceToGreet()
+, the method loses knowledge of what the originl **this** was.
+* The value of **this** is defined based on how the method is called.
+* When calling the method through a reference, the value of this becomes the global object and the end result can be unexpected.
+* One case where knowledge of the original **this** is 'lost' is when using the **setTimeout()** method.
+However, the original **this** can be preserved by using the bind() method
+
+```html
+setTimeout(person.greet.bind(person), 5000)
+```
+* In this case, calling person.greet.bind(person), creates a new function where **this** is
+bound to point to Bob, independent of where and how the method is being called.
+
+
 **setTimeout**
 
+**setTimeout()** calls a function or evaluates an expression after a specified number of milliseconds.
+
+```html
+setTimeOut(functionToCall, milliseconds);
+```
+
 **setInterval**
+
+**setInterval** calls a function or evaluates an expression at specified intervals 
+
+* Is called at the specified intervals repeatedly until the clearInterval() function is called or the window is closed
 
 **Regular Expressions**
 
@@ -339,3 +438,27 @@ charAt() - access characters in a string
 
 When a function is called with the **new** keyword,  a new object is created and made available to the function via the **'this'** keyword,
 Functions designed to be called in this way are called **constructors**
+
+**Class syntax**
+
+* Introduced in ES6. 
+* Simulate OO classes
+
+```html
+class Person {
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+  }
+  greet() {
+    console.log('hello, my name is ' + this.name)
+  }
+}
+
+const amelia = new Person('Amelia', 10)
+amelia.greet()
+
+const eduardo = new Person('Eduardo', 8)
+eduardo.greet()
+```
+
