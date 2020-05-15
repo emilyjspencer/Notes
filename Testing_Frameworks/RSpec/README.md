@@ -323,4 +323,3 @@ class Ratings
   end
 end
 ```
-
