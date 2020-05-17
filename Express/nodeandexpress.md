@@ -183,6 +183,3 @@ res.render("movies", {data: movies})
 ```
 
 
-
-
-
