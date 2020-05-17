@@ -1,5 +1,3 @@
-# Notes
-
 ### Node and Express
 
 * **Node** is a open source server environment
@@ -103,5 +101,4 @@ Through the use of endpoints, the server can send different responses
 for different requests.
 
 NB - no hot-reloading. The server must be stopped and re-started after any changes
-
 
