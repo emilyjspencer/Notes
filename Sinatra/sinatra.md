@@ -1,5 +1,3 @@
-
-
 ### Sinatra
 
 * Sinatra is a lightweight web development framework that allows Ruby code to be run in the browser
