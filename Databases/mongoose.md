@@ -71,6 +71,6 @@ let bookSchema = new Schema({
     collection: 'books'
 })
 
-module.exports = mongoose.model('Book;, bookSchema)
+module.exports = mongoose.model('Book', bookSchema)
 ```
 The above defines the schema for the Book Model 
