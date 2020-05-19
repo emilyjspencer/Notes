@@ -150,6 +150,7 @@ This is because the first route that matches a given route is the only route tha
 * Params is an object that contains all of the route parameters
 * Adding a colon tells Express to not actually match character for character but to make it a pattern 
 
+
 **Creating patterns:**
 
 ```html
@@ -196,6 +197,45 @@ outputs:
 ```html
 Your name is emily
 ```
+
+**Express.router**
+
+* Express.router is a class that can be used to create route handlers
+* An instance of the Router class is a complete middleware and routing system
+* Created as modules and then 'required' into the main app.js
+
+```html
+
+const express = require('express');
+const router = express.Router();
+
+router.get('/', function (req, res) {
+  res.send('Home page');
+})
+
+router.get('/songs', function (req, res) {
+  res.send('Songs page');
+})
+
+module.exports = router;
+```
+* Above, routes for the module have been created.
+* The Express application object is imported, an instance of the Router class is created and routes
+are defined
+* The module exports the Router object.
+
+**Using the router module**
+
+* To use the router module, it has to be required using the require() method
+* The use() method then has to be called on the Express application instance,
+to add the middleware handling pather, specifiying a URL path of    
+
+```html
+const song = require('./song.js');
+// ...
+app.use('/song', song);
+
+
 
 ### Creating views
 
@@ -317,7 +357,6 @@ which tells the Express to serve the Public directory.
     <% }); %>
 </ul>
 ```
-
 
 
 
