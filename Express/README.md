@@ -7,7 +7,7 @@
 
 * **Express** is a Node framework which helps to make the process of building a server, easier.
 * It can be built in pure Node.js, but Express speeds this process up.
-* It is currently the most popular Node wed development framework and can be described as a lightweight, unopinionated framework, similar to Sinatra, as opposed to Rails - which is extremely opinionated and very much a heavyweight framework.
+* It is currently the most popular Node web development framework and can be described as a lightweight, unopinionated framework, similar to Sinatra, as opposed to Rails - which is extremely opinionated and very much a heavyweight framework.
 * Lightweight frameworks leave much of the work up to the developer while heavyweight frameworks, especially if scaffolds and generators are used  - in the case of Rails - can do much of the work for you.
 * Hence the reason why at Makers, we are introduced to Sinatra, before moving on to Rails
 
@@ -148,7 +148,7 @@ This is because the first route that matches a given route is the only route tha
 
 * Route parameters can be used to describe a pattern in a route
 * Params is an object that contains all of the route parameters
-* Adding a colon tells Express to not actually match character for character bto make it a pattern 
+* Adding a colon tells Express to not actually match character for character but to make it a pattern 
 
 **Creating patterns:**
 
@@ -177,13 +177,32 @@ The logged params will be:
 Put a colon in front to anything that we want the user or the application to be able to change
 Adding a : in front makes it a variable
 
-* Data can be passed in the query string, although it is clearly more common for developers to create views and send them back as a response, rendering these views using res.render()
+* Data can be passed in the query string, although it is clearly more common for developers to create views and send them back as a response, rendering these views using render() - which is called on an object - usually res.
+
+```
+app.get("/getname/:name", function(req, res) {
+    const name = req.params.name;
+    res.send("Your name is " + name)
+    console.log(req)
+});
+```
+
+```html
+localhost:3000/getname/emily
+```
+
+outputs:
+
+```html
+Your name is emily
+```
 
 ### Creating views
 
 * Templating engines can be used to pass data to the views 
 * Just like with Sinatra, which ships with ERB - Embedded Ruby,
-we can use templating engines such as Pug or EJS to create Express views.
+we can use templating engines such as Pug or EJS (stands for Embedded JavaScript) to create Express views.
+At runtime, the template engine replaces variables in a template file with actual values - data from a database or information submitted by a user, and transforms the template into an HTML file, which is sent to the client.
 
 To install pug:
 ```html
@@ -203,8 +222,7 @@ app.set('view engine', 'ejs');
 ```
 
 * Ejs files have the file extension .ejs, just like .erb files (Sinatra)
-* res.render() is used to load up an ejs view file/send a view to the user, as was done with the 'Find a Movie app'
-and added to the routes: e.g.
+* res.render() is used to load up an ejs view file/send a view to the user, as was done with the 'Find a Movie app' and added to the routes: e.g.
 
 Snippet from Find a Movie:
 
@@ -212,7 +230,76 @@ Snippet from Find a Movie:
 res.render("movies", {data: movies})
 ```
 
-* res.render() renders the views, in the same way that the erb() method is used in Sinara to render erb files/views
+* render() renders the views, in the same way that the erb() method is used in Sinatra to render erb files/views
+
+```html
+app.get("/", function(req, res) {
+    res.render("words.ejs")
+    console.log(req)
+});
+```
+Here the .ejs file words.ejs is rendered when the user goes to the route /
+
+* As a result of setting the engine to be ejs, the file extension .ejs can be ommitted when passing the views to res.render() e.g. instead of
+```html
+res.render(name.ejs)
+```
+
+```html
+res.render(name)
+```
+
+* The variables in the .ejs files need to be embedded in <%= %>
+* Anything that is placed between the brackets is evaluated at JavaScript
+
+**Passing data**
+
+```html
+app.get("/getname/:name", function(req, res) {
+    const name = req.params.name;
+    res.render("name.ejs", {getName: name})
+    console.log(req)
+
+});
+```
+The variable needs to be explicitly passed in the render method to the view, and then the name of this variable is referenced in the view - within the <%= %>
+
+in name.ejs:
+```html
+<h1>Your name is <%= getName %></h1>
+```
+**Conditionals**
+
+in name.ejs
+
+```html
+<h1>Your name is <%= getName %> </h1>
+
+<% if(getName.toLowerCase === "emily"){ %>
+    <p>Yes - lowercase!!!</p>
+<% } else { %>
+    <p>Why not lowercase???</p>
+<%  } %>
+```
+
+If the user enters a lower case name - 'Yes - lowercase!!! is rendered', otherwise, 'Why not lowercase???' is rendered
+
+NB <% %> are used rather than <%= %> for conditional content
+
+**Styling**
+
+* Best practice to use stylesheets rather than the <style> tags within the views
+* Create views and link to them from the views using the <link> tags
+* Save these stylesheets in the Public directory. This has to obviously be created by the developer and it can be named something else, but most commonly is called Public.
+
+* In app.js add the following:
+```html
+app.use("/", express.static("Public"));
+```
+which tells the Express to serve the Public directory.
+
+
+**Partials**
 
 * It is good practice to make use of partials, so as to avoid repetition of code
 * To utilize EJS partials, they have to be called in the files in which they are required.
