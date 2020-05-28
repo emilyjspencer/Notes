@@ -1,6 +1,12 @@
 
-# React
+# Notes 
 
+* A core philosophy of React is to split applications into small pieces - separate, lean, reusable components
+* Ideally, tasks should be delegated to other components
+* There are two types of components - stateful(clever) components and presentational(dumb) componens
+* The former manages state
+* The latter have the responsibility for styling etc
+* It is common to have far more presentational components in a React application than stateful components  
 
 * Rendering content dynamically 
 
@@ -98,7 +104,7 @@ import Hello from './Hello';
 export default App;
 ```
 
-**Hello.js**
+Hello.js
 
 ```html
 import React from 'react';
@@ -148,43 +154,11 @@ export default App;
 
 * The above outputs the following in the browser:
 
-![output](greetings.png)
-
-* In App.js:
-
-```html
-import React, { Component } from 'react';
-import './App.css';
-
-
-class App extends Component {
-    render() {
-      return (
-        <div className="App">
-          <h1>I am a H1</h1>
-          <h3>I am a H3</h3>
-          <h5>I am a H5</h5>
-          <p>I am a p</p>
-          <p>I am also a p</p>
-          <h4>I am a H4</h4>
-          <ul>
-            <li>1.</li>
-            <li>2.</li>
-          </ul>
-        </div>
-      ) 
-    }
-}
-
-export default App;
-```
-
-* The above outputs the following in the browser:
-
 ![output](react.png)
 
-### Creating components
-* Components can be **class-based** or **functional**
+
+* Creating components
+* Components can be class-based or functional
 
 * The following is a class-based component:
 
@@ -275,9 +249,9 @@ The above looks like this in the browser:
 * **Props**
 
 * **Props** allow the passing of data from a parent component to a child component
-* This could be described as passing data down the component tree, and it triggers
+* This could be described as passing data down the component tree and triggering 
 a re-render
-* Props provide access to the attributes we give to our components
+Props provide access to the attributes we give to our components
 * We can pass properties/attributes to our components in App.js
 * Pass props into the individual components as an argument
 * Reference these attributes by using JavaScript expressions, using {}
@@ -329,7 +303,7 @@ The above renders as folows:
 * **children**
 
 * Children refers to elements that are passed between the opening and closing tags of the 
-component - the embedded/nested components
+component. The embedded/nested components
 
 App.js
 
@@ -385,9 +359,22 @@ The above renders as follows:
 * It is used to change the component from within 
 * It is a property of the Component class
 * It can be accessed via this.state which is returned in the
-render() lifecycle method 
+lifecycle method - render() (for classical components)
 * Changes to the state result in an update of the UI - when the state
 changes, the component re-renders to reflect the new state in the browser
+
+* With functional/function components, we can use useState() to manage state, otherwise known as a hook
+* Any functions that start with 'use' in React are hook functions
+*  useState() returns an array of exactly two elements
+
+* 1 - latest state snapshot 
+
+* 2 - a function that allows us to update that state and tell React that it should re-render - usually starts with 'set'
+
+
+* useState only initialises that state when the component is rendered for the first time
+* And for subsequent re-render cycles - it just pulls out the latest state snapshot and and ignores the initial value we set
+
 
 App.js
 ```html
@@ -463,6 +450,60 @@ export default rabbit;
 The above outputs the following in the browser:
 
 ![output](state.png)
+
+**More component state**
+
+App.js
+
+```html
+import React from 'react';
+import Hello from './Hello';
+
+const App = () => {
+  const name = 'Marvin'
+  const age = 20
+
+  return (
+    <div>
+      <h1>Greetings</h1>
+      <Hello name="Jess" age={16 + 10} />
+      <Hello name={name} age={age} />
+    </div>
+  )
+}
+
+export default App;
+``` 
+
+Hello.js
+```html
+import React from 'react';
+
+const Hello = (props) => {
+    const yearBorn = () => {
+        const yearNow = new Date().getFullYear()
+        return yearNow - props.age
+    }
+  return (
+    <div>
+      <p>
+        Hello {props.name}, you are {props.age} years old
+      </p>
+      <p>You were born in {yearBorn()}</p>
+      </div>
+  )
+}
+
+export default Hello
+```
+
+This outputs the following in the browser:
+
+![output](greetings.png)
+
+* The logic for guessing the person's birth year is separated into its own function that is called when the component is rendered.
+
+T* he person's age needn't be passed as a param to the function, since it can directly access all props that are passed to the component.
 
 * **State Manipulation**
 
@@ -594,7 +635,7 @@ b) the function that updates that current state value
 * With class-based components, the old state is merged with the new.
 * this.setState automatically merges the old state with the new
 However, with functional components, this doesn't happen. 
-We have to manually copy the old state by using useState as many times as is needed
+We have to manually copy the old state by using useState as many times as it needed
 
 Example of converting a class-based component into a functional component:
 
@@ -890,7 +931,7 @@ const cat = (props) => {
 export default cat;
 ```
 
-* When the button is cliked - the cat's name changes from Milly to Lulu - the new value
+* When the button is clicked - the cat's name changes from Milly to Lulu - the new value
 (newName)
 
 * **Two-way binding and dynamic updates**
@@ -1066,7 +1107,7 @@ const rabbit = (props) => {
 export default rabbit;
 ```
 
-### Styling React
+### Styling React Application
 
 * There are different ways to style React components
 * 1 - Use stylesheets
@@ -1089,7 +1130,7 @@ The following shows three differently styled components, although the styling is
 
 **Inline Styling**
 
-* Inline styling can also be used to scope the style and make sure it only applies to particular elements
+* Inline styling can also be used.
 * To style an element with the inline style attribute, the value must be a JavaScript object
 * Since the inline CSS is written in a JavaScript object, properties such as background-color, which normally utilize a -, must be written with camel case syntax e.g.
 backgroundColor
@@ -1118,14 +1159,6 @@ render() {
   The above button looks like this:
 
 ![output](styledButton.png)
-
-With inline styling, it is difficult to leverage the full power of CSS
-
-**Global Styling**
-
-* The CSS defined in the App.cs file is global
-
-<hr>
 
 **Conditionals**
 
@@ -1422,8 +1455,30 @@ export default App;
 
 **Lists**
 
-**map()** is a method that creates a new array, without altering the original array
-* It calls a function on each element of the array
+```html
+{this.state.animals.map(animal => {
+            return <Cat name={cat.name} age={cat.age} favouriteFood = {cat.favouriteFood} />
+          })}
+```
+
+* We map through the array of JS objects and a new array is produced, which constains JSX elements.
+* We are essentially converts an array of JS objects into an array of JSX objects, apart from the fact that map() is NOT a destructive method and doens't modify the original array - just returns a new one.
+* These new JSX elements are rendered to the DOM
+
+**Using the map() method**
+
+When using map() with React - each item you’re mapping over needs to be given a key prop
+Often this will be an id
+
+**Handling events**
+
+* We can add event listeners to any element by adding onNameOfEvent e.g. onClick
+onSubmit - for forms
+* Pointers to functions/references to functions can be passed to the event listeners
+* Event Handlers are the names of the functions which we reference - and it is best practice to add 
+'Handler' to the name of these event handlers
+* Event handlers are triggered when the event occurs e.g. a button is clicked, a page is loaded etc
+
 
 
 **Lifecycle Methods**
@@ -1432,5 +1487,162 @@ export default App;
 
 
 
+**render()** - is called whenever React checks whether the page needs to be updated
 
 
+
+
+
+
+
+
+**onClick** 
+**onChange** - are both attributes which can be added to elements. When the event occurs, e.g. the element, such as a button is clicked, the method that has been defined, will be executed e.g.
+```html
+<button onClick = "sayHello()">Click to say Hi</button>
+```
+upon clicking said button, the sayHello() method is executed 
+
+In vanilla JavaScript - the onclick attribute is written without the capital c, as it is in React
+
+``html
+<button onclick="SayGoodbye()">Click to say Bye</button>
+```
+
+**Event handlers/event listeners** - methods that are executed in response to events. Events could be anything from a mouse click, a page stroll, to a keystroke or a mouse hover.
+
+**event.target** - 
+- target is an event property which is used to get or 'target' the element on which the event originally occurred - returns the element that triggered the event.
+
+**Methods**
+
+Methods can be assigned to objects even after the creation of the object: 
+
+```
+person = {
+  name: 'Jonanthan SacconeJoly',
+  age: 40,
+  nationality: 'Irish,
+  greet: function() {
+    console.log('hello, my name is ' + this.name)
+  },
+}
+
+person.growOlder = function() {
+  this.age += 1
+}
+
+console.log(arto.age)   // 41 is printed
+arto.growOlder()
+console.log(arto.age)   // 42 is printed
+
+```
+
+With React, functional programming techniques are often used.
+Once characteristic of functional programming is the use of immutable data structures e.g.
+concat()
+
+* **concat()** doesn't add an item to an array - it creates a new array with the old and the new array combined e.g.
+```html
+const t = [1, -1, 3]
+const t2 = t.concat(5)
+console.log(t) // [1, -1, 3]
+console.log(t2) // [1, -1, 3, 5]
+```
+
+**Template literals**
+
+* Template literals are defined by their use of backticks. Instead of the usual "" or ''
+`` is used
+* We use template literals so that we can embed variables e.g
+```html
+
+const deleteStudent = await fetch(`http:localhost:5000/students/${id}`)
+
+```
+
+embeds the id into the url so that a request can be made to a particular student - i.e.
+a student we the specified id
+
+**Fetch**
+
+By default, fetch makes a Get request, so if we are making anything other than a 
+GET request, we need to specify this e.g.
+
+```html
+const deleteStudent = async (id) => {
+    try {
+        const deleteStudent = await fetch(`http://localhost:5000/students${id}`), 
+        {
+            method: "DELETE"
+        });
+    }
+}
+```
+
+**use of map()**
+
+When using map to map over each item in an array in React - you need to give each element
+a key prop - this is usually an id
+
+
+**useEffect()** - is a React hook
+It allows you to perform side effects in functional components
+What sort of things can be described as a side effect:
+
+- fetching data
+- manually changing the DOM
+setting up a subscription -
+(what is meant by setting up a subscription?)
+
+**useEffect()** is sort of like a combination of componentDidMount(),
+componentDidUpdate() and componentWillUnmount()
+
+**console.error()**
+
+console.error() outputs an error message to the web console
+
+**e.target.value**
+
+```html
+
+e.target.value
+ or 
+event.target.value
+
+```
+
+The target event property - the property of the event object - 
+returns the element that triggered the event
+
+Value is the value of the element that triggered the event
+
+**Fragments** 
+
+* Fragments let you group a list of children without adding extra nodes to the DOM because 
+* Fragments aren't rendered to the DOM
+* Fragments can be used in place of wrapper divs
+
+**Routing**
+
+* The React-Router package can be added to enable routing functionality in React applications 
+* At the top of a file add:
+
+```html
+import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
+```
+
+Here - multiple components are imported
+
+* Redirect - is used to redirect to a specified page e.g. we could define that if a user enters anything
+other than our defined urls, they are redirected to the homepage. This can be done using the Redirect component
+* Switch stops further evaluation once a match has been made. If the Switch component isn't used, 
+checks will continue to be made. We want this evaluation to stop once a match has been made.
+* Route 
+
+**exact** keyword 
+* The **exact** keyword can be passed to Route components e.g.
+```html
+<Route path="/" exact>
+```
+so that a particular component is rendered only when on a particular page, in the example above, when on the homepage

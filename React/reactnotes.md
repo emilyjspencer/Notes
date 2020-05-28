@@ -1,6 +1,6 @@
 # Notes 
 
-* A core philosophy of react is to split applications into small pieces - separate, lean, reusable components
+* A core philosophy of React is to split applications into small pieces - separate, lean, reusable components
 * Ideally, tasks should be delegated to other components
 * There are two types of components - stateful(clever) components and presentational(dumb) componens
 * The former manages state
@@ -1644,5 +1644,5 @@ checks will continue to be made. We want this evaluation to stop once a match ha
 ```html
 <Route path="/" exact>
 ```
-so that a particular component is rendered only when on a particulr page, in the example above, when on the
+so that a particular component is rendered only when on a particular page, in the example above, when on the
 homepage
