@@ -1,5 +1,11 @@
 # Notes 
 
+* A core philosophy of react is to split applications into small pieces - separate, lean, reusable components
+* Ideally, tasks should be delegated to other components
+* There are two types of components - stateful(clever) components and presentational(dumb) componens
+* The former manages state
+* The latter have the responsibility for styling etc
+* It is common to have far more presentational components in a React application than stateful components  
 
 * Rendering content dynamically 
 
@@ -352,9 +358,21 @@ The above renders as follows:
 * It is used to change the component from within 
 * It is a property of the Component class
 * It can be accessed via this.state which is returned in the
-lifecycle method - render()
+lifecycle method - render() (for classical components)
 * Changes to the state result in an update of the UI - when the state
 changes, the component re-renders to reflect the new state in the browser
+
+* With functional/function components, we can use useState() to manage state, otherwise known as a hook
+* Any functions that start with 'use' in React are hook functions
+*  useState() returns an array of exactly two elements
+
+* 1 - latest state snapshot 
+
+* 2 - a function that allows us to update that state and tell React that it should re-render - usually starts with 'set'
+
+
+* useState only initialises that state when the component is rendered for the first time
+* And for subsequent re-render cycles - it just pulls out the latest state snapshot and and ignores the initial value we set
 
 
 App.js
@@ -1446,13 +1464,36 @@ export default App;
 * We are essentially converts an array of JS objects into an array of JSX objects, apart from the fact that map() is NOT a destructive method and doens't modify the original array - just returns a new one.
 * These new JSX elements are rendered to the DOM
 
+**Using the map() method**
+
+When using map() with React - each item you’re mapping over needs to be given a key prop
+Often this will be an id
+
+**Handling events**
+
+* We can add event listeners to any element by adding onNameOfEvent e.g. onClick
+onSubmit - for forms
+* Pointers to functions/references to functions can be passed to the event listeners
+* Event Handlers are the names of the functions which we reference - and it is best practice to add 
+'Handler' to the name of these event handlers
+* Event handlers are triggered when the event occurs e.g. a button is clicked, a page is loaded etc
+
+
+
 **Lifecycle Methods**
 
 * **Lifecycle methods** - let you define pieces of code you want to execute according to the state of the component like mounting, rendering, updating and un-mounting.
 
-**Random**
+
 
 **render()** - is called whenever React checks whether the page needs to be updated
+
+
+
+
+
+
+
 
 **onClick** 
 **onChange** - are both attributes which can be added to elements. When the event occurs, e.g. the element, such as a button is clicked, the method that has been defined, will be executed e.g.
@@ -1474,7 +1515,7 @@ In vanilla JavaScript - the onclick attribute is written without the capital c, 
 
 **Methods**
 
-Methods can be assisnged to objects even after the creation of the object: 
+Methods can be assigned to objects even after the creation of the object: 
 
 ```
 person = {
@@ -1506,3 +1547,102 @@ const t = [1, -1, 3]
 const t2 = t.concat(5)
 console.log(t) // [1, -1, 3]
 console.log(t2) // [1, -1, 3, 5]
+```
+
+**Template literals**
+
+* Template literals are defined by their use of backticks. Instead of the usual "" or ''
+`` is used
+* We use template literals so that we can embed variables e.g
+```html
+
+const deleteStudent = await fetch(`http:localhost:5000/students/${id}`)
+
+```
+
+embeds the id into the url so that a request can be made to a particular student - i.e.
+a student we the specified id
+
+**Fetch**
+
+By default, fetch makes a Get request, so if we are making anything other than a 
+GET request, we need to specify this e.g.
+
+```html
+const deleteStudent = async (id) => {
+    try {
+        const deleteStudent = await fetch(`http://localhost:5000/students${id}`), 
+        {
+            method: "DELETE"
+        });
+    }
+}
+```
+
+**use of map()**
+
+When using map to map over each item in an array in React - you need to give each element
+a key prop - this is usually an id
+
+
+**useEffect()** - is a React hook
+It allows you to perform side effects in functional components
+What sort of things can be described as a side effect:
+
+- fetching data
+- manually changing the DOM
+setting up a subscription -
+(what is meant by setting up a subscription?)
+
+**useEffect()** is sort of like a combination of componentDidMount(),
+componentDidUpdate() and componentWillUnmount()
+
+**console.error()**
+
+console.error() outputs an error message to the web console
+
+**e.target.value**
+
+```html
+
+e.target.value
+ or 
+event.target.value
+
+```
+
+The target event property - the property of the event object - 
+returns the element that triggered the event
+
+Value is the value of the element that triggered the event
+
+**Fragments** 
+
+* Fragments let you group a list of children without adding extra nodes to the DOM because 
+* Fragments aren't rendered to the DOM
+* Fragments can be used in place of wrapper divs
+
+**Routing**
+
+* The React-Router package can be added to enable routing functionality in React applications 
+* At the top of a file add:
+
+```html
+import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
+```
+
+Here - multiple components are imported
+
+* Redirect - is used to redirect to a specified page e.g. we could define that if a user enters anything
+other than our defined urls, they are redirected to the homepage. This can be done using the Redirect component
+* Switch stops further evaluation once a match has been made. If the Switch component isn't used, 
+checks will continue to be made. We want this evaluation to stop once a match has been made.
+* Route 
+
+**exact** keyword 
+* The **exact** keyword can be passed to Route components e.g.
+```html
+<Route path="/" exact>
+```
+so that a particular component is rendered only when on a particulr page, in the example above, when on the
+homepage
