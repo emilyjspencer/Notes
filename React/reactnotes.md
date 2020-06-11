@@ -2,9 +2,9 @@
 
 * A core philosophy of React is to split applications into small pieces - separate, lean, reusable components
 * Ideally, tasks should be delegated to other components
-* There are two types of components - stateful(clever) components and presentational(dumb) componens
-* The former manages state
-* The latter have the responsibility for styling etc
+* There are two types of components - stateful(clever) components and presentational(dumb) components
+* The former typically manages state
+* The latter tend to haveresponsibility for styling etc
 * It is common to have far more presentational components in a React application than stateful components  
 
 * Rendering content dynamically 
@@ -34,12 +34,13 @@ export default App;
 ```
 **JSX**
 
-* The layout of React components is mostly written using JSX>
+* The layout of React components is mostly written using JSX
 * The JSX returned by React components is compiled into JavaScript, by Babel
 * Projects created using create-react-app are configured to compile automatically 
-* It is also possible to write React as "pure JavaScript" without using JSX.
-* JSX is similar to HTML. However, with JSX< dynamic content can be embedded by writing appropriate JS within curly braces
+* It is also possible to write React as "pure JavaScript" without using JSX, but this would take much longer
+* JSX is similar to HTML. However, with JSX, dynamic content can be embedded by writing appropriate JS within curly braces
 * JSX is 'XML-like' in that every tag must be closed />
+* The only place where JavaScript can be written directly (without being embedded in curly braces), is between the render() method and the return statement. You can write pure JS there and save it to a variable. Then refer to this variable at a later point
 
 
 After compiling, the application looks like this:
@@ -73,6 +74,11 @@ ReactDOM.render(
 **Components**
 
 * Components should be capitalized 
+* Components should 'end' with 
+```html
+export default nameOfComponent
+```
+
 * Writing components with React is easy, and by combining components, even a more complex application can be kept fairly maintainable. 
 Indeed, a core philosophy of React is composing applications from many specialized reusable components.
 * Oftentimes, the App component is the 'root' component. Sometimes, however, this is not the case
@@ -80,6 +86,9 @@ Indeed, a core philosophy of React is composing applications from many specializ
 **props**
 
 * Data can be passed to components using props
+* In class-based components, data is referred to using this.props.name. Anytime you refer to a class component within itself, 'this' must be used.
+* To access props within a class component, 'this' needs to preface the code you use to access it 
+* In functional components, data is referred to using props.name - no use of the 'this' keyword
 
 App.js
 
@@ -154,6 +163,74 @@ export default App;
 * The above outputs the following in the browser:
 
 ![output](react.png)
+
+### Props continued 
+
+
+* Props are single values or objects containing a set of values that are passed to components upon creation.
+
+
+**Uses of Props**
+
+* Pass custom data to components
+* Trigger state changes
+
+**Props vs. State**
+
+* State and props are simply JS objects.
+* Props get passed to the component
+* State is managed within the component 
+
+### Passing props and references to event handlers
+
+**Passing method references between components**
+
+* References to event handlers can be passed e.g. by adding a reference to the event handler - 
+changeAnimalsProperties, in each instance of each component as shown below, and then adding
+onClick={props.click} to each individual component, each component achieves the same goal as the button - that is to stay that is changes the state - all of the animals' properties are updating whether you click on the button, or on each of Cat, Dog or Rabbit
+App.js
+
+```html
+render() {
+      return (
+        <div className="App">
+          <button onClick={this.changeAnimalsProperties}>What else do they like to eat?</button>
+          <Cat name ={this.state.animals[0].name} 
+          age ={this.state.animals[0].age} 
+          favouriteFood ={this.state.animals[0].favouriteFood} 
+          color="black" 
+          click={this.changeAnimalsProperties}
+          favouriteNeighbour = "Bob" />
+          <Dog name = {this.state.animals[1].name}
+           age={this.state.animals[1].age} 
+           favouriteFood={this.state.animals[1].favouriteFood}
+           click={this.changeAnimalsProperties}
+           favouriteHuman = "Tim">Owner: Matilda</Dog>
+          <Rabbit name={this.state.animals[2].name} 
+          age={this.state.animals[2].age} 
+          click={this.changeAnimalsProperties}
+          favouriteFood={this.state.animals[2].favouriteFood} />
+        </div>
+        ```
+
+        Cat.js
+
+        ```html
+        import React from 'react';
+
+const cat = (props) => {
+    return (
+    <div>
+        <p onClick={props.click}>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
+        <p>I am a cat</p>
+     </div>
+    )
+};
+  
+
+export default cat;
+```
+Dog.js and Rabbit.js look the same 
 
 
 * Creating components
@@ -250,10 +327,9 @@ The above looks like this in the browser:
 * **Props** allow the passing of data from a parent component to a child component
 * This could be described as passing data down the component tree and triggering 
 a re-render
-Props provide access to the attributes we give to our components
-* We can pass properties/attributes to our components in App.js
-* Pass props into the individual components as an argument
-* Reference these attributes by using JavaScript expressions, using {}
+* Props provide access to the attributes we give to our components
+* Prop should be passed into individual components as an argument
+
 
 App.js
 
@@ -356,13 +432,13 @@ The above renders as follows:
 
 * **State** the state of a component is an object that holds some information that may change over the lifetime of the component
 * It is used to change the component from within 
-* It is a property of the Component class
-* It can be accessed via this.state which is returned in the
-lifecycle method - render() (for classical components)
+* State is a property of the Component class
+* It can be accessed via this.state in classical components, which is returned in the
+lifecycle method - render() 
 * Changes to the state result in an update of the UI - when the state
 changes, the component re-renders to reflect the new state in the browser
 
-* With functional/function components, we can use useState() to manage state, otherwise known as a hook
+* With functional components, we can use the hook useState() to manage state
 * Any functions that start with 'use' in React are hook functions
 *  useState() returns an array of exactly two elements
 
@@ -615,9 +691,9 @@ The DOM gets updated because React recognises that the state of the application 
 ### State manipulation with functional components
 
 #### React Hooks
-React Hooks are functions that let you “hook into” React state and lifecycle features from function components. 
+React Hooks are functions that let you “hook into” React state and lifecycle features from functional components. 
 * React Hooks typically start with **use** and the most commonly used hook is **useState**
-* Add it to the top of the App.js file like so: 
+* Needs to be imported into the relevant files, like so: 
 
 ```html
 import React, { useState } from 'react';
@@ -806,73 +882,7 @@ export default cat;
 * The focus should be on making stateless components, for the most part, and only creating
 one or two stateful components, depending on the size of the application. 
 
-### Props
 
-**Props** are inputs to components.
-* They are single values or objects containing a set of values that are passed to components upon creating.
-* They can be descibed as data passed down from a parent component to a child component 
-
-**Uses of Props**
-
-* Pass custom data to components
-* Trigger state changes
-
-**Props vs. State**
-
-* State and props are simply JS objects.
-* Props get passed to the component
-* State is managed within the component 
-
-### Passing props and references to event handlers
-
-**Passing method references between components**
-
-* References to event handlers can be passed e.g. by adding a reference to the event handler - 
-changeAnimalsProperties, in each instance of each component as shown below, and then adding
-onClick={props.click} to each individual component, each component achieves the same goal as the button - that is to stay that is changes the state - all of the animals' properties are updating whether you click on the button, or on each of Cat, Dog or Rabbit
-App.js
-
-```html
-render() {
-      return (
-        <div className="App">
-          <button onClick={this.changeAnimalsProperties}>What else do they like to eat?</button>
-          <Cat name ={this.state.animals[0].name} 
-          age ={this.state.animals[0].age} 
-          favouriteFood ={this.state.animals[0].favouriteFood} 
-          color="black" 
-          click={this.changeAnimalsProperties}
-          favouriteNeighbour = "Bob" />
-          <Dog name = {this.state.animals[1].name}
-           age={this.state.animals[1].age} 
-           favouriteFood={this.state.animals[1].favouriteFood}
-           click={this.changeAnimalsProperties}
-           favouriteHuman = "Tim">Owner: Matilda</Dog>
-          <Rabbit name={this.state.animals[2].name} 
-          age={this.state.animals[2].age} 
-          click={this.changeAnimalsProperties}
-          favouriteFood={this.state.animals[2].favouriteFood} />
-        </div>
-        ```
-
-        Cat.js
-
-        ```html
-        import React from 'react';
-
-const cat = (props) => {
-    return (
-    <div>
-        <p onClick={props.click}>My name is {props.name} I am {props.age} years old. I'm a tabby. My favourite food is {props.favouriteFood} I'm super cute. I am {props.color} My favourite neighbour is {props.favouriteNeighbour}</p>
-        <p>I am a cat</p>
-     </div>
-    )
-};
-  
-
-export default cat;
-```
-Dog.js and Rabbit.js look that same 
 
 **Passing arguments**
 
@@ -947,7 +957,7 @@ The following shows how we can change the name of the rabbit, in the browser
 
 **How was this achieved?**
 
-* The event listener - onChange was used. (onChange is fired whenever the input value changes)
+* The event handler - onChange was used. (onChange is fired whenever the input value changes)
 * Three new methods were created: 
 ```html
 changeNameDynamicallyCat()
@@ -1469,9 +1479,11 @@ export default App;
 When using map() with React - each item you’re mapping over needs to be given a key prop
 Often this will be an id
 
+<hr>
+
 **Handling events**
 
-* We can add event listeners to any element by adding onNameOfEvent e.g. onClick
+* We can add event handlers to any element by adding onNameOfEvent e.g. onClick
 onSubmit - for forms
 * Pointers to functions/references to functions can be passed to the event listeners
 * Event Handlers are the names of the functions which we reference - and it is best practice to add 
@@ -1479,24 +1491,63 @@ onSubmit - for forms
 * Event handlers are triggered when the event occurs e.g. a button is clicked, a page is loaded etc
 
 
+**The lifecycle of a component and lifecycle methods**
+
+* Components have a lifecycle. This lifecycle is composed of three phases:
+* Mounting - 'birth' of component
+* Updating - 'growth' of component
+* Unmounting - 'death' of component
 
 **Lifecycle Methods**
 
-* **Lifecycle methods** - let you define pieces of code you want to execute according to the state of the component like mounting, rendering, updating and un-mounting.
+* React components also have several methods that provide opportunities to perform actions at specific points in a component's lifecycle. 
+* They let you define pieces of code you want to execute according to the state of the component like mounting, rendering, updating and un-mounting.
+
+* In the mounting phase - four lifecycle methods can be called, of which the only obligatory one is render(), which is
+responsible for rendering 
+
+The other three are :
+* constructor()
+* getDerivedStateFromProps
+(render())
+* componentDidMount()
+
+**render()**
+* render() is a pure function, i.e. one that has no side effects. Pure functions should NEVER modify state, so the use of 
+this.setState() should never be placed in the render() method
+
+**componentDidMount()**
+
+* componentDidMount() is called after a component is mounted to the DOM.
+* Any use of the setState() method here will trigger a re-rendering of the component
+
+* componentDidMount() is a good place to put API calls, calls to a server and/or add event listeners
+* State can be modified in componentDidMount() - for the purpose of modals, tooltips etc, but the best place to modify
+state is in the constructor
+
+
+**constructor**
+
+* constructor() is called before anything else, when the component is created.
+* This is where initial state and other initial values should be placed
+* constructor() is called with props as arguments and props should also be passed to the super() method
+* This will initiate the parent's constructor method and allow the component to inherit methods from its parent
+
+**getDerivedStateFromProps** - is called just before the elements are rendered in the DOM
 
 
 
-**render()** - is called whenever React checks whether the page needs to be updated
 
 
 
 
 
+<hr>
 
-
+**Event Handler**
 
 **onClick** 
-**onChange** - are both attributes which can be added to elements. When the event occurs, e.g. the element, such as a button is clicked, the method that has been defined, will be executed e.g.
+**onChange** - are both handlers that can be added to elements. When the event occurs, e.g. a button is clicked, the method that has been defined will be executed e.g.
 ```html
 <button onClick = "sayHello()">Click to say Hi</button>
 ```
@@ -1579,11 +1630,6 @@ const deleteStudent = async (id) => {
 }
 ```
 
-**use of map()**
-
-When using map to map over each item in an array in React - you need to give each element
-a key prop - this is usually an id
-
 
 **useEffect()** - is a React hook
 It allows you to perform side effects in functional components
@@ -1646,3 +1692,38 @@ checks will continue to be made. We want this evaluation to stop once a match ha
 ```
 so that a particular component is rendered only when on a particular page, in the example above, when on the
 homepage
+
+
+**defaultProps and propTypes**
+
+* **default props** can be added so that if a prop isn't defined, one can be assigned
+
+```html
+
+
+Cat.defaultProps = {
+  name: 'Bobby'
+}
+
+```
+
+* **propTypes** allow us to define ahead of time the prop that is expected.
+* If the prop that we receive is not what is expected - an error is thrown
+* You can define propTypes like so:
+
+```html
+
+Cat.propTypes = {
+
+name.PropTypes.string.isRequired
+}
+
+```
+
+**Comments in React**
+
+Comments can be written like so:
+
+```html
+{/*    I AM A COMMENT       */}
+```
