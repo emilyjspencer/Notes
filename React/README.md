@@ -526,7 +526,7 @@ The above outputs the following in the browser:
 
 ![output](state.png)
 
-**More component state**
+### **More component state**
 
 App.js
 
@@ -580,7 +580,7 @@ This outputs the following in the browser:
 
 T* he person's age needn't be passed as a param to the function, since it can directly access all props that are passed to the component.
 
-* **State Manipulation**
+### **State Manipulation**
 
 
 * Only two things cause the DOM to be updated:
@@ -705,7 +705,7 @@ import React, { useState } from 'react';
 a) the current state value
 b) the function that updates that current state value 
 
-* **Array destructuring** facilitates the extraction of elements from the array you get back
+### **Array destructuring** facilitates the extraction of elements from the array you get back
 
 * With class-based components, the old state is merged with the new.
 * this.setState automatically merges the old state with the new
@@ -858,7 +858,7 @@ const App = props => {
 
 export default App;
 ```
-# Stateful vs. stateless components
+### Stateful vs. stateless components
 
 * **Stateful components** - manage state, whether that be through React Hooks (functional components), or by using the state property and setState() (class-based components)
 * Also known as 'smart' or 'container' components
@@ -884,7 +884,7 @@ one or two stateful components, depending on the size of the application.
 
 
 
-**Passing arguments**
+### **Passing arguments**
 
 * Arguments can be passed using bind() e.g.
 
@@ -1122,7 +1122,7 @@ export default rabbit;
 * 1 - Use stylesheets
 * 2 - Use inline styling
 
-* **Stylesheets**
+### * **Stylesheets**
 
 * The important thing to remember is to import the .css file into the component file e.g.
 I created a Dog.css file, so in my Dog.js file, I had to add the following:
@@ -1137,7 +1137,7 @@ The following shows three differently styled components, although the styling is
 
 ![output](undesirableStyling.png)
 
-**Inline Styling**
+### **Inline Styling**
 
 * Inline styling can also be used.
 * To style an element with the inline style attribute, the value must be a JavaScript object
@@ -1169,7 +1169,7 @@ render() {
 
 ![output](styledButton.png)
 
-**Conditionals**
+### **Conditionals and conditional rendering**
 
 * Output can be rendered conditionally, e.g. we can choose to hide or chose specific content.
 One way of achieving this is to use a ternary operator ( a default JS construct) and adding a property to the state.
@@ -1462,7 +1462,7 @@ export default App;
 ```
 * When the button is clicked, the content is rendered, when the button is clicked again, the content is hidden. 
 
-**Lists**
+### **Lists**
 
 ```html
 {this.state.animals.map(animal => {
@@ -1481,17 +1481,8 @@ Often this will be an id
 
 <hr>
 
-**Handling events**
 
-* We can add event handlers to any element by adding onNameOfEvent e.g. onClick
-onSubmit - for forms
-* Pointers to functions/references to functions can be passed to the event listeners
-* Event Handlers are the names of the functions which we reference - and it is best practice to add 
-'Handler' to the name of these event handlers
-* Event handlers are triggered when the event occurs e.g. a button is clicked, a page is loaded etc
-
-
-**The lifecycle of a component and lifecycle methods**
+### **The lifecycle of a component and lifecycle methods**
 
 * Components have a lifecycle. This lifecycle is composed of three phases:
 * Mounting - 'birth' of component
@@ -1544,7 +1535,14 @@ state is in the constructor
 
 <hr>
 
-**Event Handler**
+### **Handling events and event handlers**
+
+* We can add event handlers to any element by adding onNameOfEvent e.g. onClick
+onSubmit - for forms
+* Pointers to functions/references to functions can be passed to the event listeners
+* Event Handlers are the names of the functions which we reference - and it is best practice to add 
+'Handler' to the name of these event handlers
+* Event handlers are triggered when the event occurs e.g. a button is clicked, a page is loaded etc
 
 **onClick** 
 **onChange** - are both handlers that can be added to elements. When the event occurs, e.g. a button is clicked, the method that has been defined will be executed e.g.
@@ -1564,7 +1562,7 @@ In vanilla JavaScript - the onclick attribute is written without the capital c, 
 **event.target** - 
 - target is an event property which is used to get or 'target' the element on which the event originally occurred - returns the element that triggered the event.
 
-**Methods**
+### **Methods**
 
 Methods can be assigned to objects even after the creation of the object: 
 
@@ -1600,7 +1598,9 @@ console.log(t) // [1, -1, 3]
 console.log(t2) // [1, -1, 3, 5]
 ```
 
-**Template literals**
+<hr>
+
+### **Template literals**
 
 * Template literals are defined by their use of backticks. Instead of the usual "" or ''
 `` is used
@@ -1614,7 +1614,9 @@ const deleteStudent = await fetch(`http:localhost:5000/students/${id}`)
 embeds the id into the url so that a request can be made to a particular student - i.e.
 a student we the specified id
 
-**Fetch**
+<hr>
+
+### **Fetch**
 
 By default, fetch makes a Get request, so if we are making anything other than a 
 GET request, we need to specify this e.g.
@@ -1630,6 +1632,9 @@ const deleteStudent = async (id) => {
 }
 ```
 
+<hr>
+
+### **Hooks**
 
 **useEffect()** - is a React hook
 It allows you to perform side effects in functional components
@@ -1643,11 +1648,15 @@ setting up a subscription -
 **useEffect()** is sort of like a combination of componentDidMount(),
 componentDidUpdate() and componentWillUnmount()
 
-**console.error()**
+<hr>
+
+### **console.error()**
 
 console.error() outputs an error message to the web console
 
-**e.target.value**
+<hr>
+
+### **e.target.value**
 
 ```html
 
@@ -1662,13 +1671,17 @@ returns the element that triggered the event
 
 Value is the value of the element that triggered the event
 
-**Fragments** 
+<hr>
+
+### **Fragments** 
 
 * Fragments let you group a list of children without adding extra nodes to the DOM because 
 * Fragments aren't rendered to the DOM
 * Fragments can be used in place of wrapper divs
 
-**Routing**
+<hr>
+
+### **Routing**
 
 * The React-Router package can be added to enable routing functionality in React applications 
 * At the top of a file add:
@@ -1684,6 +1697,7 @@ other than our defined urls, they are redirected to the homepage. This can be do
 * Switch stops further evaluation once a match has been made. If the Switch component isn't used, 
 checks will continue to be made. We want this evaluation to stop once a match has been made.
 * Route 
+* Router should be wrapped around Route
 
 **exact** keyword 
 * The **exact** keyword can be passed to Route components e.g.
@@ -1693,8 +1707,15 @@ checks will continue to be made. We want this evaluation to stop once a match ha
 so that a particular component is rendered only when on a particular page, in the example above, when on the
 homepage
 
+<hr>
 
-**defaultProps and propTypes**
+### **Navigation**
+
+* Navigation code should be put into a shared folder, in the same way that we use Navigation partials in Rails.
+* Navbars etc are usually found across all pages of an application, so it makes sense to put components relating to aspects of naviation, into a shared folder 
+
+
+### **defaultProps and propTypes**
 
 * **default props** can be added so that if a prop isn't defined, one can be assigned
 
@@ -1720,10 +1741,18 @@ name.PropTypes.string.isRequired
 
 ```
 
-**Comments in React**
+<hr>
+
+### **Comments in React**
 
 Comments can be written like so:
 
 ```html
 {/*    I AM A COMMENT       */}
 ```
+
+<hr>
+
+### **this and binding of the 'this' keyword**
+
+Class methods need to use the 'this' keyword in order to access properties on the class e.g.
