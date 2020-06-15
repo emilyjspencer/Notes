@@ -1813,3 +1813,30 @@ Comments can be written like so:
 ### **this and binding of the 'this' keyword**
 
 Class methods need to use the 'this' keyword in order to access properties on the class e.g.
+state and props inside the scope of the method.
+One way to provide class methods with access to this is to using binding by
+explicitly binding the 'this' keyword in the constructor so that 'this' becomes bound to the class methods when the component is initialized. 
+e.g.
+
+```html
+this.handleClick = this.handleClick.bind(this)
+```
+
+
+### Adding spaces in React 
+
+```html
+{' '}
+```
+
+e.g.
+```html
+
+<p>
+  <input type="checkbox" /> {' '}
+  { this.props.todo.title }
+</p>
+
+```
+
+This puts a space between the checkbox and the todo list item.
