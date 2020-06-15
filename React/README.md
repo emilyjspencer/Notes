@@ -1121,6 +1121,8 @@ export default rabbit;
 * There are different ways to style React components
 * 1 - Use stylesheets
 * 2 - Use inline styling
+* 3 - Use  variables 
+* 4 - Use functions - for dynamic styling - i.e. the style changes when certain things happen e.g. a button is clicked 
 
 ### * **Stylesheets**
 
@@ -1143,9 +1145,9 @@ The following shows three differently styled components, although the styling is
 * To style an element with the inline style attribute, the value must be a JavaScript object
 * Since the inline CSS is written in a JavaScript object, properties such as background-color, which normally utilize a -, must be written with camel case syntax e.g.
 backgroundColor
+* When using inline styling, we need to use double curly braces {{ }}
 
-* An object can also be created with styling information, and referred to in the style attribute.
-Below, I have styled the button using the style attribute, and camelCase. No stylesheets required.
+### **Styling with variables**
 
 Other code ommitted for brevity:
 
@@ -1168,6 +1170,61 @@ render() {
   The above button looks like this:
 
 ![output](styledButton.png)
+
+A comparison of inline styling and use of variables to style components:
+
+**Inline styling**
+```html
+
+
+<div style={{backgroundColor: ‘pink’ }}>
+  <p>{this.props.todo.title}</p>
+</div>
+```
+
+**Styling using variables**
+
+```html
+
+const styling = {
+backgroundColor: ‘pink’
+}
+
+<div style={styling}>
+  <p>{this.props.todo.title}</p>
+</div>
+
+```
+
+### **Dynamic styling using functions**
+
+* Possible use case - a todo list. If an item has been completed i.e the user has checked the checkbox, we might want to see a line through the completed item.
+* This can be achieved using functions
+
+```html
+
+getStyle = () => {
+  if(this.props.todo.completed){
+
+    return { 
+      textDecoration: ‘line-through’
+  } else {
+    return {
+      textDecoration: ‘none’
+  }  
+}
+
+render()
+  return() {
+    <div style={this.getStyle()}>
+      <p>{ this.props.todo.title }</p>
+    </div> 
+}
+
+```
+
+With the above, if items have a completed status of true - a line will appear through them (once the user has checked the checkbox) - otherwise, the todo items don't have a line through them.
+
 
 ### **Conditionals and conditional rendering**
 
