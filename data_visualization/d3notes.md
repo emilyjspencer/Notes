@@ -227,6 +227,7 @@ Renders:
 
 ### SVG - Scalable Vector Graphics
 
+```html
 <style>
   svg {
     background-color: pink;
@@ -250,6 +251,7 @@ Renders:
   </script>
 </body>
 ```
+
 Renders:
 ![output](svg.png)
 
@@ -280,6 +282,7 @@ Adding a rect shap to the svg, with a width of 25, height of 100, x and y coordi
 
   </script>
 </body>
+```
 
 Renders:
 ![output](svg2.png)
