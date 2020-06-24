@@ -131,3 +131,65 @@ and the others green, using the style() method and the ternary operator
 
 <hr>
 
+### Add classes to elements for styling purposes
+
+The attr() method can be used for this purpose:
+
+
+```html
+<style>
+  .bar {
+    width: 25px;
+    height: 100px;
+    display: inline-block;
+    background-color: blue;
+  }
+</style>
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    d3.select("body").selectAll("div")
+      .data(dataset)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+  </script>
+</body>
+```
+
+* Gives the dataset a class of "bar" 
+* Renders a blue box
+
+
+# Rendering data as a bar chart
+
+```html
+<style>
+  .bar {
+    width: 25px;
+    height: 100px;
+    display: inline-block;
+    background-color: blue;
+  }
+</style>
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 250, 18, 29, 14, 90];
+
+    d3.select("body").selectAll("div")
+      .data(dataset)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .style("height", (d) => d)
+  </script>
+</body>
+```
+
+Renders:
+
+![output](barchart.png)
+
+<hr>
+
