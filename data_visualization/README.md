@@ -86,15 +86,17 @@ enter() - is used to create a new element in the document for each piece of data
 
 outputs: 
 
-12 pounds
-31 pounds
-22 pounds
-17 pounds
-25 pounds
-18 pounds
-29 pounds
-14 pounds
-9 pounds
+## 12 pounds
+## 31 pounds
+## 22 pounds
+## 17 pounds
+## 25 pounds
+## 18 pounds
+## 29 pounds
+## 14 pounds
+## 9 pounds
+
+These are all h2s 
 
 <hr>
 
@@ -106,7 +108,7 @@ outputs:
 * The following makes the output data have the font family of Dancing Script (a Google font)
 
 ```html
-  .style("font-family", "verdana")
+  .style("font-family", "Dancing Script)
 ```
 
 <hr>
@@ -242,7 +244,6 @@ Renders:
     const h = 100;
 
     const svg = d3.select("body")
-                  // Add your code below this line
 
    .append("svg")
     .style("height", "h")
@@ -259,7 +260,7 @@ Renders:
 
 ### Rendering shapes with SVG
 
-Adding a rect shap to the svg, with a width of 25, height of 100, x and y coordinates both 0
+Adding a rect shape to the svg, with a width of 25, height of 100, x and y coordinates both 0
 
 ```html
 <body>
@@ -321,3 +322,24 @@ Renders:
 <hr>
 
 
+
+
+
+
+
+
+<hr>
+
+# Using D3 with React
+
+* Install d3:
+
+```html
+npm install --save d3
+```
+
+* Import d3:
+
+```html
+import * as d3 from d3
+``` 
