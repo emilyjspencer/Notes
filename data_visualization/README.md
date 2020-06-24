@@ -37,12 +37,13 @@ d3.select("ul")
 
 selectAll() - selects a group of elements and returns an array of HTML nodes for all the items in the document that match the input string
 
-e.g.
+
+The following selects all the anchor tags in a document:
 ```html
 const anchors = d3.selectAll("a");
 ```
 
-selects all the anchor tags in a document
+The following example selects all lis and replaces 'Example' with 'Hi'
 
 ```html<body>
   <ul>
@@ -191,5 +192,129 @@ Renders:
 
 ![output](barchart.png)
 
+# Bar chart with spacing
+
+```html
+<style>
+  .bar {
+    width: 25px;
+    height: 100px;
+    margin: 2px;
+    display: inline-block;
+    background-color: blue;
+  }
+</style>
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    d3.select("body").selectAll("div")
+      .data(dataset)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .style("height", ( d) => (10 * d + "px"))
+  </script>
+</body>
+```
+The margin adds spacing between the columns
+The callback can be modified to increase the height
+
+Renders:
+![output](improvedbarchart.png)
+
 <hr>
+
+### SVG - Scalable Vector Graphics
+
+<style>
+  svg {
+    background-color: pink;
+   
+  }
+</style>
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    const w = 500;
+    const h = 100;
+
+    const svg = d3.select("body")
+                  // Add your code below this line
+
+   .append("svg")
+    .style("height", "h")
+    .style("width", "w")
+
+  </script>
+</body>
+```
+Renders:
+![output](svg.png)
+
+<hr>
+
+### Rendering shapes with SVG
+
+Adding a rect shap to the svg, with a width of 25, height of 100, x and y coordinates both 0
+
+```html
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    const w = 500;
+    const h = 100;
+
+    const svg = d3.select("body")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height",  h)
+                 
+                 svg.append("rect")
+                    .attr("x", 0)
+                    .attr("y", 0)
+                    .attr("width", 25)
+                    .attr("height", 100);
+
+  </script>
+</body>
+
+Renders:
+![output](svg2.png)
+
+<hr>
+
+```
+<body>
+  <script>
+    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
+
+    const w = 500;
+    const h = 100;
+
+    const svg = d3.select("body")
+                  .append("svg")
+                  .attr("width", w)
+                  .attr("height", h);
+
+    svg.selectAll("rect")
+       .data(dataset)
+       .enter()
+       .append('rect')
+
+       .attr("x", 0)
+       .attr("y", 0)
+       .attr("width", 25)
+       .attr("height", 100);
+  </script>
+</body>
+```
+
+Renders:
+![output](svg3.png)
+
+<hr>
+
 
