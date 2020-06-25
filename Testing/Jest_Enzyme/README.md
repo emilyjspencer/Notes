@@ -1,6 +1,30 @@
 # Testing React with Enzyme and Jest 
 
-# Jest and Jest Watch Mode
+* Jest is a test runner
+* Enzyme is a testing utility for React
+* enzyme-to-json enables the conversion of Enzyme wrappers for Jest snapshot matchers
+
+### **Benefits of Jest**
+
+* Interactive watch mode that only reruns the tests that re relevant to your changes - hence it is very fast, unlike rspec, which, by default, runs all of your tests
+* Offers snapshot testing
+* Good failure messages
+* Simple configuration
+
+### **Shallow rendering**
+
+* Shallow rendering renders only the component itself and not its children, so if part of a child component
+is modified, the shallow output of the parent component won't change. 
+* A problem with the child component won't break the parent component's test
+
+
+### **Jest snapshots**
+
+* A Jest snapshot is a rendered output of a component stored in a 
+text file.
+* Used to tell Jest that the output of a component shouldn't accidentally change and Jest saves it to a file
+
+### **Jest Watch Mode**
 
 * Enter jest watch mode by running:
 ```html
@@ -357,3 +381,39 @@ test('the counter display is incremented by 1 on each button click', () => {
 ```html
 button.simulate('click');
 ``` 
+
+## Snapshot Testing
+
+* Snapshot testing is a feature of Jest
+* Allows you to freeze a set of code or output at a certain point in time. Then the test will compare any future output against that snapshot or frozen output and the test will fail if there have been any changes
+* Snapshot testing isn't part of TDD i.e. tdd can't be used with snapshots as snapshots are written after a component has been written
+* Snapshots are brittle - any change to a component will break the snapshot test and so the snapshots tests break so frequently that it is easy to simply ignore the failures and update the snapshot regardless of what the changes were
+* Snapshots don't have any test intent - no description in the test
+* In general if snapshot testing is used, it’s used alongside the more traditional types of tests.
+
+Why use snapshots, - quite simply, they quickly alert the developer to any unexpected change in the code.
+
+A Snapshot serializer must be used:
+
+```html
+npm i -d enzyme-to-json
+```
+
+An example of a snapshot test:
+
+App.test.js
+
+```html
+// Code omitted for brevity
+
+describe('App', () => {
+    let wrapper;
+
+    beforeEach(() => wrapper = shallow(<App />));
+
+    it('should render correctly', () => {
+        expect(wrapper).toMatchSnapshot());
+    }
+}
+
+```
