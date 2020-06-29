@@ -6,7 +6,7 @@
 
 ### **Benefits of Jest**
 
-* Interactive watch mode that only reruns the tests that re relevant to your changes - hence it is very fast, unlike rspec, which, by default, runs all of your tests
+* Jest provides an interactive watch mode that only reruns the tests that are relevant to your changes - hence it is very fast, unlike RSpec, which, by default, runs all tests
 * Offers snapshot testing
 * Good failure messages
 * Simple configuration
@@ -16,6 +16,7 @@
 * Shallow rendering renders only the component itself and not its children, so if part of a child component
 is modified, the shallow output of the parent component won't change. 
 * A problem with the child component won't break the parent component's test
+* Shallow render tests are useful to test the component as a unit and NOT to test the behaviour of a component's child/children
 
 
 ### **Jest snapshots**
@@ -35,8 +36,8 @@ npm test
 q
 ```
 
-* What is Jest watch mode?
-Jest watch mode watches for changes and then reruns the tests based on any changes to the code
+#### What is Jest watch mode?
+* Jest watch mode watches for changes and then reruns the tests based on any changes to the code
 By default, watch mode only watches for changes since the last commit
 
 * If we want to run all of our tests, we can run them even if there haven't been any changes since the last commit, by running 
@@ -85,19 +86,22 @@ export default App;
 ```
 This test passes.
 
-By default, Create-React-App uses the React Testing Library 
 
-Just as is the case with RSpec and Jasmine, an expect() method is used to make assertions.
-The test() method is called, which has two arguments:
-1 - the name of the test/description
-2 - an anonymous function run by Jest. 
-If any errors are thrown, the test will fail
 
+* Just as is the case with RSpec and Jasmine, an expect() method is used to make assertions.
+* The test() method can called, which has two arguments:
+* 1 - the name of the test/description
+* 2 - an anonymous function run by Jest. 
+* If any errors are thrown, the test will fail
+* In place of test(), we can also use it(), just as we do with RSpec and Jasmine
+
+NB - By default, Create-React-App uses the React Testing Library 
+
+<hr>
 
 ## Enzyme
 
 Enzyme isn't shipped with Create-React-App so it needs to be installed.
-Three packages need to be installed:
 
 ```html
 npm install --save-dev enzyme jest-enzyme enzyme-adapter-react-16
@@ -105,7 +109,9 @@ npm install --save-dev enzyme jest-enzyme enzyme-adapter-react-16
 
 Saved as dependencies for testing purposes and not production
 Jest-enzyme - so Jest and Enzyme can talk to one another
-enzyme-adapter-react-16 - or whichever version of React that a developer is using. Used to tell Enzyme what type of code to expect
+enzyme-adapter-react-16 - or whichever version of React that a developer is using. Used to tell Enzyme what type of code to expect.
+Also, as of React 15.5, Enzyme required react-test-renderer, so this also needs to be installed
+
 
 <hr>
 
@@ -161,6 +167,7 @@ import Enzyme, { shallow } from 'enzyme';
 * When writing unit tests for React, shallow rendering can be helpful Shallow rendering allows developers to render elements that are only one level deep i.e.
 for a given parent component with various child components, those child components won't be rendered.
 *  Instead placeholders will take their place, and only the parent component will be rendered, therefore allowing for quicker testing.
+* This allows developers to test the component as a unit and avoid testing the behaviour of child components
 
 
 <hr>
@@ -315,6 +322,15 @@ instead of:
 const counterDisplay = wrapper.find("[data-test='counterDisplay']")
 ```
 
+beforeEach can also be used - as I did with the Calculator:
+
+```html
+describe('Calculator', () => {
+    
+  let wrapper;
+
+  beforeEach(() => wrapper = shallow(<Calculator />));
+```
 <hr>
 
 **Side Note - JS Docs**
@@ -381,6 +397,20 @@ test('the counter display is incremented by 1 on each button click', () => {
 ```html
 button.simulate('click');
 ``` 
+
+**containsMatchingElement()**
+
+**containsAllMatchingElements()**
+
+**instance()**
+
+**jest.fn()**
+
+**jest.spyOn()**
+
+**toHaveBeenCalledTimes()**
+
+<hr>
 
 ## Snapshot Testing
 
