@@ -151,6 +151,33 @@ Remove the test code and run npm test to check that the setup has been successfu
 
 <hr>
 
+
+### Summary of setup
+
+* Install Enzyme:
+```html
+npm install -d enzyme
+```
+
+* Add the test renderer and Enzyme adapter
+```html
+npm install -d react-test-renderer enzyme-adapter-react-16
+```
+
+* Add the snapshot serializer
+```html
+npm i -D enzyme-to-json
+```
+* Edit the setUpTests.js file:
+```html
+Import { configure } from ‘enzyme’;
+Import Adapter from ‘enzyme-adapter-react-16’;
+
+configure({ adapter: new Adapter() });
+```
+
+<hr>
+
 ## Using Enzyme in tests
 
 ### Shallow Rendering
@@ -397,6 +424,11 @@ test('the counter display is incremented by 1 on each button click', () => {
 ```html
 button.simulate('click');
 ``` 
+**toMatchSnapshot()** - is used in snapshot tests
+```html
+ expect(wrapper).toMatchSnapshot();
+```
+Snapshot tests automatically gets saved into a snapshots folder that is created upon creation of the first snapshot test
 
 **containsMatchingElement()**
 
@@ -409,6 +441,26 @@ button.simulate('click');
 **jest.spyOn()**
 
 **toHaveBeenCalledTimes()**
+
+<hr>
+
+### PropTypes
+
+Add prop-types:
+```html
+import PropTypes from 'prop-types';
+```
+
+An example of how to specify what type a prop should be:
+```html
+Display.propTypes = { displayValue: PropTypes.string.isRequired };
+```
+
+This specifies that the prop received should be of type 'string'
+
+
+prop-types allow developers to declare the intended types of properties(props) that are passed to components. 
+If the prop that is received is not what was expected (as specified in the declaration), an error is thrown.
 
 <hr>
 
