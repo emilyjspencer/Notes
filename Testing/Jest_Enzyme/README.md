@@ -432,11 +432,70 @@ Snapshot tests automatically gets saved into a snapshots folder that is created 
 
 **containsMatchingElement()**
 
-**containsAllMatchingElements()**
+**containsAllMatchingElements()** - is called on the wrapper object and takes an array of elements and returns true if all elements are found in the DOM tree e.g.
+```html
+it(‘should render the Display and Keypad components’, () => {
+  expect(wrapper.containsAllMatchingElements([
+  <Display displayValue={wrapper.instance().state.displayValue} />,
+  <Keypad 
+    callOperator={wrapper.instance().callOperators}
+    numbers={wrapper.instance().state.numbers{
+    operators={wrapper.instance().state.operators}
+    setOperator={wrapper.instance().setOperator}
+    updateDisplay={wrapper.instance().updateDisplay} />
+  })).toEqual(true);
+});
+```
+only instance() is used to access methods
+instance().state - is used to access variables
 
-**instance()**
 
-**jest.fn()**
+**instance()** - this method can be used on the wrapper object to access state variables and methods of a component e.g.
+```html
+it('should render an instance of the Display Component', () => {
+  expect(wrapper.containsMatchingElement(
+    <Display displayValue={wrapper.instance().state.displayValue} />
+  )).toEqual(true);
+});
+```
+
+**setProps()** - is called on the wrapper object and allows the developer to fake a value of a prop for the purpose of a test e.g.
+```html
+it(‘renders the value of displayValue’ . () => {
+  wrapper.setProps({ displayValue: ’hi’ });
+expect(wrapper.text()).toEqual(‘hi’);
+});
+```
+
+**text()** - is also called on the wrapper object and allows the developer to check that the prop value that they faked is actually being rendered 
+It returns a string of the rendered text of the current render tree e.g.
+```html
+it('renders the value of displayValue', () => {
+  wrapper.setProps({ displayValue: 'bye' });
+expect(wrapper.text()).toEqual('bye');
+});
+```
+
+**jest.fn()** is a Jest function that creates a mock function. Mock functions allow developers to test the links between code by erasing the actual implementation of a function and capturing calls to the function and the parameters passed in those calls. An example of jest.fn() in use:
+```html
+
+describe('Keypad', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(
+      <Keypad
+        callOperator={jest.fn()}
+        numbers={[]}
+        operators={[]}
+        setOperator={jest.fn()}
+        updateDisplay={jest.fn()}
+      />
+    );
+  });
+```
+Jest.fn() is used because the methods callOperator(), setOperator() and updateDisplay() belong in the Calculator component and the Keypad component doesn't have access to these methods
+
 
 **jest.spyOn()**
 
