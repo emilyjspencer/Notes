@@ -501,6 +501,19 @@ Jest.fn() is used because the methods callOperator(), setOperator() and updateDi
 
 **toHaveBeenCalledTimes()**
 
+**mount()** does a full render of the DOM - doesn't just render one level deep. Therefore, mount can be used in the following scenarios:
+* to test componentDidMount() 
+* to test componentDidUpdate()
+* to test DOM rendering
+* to test the behaviour of child components
+* to test component lifecycle
+
+Add mount to spec files like so:
+```html
+import { mount } from 'enzyme';
+```
+
+
 <hr>
 
 ### PropTypes
@@ -558,3 +571,10 @@ describe('App', () => {
 }
 
 ```
+
+When snapshot tests break due to changes in the UI, we can update the snapshot by either:
+running 'u' in the test runner, or by running the following in the command line:
+```html
+npm test --updateSnapshot
+```
+
