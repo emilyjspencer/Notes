@@ -2,6 +2,12 @@
 
 Supertest can be used to test endpoints
 
+Why use Supertest?
+What is wrong with using Postman as I did with the Student Register app - to send HTTP requests and check that the expected information was received/sent?
+
+Manual/functional as opposed to automated.
+All checks have to be made by the developer. It is much safer to use automated testing - unit tests, integration tests, end-to-end tests
+
 To install Supertest:
 
 ```html
