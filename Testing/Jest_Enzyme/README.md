@@ -587,3 +587,24 @@ Testing click events involves the following:
 * Creating a spy using the Jest spyOn method for the method under test
 * Calling forceUpdate() to re-render the instance within the test
 * Using Enzyme’s simulate() method on the corresponding component to create the event
+
+### Test Coverage Reporting
+
+* To generate a coverage report: 
+```html
+npm test -- --coverage
+```
+
+* To exclude specific files from the coverage report - package.json needs to be configured:
+* Add a jest object with the following:
+```html
+"jest": {
+  "collectCoverageFrom": [
+  "src/**/*.js",
+   "!src/fileName.js"
+]
+}
+```
+
+The ! (bang operator) is used to ignore a file
+A regular expression is used to find every JavaScript file in the src directory and all of its subdirectories

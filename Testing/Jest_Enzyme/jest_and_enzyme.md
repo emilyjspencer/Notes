@@ -6,7 +6,7 @@
 
 ### **Benefits of Jest**
 
-* Interactive watch mode that only reruns the tests that re relevant to your changes - hence it is very fast, unlike rspec, which, by default, runs all of your tests
+* Jest provides an interactive watch mode that only reruns the tests that are relevant to your changes - hence it is very fast, unlike RSpec, which, by default, runs all tests
 * Offers snapshot testing
 * Good failure messages
 * Simple configuration
@@ -16,6 +16,7 @@
 * Shallow rendering renders only the component itself and not its children, so if part of a child component
 is modified, the shallow output of the parent component won't change. 
 * A problem with the child component won't break the parent component's test
+* Shallow render tests are useful to test the component as a unit and NOT to test the behaviour of a component's child/children
 
 
 ### **Jest snapshots**
@@ -35,8 +36,8 @@ npm test
 q
 ```
 
-* What is Jest watch mode?
-Jest watch mode watches for changes and then reruns the tests based on any changes to the code
+#### What is Jest watch mode?
+* Jest watch mode watches for changes and then reruns the tests based on any changes to the code
 By default, watch mode only watches for changes since the last commit
 
 * If we want to run all of our tests, we can run them even if there haven't been any changes since the last commit, by running 
@@ -85,19 +86,22 @@ export default App;
 ```
 This test passes.
 
-By default, Create-React-App uses the React Testing Library 
 
-Just as is the case with RSpec and Jasmine, an expect() method is used to make assertions.
-The test() method is called, which has two arguments:
-1 - the name of the test/description
-2 - an anonymous function run by Jest. 
-If any errors are thrown, the test will fail
 
+* Just as is the case with RSpec and Jasmine, an expect() method is used to make assertions.
+* The test() method can called, which has two arguments:
+* 1 - the name of the test/description
+* 2 - an anonymous function run by Jest. 
+* If any errors are thrown, the test will fail
+* In place of test(), we can also use it(), just as we do with RSpec and Jasmine
+
+NB - By default, Create-React-App uses the React Testing Library 
+
+<hr>
 
 ## Enzyme
 
 Enzyme isn't shipped with Create-React-App so it needs to be installed.
-Three packages need to be installed:
 
 ```html
 npm install --save-dev enzyme jest-enzyme enzyme-adapter-react-16
@@ -105,7 +109,9 @@ npm install --save-dev enzyme jest-enzyme enzyme-adapter-react-16
 
 Saved as dependencies for testing purposes and not production
 Jest-enzyme - so Jest and Enzyme can talk to one another
-enzyme-adapter-react-16 - or whichever version of React that a developer is using. Used to tell Enzyme what type of code to expect
+enzyme-adapter-react-16 - or whichever version of React that a developer is using. Used to tell Enzyme what type of code to expect.
+Also, as of React 15.5, Enzyme required react-test-renderer, so this also needs to be installed
+
 
 <hr>
 
@@ -145,6 +151,33 @@ Remove the test code and run npm test to check that the setup has been successfu
 
 <hr>
 
+
+### Summary of setup
+
+* Install Enzyme:
+```html
+npm install -d enzyme
+```
+
+* Add the test renderer and Enzyme adapter
+```html
+npm install -d react-test-renderer enzyme-adapter-react-16
+```
+
+* Add the snapshot serializer
+```html
+npm i -D enzyme-to-json
+```
+* Edit the setUpTests.js file:
+```html
+Import { configure } from ‘enzyme’;
+Import Adapter from ‘enzyme-adapter-react-16’;
+
+configure({ adapter: new Adapter() });
+```
+
+<hr>
+
 ## Using Enzyme in tests
 
 ### Shallow Rendering
@@ -161,6 +194,7 @@ import Enzyme, { shallow } from 'enzyme';
 * When writing unit tests for React, shallow rendering can be helpful Shallow rendering allows developers to render elements that are only one level deep i.e.
 for a given parent component with various child components, those child components won't be rendered.
 *  Instead placeholders will take their place, and only the parent component will be rendered, therefore allowing for quicker testing.
+* This allows developers to test the component as a unit and avoid testing the behaviour of child components
 
 
 <hr>
@@ -315,6 +349,15 @@ instead of:
 const counterDisplay = wrapper.find("[data-test='counterDisplay']")
 ```
 
+beforeEach can also be used - as I did with the Calculator:
+
+```html
+describe('Calculator', () => {
+    
+  let wrapper;
+
+  beforeEach(() => wrapper = shallow(<Calculator />));
+```
 <hr>
 
 **Side Note - JS Docs**
@@ -381,6 +424,117 @@ test('the counter display is incremented by 1 on each button click', () => {
 ```html
 button.simulate('click');
 ``` 
+**toMatchSnapshot()** - is used in snapshot tests
+```html
+ expect(wrapper).toMatchSnapshot();
+```
+Snapshot tests automatically gets saved into a snapshots folder that is created upon creation of the first snapshot test
+
+**containsMatchingElement()**
+
+**containsAllMatchingElements()** - is called on the wrapper object and takes an array of elements and returns true if all elements are found in the DOM tree e.g.
+```html
+it(‘should render the Display and Keypad components’, () => {
+  expect(wrapper.containsAllMatchingElements([
+  <Display displayValue={wrapper.instance().state.displayValue} />,
+  <Keypad 
+    callOperator={wrapper.instance().callOperators}
+    numbers={wrapper.instance().state.numbers{
+    operators={wrapper.instance().state.operators}
+    setOperator={wrapper.instance().setOperator}
+    updateDisplay={wrapper.instance().updateDisplay} />
+  })).toEqual(true);
+});
+```
+only instance() is used to access methods
+instance().state - is used to access variables
+
+
+**instance()** - this method can be used on the wrapper object to access state variables and methods of a component e.g.
+```html
+it('should render an instance of the Display Component', () => {
+  expect(wrapper.containsMatchingElement(
+    <Display displayValue={wrapper.instance().state.displayValue} />
+  )).toEqual(true);
+});
+```
+
+**setProps()** - is called on the wrapper object and allows the developer to fake a value of a prop for the purpose of a test e.g.
+```html
+it(‘renders the value of displayValue’ . () => {
+  wrapper.setProps({ displayValue: ’hi’ });
+expect(wrapper.text()).toEqual(‘hi’);
+});
+```
+
+**text()** - is also called on the wrapper object and allows the developer to check that the prop value that they faked is actually being rendered 
+It returns a string of the rendered text of the current render tree e.g.
+```html
+it('renders the value of displayValue', () => {
+  wrapper.setProps({ displayValue: 'bye' });
+expect(wrapper.text()).toEqual('bye');
+});
+```
+
+**jest.fn()** is a Jest function that creates a mock function. Mock functions allow developers to test the links between code by erasing the actual implementation of a function and capturing calls to the function and the parameters passed in those calls. An example of jest.fn() in use:
+```html
+
+describe('Keypad', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = shallow(
+      <Keypad
+        callOperator={jest.fn()}
+        numbers={[]}
+        operators={[]}
+        setOperator={jest.fn()}
+        updateDisplay={jest.fn()}
+      />
+    );
+  });
+```
+Jest.fn() is used because the methods callOperator(), setOperator() and updateDisplay() belong in the Calculator component and the Keypad component doesn't have access to these methods
+
+
+**jest.spyOn()**
+
+**toHaveBeenCalledTimes()**
+
+**mount()** does a full render of the DOM - doesn't just render one level deep. Therefore, mount can be used in the following scenarios:
+* to test componentDidMount() 
+* to test componentDidUpdate()
+* to test DOM rendering
+* to test the behaviour of child components
+* to test component lifecycle
+
+Add mount to spec files like so:
+```html
+import { mount } from 'enzyme';
+```
+
+
+<hr>
+
+### PropTypes
+
+Add prop-types:
+```html
+import PropTypes from 'prop-types';
+```
+
+An example of how to specify what type a prop should be:
+```html
+Display.propTypes = { displayValue: PropTypes.string.isRequired };
+```
+
+This specifies that the prop received should be of type 'string'
+
+
+prop-types allow developers to declare the intended types of properties(props) that are passed to components. 
+If the prop that is received is not what was expected (as specified in the declaration), an error is thrown.
+
+<hr>
 
 ## Snapshot Testing
 
@@ -417,3 +571,40 @@ describe('App', () => {
 }
 
 ```
+
+When snapshot tests break due to changes in the UI, we can update the snapshot by either:
+running 'u' in the test runner, or by running the following in the command line:
+```html
+npm test --updateSnapshot
+```
+### Testing click events
+
+When writing tests to check for calls to the individual methods when the event occurs - e.g. a button click, these tests should be put in their own describe blocks and mount should be used.
+This is because the behaviour of the child components is to be tested
+
+Testing click events involves the following:
+
+* Creating a spy using the Jest spyOn method for the method under test
+* Calling forceUpdate() to re-render the instance within the test
+* Using Enzyme’s simulate() method on the corresponding component to create the event
+
+### Test Coverage Reporting
+
+* To generate a coverage report: 
+```html
+npm test -- --coverage
+```
+
+* To exclude specific files from the coverage report - package.json needs to be configured:
+* Add a jest object with the following:
+```html
+"jest": {
+  "collectCoverageFrom": [
+  "src/**/*.js",
+   "!src/fileName.js"
+]
+}
+```
+
+The ! (bang operator) is used to ignore a file
+A regular expression is used to find every JavaScript file in the src directory and all of its subdirectories
