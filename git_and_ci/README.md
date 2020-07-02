@@ -23,7 +23,7 @@ git checkout -b name_of_branch
 
  ### Do a soft reset - will remove things from the staging area
  ```html
- git reset HEAD
+git reset --soft HEAD^ 
  ```
  ### HEAD - refers to the current branch
 
