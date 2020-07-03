@@ -4,7 +4,7 @@
 * Ideally, tasks should be delegated to other components
 * There are two types of components - stateful(clever) components and presentational(dumb) components
 * The former typically manages state
-* The latter tend to haveresponsibility for styling etc
+* The latter tend to have responsibility for styling etc
 * It is common to have far more presentational components in a React application than stateful components  
 
 * Rendering content dynamically 
@@ -1116,7 +1116,7 @@ const rabbit = (props) => {
 export default rabbit;
 ```
 
-### Styling React Application
+### Styling React Applications
 
 * There are different ways to style React components
 * 1 - Use stylesheets
@@ -1224,6 +1224,31 @@ render()
 ```
 
 With the above, if items have a completed status of true - a line will appear through them (once the user has checked the checkbox) - otherwise, the todo items don't have a line through them.
+
+### Material UI
+
+Another option is to use Material UI. Material UI is similar to BootStrap but it is a little more sophisticated and better suited to React applications.
+
+* To install Material UI:
+
+```html
+npm install —save @material-ui/core
+```
+* To use Material UI in an application:
+
+```html
+import React from ‘react’;
+import { Button } from ‘@material-ui/core’;
+
+function App() {
+  return <Button color=“primary”>Hello World</Button>;
+}
+```
+
+Whichever component/components you want to use need to be imported at the top
+
+* <Typography></Typography> component is used for text
+
 
 
 ### **Conditionals and conditional rendering**
@@ -1572,6 +1597,23 @@ this.setState() should never be placed in the render() method
 * componentDidMount() is a good place to put API calls, calls to a server and/or add event listeners
 * State can be modified in componentDidMount() - for the purpose of modals, tooltips etc, but the best place to modify
 state is in the constructor
+* When componentDidMount() is used to make calls to an API with async ....await, the async needs to be placed IN FRONT of componentDidMount(), rather than after it e.g.
+
+```html
+ async componentDidMount() {
+      const fetchedData = await fetchData();
+
+      this.setState({ data: fetchedData });
+
+  }
+```
+
+versus
+
+```html
+const fetchData = async () => {
+```
+
 
 
 **constructor**
