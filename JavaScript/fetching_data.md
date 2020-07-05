@@ -8,8 +8,9 @@ The fetching of data can be achieved in various ways:
 * jQuery's $.ajax() function can be used to make requests.
 * Axios
 
-* Axios is a promise-based (just like Fetch) client HTTP API based on the XMLHttpRequest interface provided by browsers
-
+* Axios is a promise-based (just like Fetch) client HTTP API based on the XMLHttpRequest interface provided by browsers.
+* It allows for the sending of asynchronous HTTP requests to REST endpoints and the performing of CRUD operations.
+* It can be used with vanilla JavaScript or libraries such as React.
 * Requests with Axios will default to 'get' if no method is specified
 
 Making a post request with axios:
@@ -47,11 +48,12 @@ axios.post('/greetings', {
   ```
 If the promise is fulfilled, the first argument of then() will be called
 If the promise is rejected, the second argument will be called. 
-The fulfillment value is an object containing :
+The fulfillment value is a response object consisting of :
 * data
-* status
+* status e.g. 200
 * statusText
 * headers 
+* request 
 
 Axios can also make mutliple requests simultaneously by passing an array of arguments to the axios.all() method
 This returns a single promise object that resolves only when all arguments passed as an array have resolved.
@@ -84,5 +86,31 @@ axios.all([
   }));
   ```
 
+Axios also provides the means to protect against XSRD (cross-site request forgery), by enabling the ability to embed authentication data when making requests.
+This allows the server to identify requests from unauthorized locations. 
+
+```html
+const explore = {
+  method: 'post',
+  url: '/testing',
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+};
+
+// send the request
+axios(options);
+```
 
 ### Using Axios with async......await
+
+For a function to use await, the function itself has to be wrapped as an async function
+
+async makeGetRequest = () => {
+    let result = await axios.get('http://idontknow.com/carebear');
+
+    let data = result.data
+    console.log(data);
+}
+
+makeGetRequest();
+```
