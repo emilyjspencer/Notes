@@ -4,7 +4,7 @@
 * Ideally, tasks should be delegated to other components
 * There are two types of components - stateful(clever) components and presentational(dumb) components
 * The former typically manages state
-* The latter tend to haveresponsibility for styling etc
+* The latter tend to have responsibility for styling etc
 * It is common to have far more presentational components in a React application than stateful components  
 
 * Rendering content dynamically 
@@ -439,16 +439,72 @@ lifecycle method - render()
 changes, the component re-renders to reflect the new state in the browser
 
 * With functional components, we can use the hook useState() to manage state
-* Any functions that start with 'use' in React are hook functions
-*  useState() returns an array of exactly two elements
-
-* 1 - latest state snapshot 
-
-* 2 - a function that allows us to update that state and tell React that it should re-render - usually starts with 'set'
-
-
+* Calling the useState hook returns an array with two values - 
+1 - the state itself/the latest state snapshot
+2 - the function to change the state - this function allows deve to update the state and tells React that it should re-render. Best to start this method with 'set'
+* NB - Any functions that start with 'use' in React are hook functions
 * useState only initialises that state when the component is rendered for the first time
 * And for subsequent re-render cycles - it just pulls out the latest state snapshot and and ignores the initial value we set
+
+Example of the useState hook in action:
+```html
+function Radio() {
+const [isPlaying, setIsPlaying] = useState(true);
+<div className=“radio”>
+  The radio is {isPlaying? “Playing” : “not playing”}
+<br />
+<button onClick={() => setIsPlaying(!isPlaying)}>
+  On/Off
+</button>
+</div>
+```
+
+When the button is clicked, the setIsPlaying method is called and changes the state to be the opposite of what it currently is (toggles it)
+e.g.
+If the radio isn’t playing - it changes it to is playing, and vice versa
+
+The button onClick={() =>  must be wrapped with an arrow function as it delays execution of the method until the button is clicked - the function is only executed when the button is clicked
+If we don’t wrap it in an arrow function - the setIsPlaying function will be invoked before the button is even rendered
+
+The setIsPlaying() method does two things: 
+1 - changes the state
+2 - then it re-renders the component
+
+If you just change the variable directly, React has no way of knowing that it changed, and it won’t re-render
+isPlaying is a regular old variable that will go out of scope at the end of the function and any changes to it would be lost
+So that’s why it’s important to call the setter, so that React can update the value of that hook’s state behind the scenes
+
+
+### useEffect hook
+```html
+
+React.useEffect(() => {
+  axios.get(`https://www.fakeapi.json`)
+    .then(res => {
+      const newListings = res.data.data.children
+      .map(obj => obj.data);
+setListings(newListings);
+});
+}, []);
+
+```
+* The useEffect hook gets passed a function.
+* useEffect then 'queues up' that function to run after render is done.
+* Here, the effect calls axios.get to fetch data from the fake API, which returns a promise,  and the .then handler will get called once the fetch is finished.
+The fake Api returns the listings in a  deeply-nested structure, so the res.data.data.children.map... is picking out the individual posts from the nested structure.
+
+Finally, it updates the listings state by calling setListing 
+
+
+### useEffect Dependency Array
+
+
+
+
+
+
+
+<hr>
 
 
 App.js
@@ -1116,7 +1172,7 @@ const rabbit = (props) => {
 export default rabbit;
 ```
 
-### Styling React Application
+### Styling React Applications
 
 * There are different ways to style React components
 * 1 - Use stylesheets
@@ -1224,6 +1280,31 @@ render()
 ```
 
 With the above, if items have a completed status of true - a line will appear through them (once the user has checked the checkbox) - otherwise, the todo items don't have a line through them.
+
+### Material UI
+
+Another option is to use Material UI. Material UI is similar to BootStrap but it is a little more sophisticated and better suited to React applications.
+
+* To install Material UI:
+
+```html
+npm install —save @material-ui/core
+```
+* To use Material UI in an application:
+
+```html
+import React from ‘react’;
+import { Button } from ‘@material-ui/core’;
+
+function App() {
+  return <Button color=“primary”>Hello World</Button>;
+}
+```
+
+Whichever component/components you want to use need to be imported at the top
+
+* <Typography></Typography> component is used for text
+
 
 
 ### **Conditionals and conditional rendering**
@@ -1572,6 +1653,23 @@ this.setState() should never be placed in the render() method
 * componentDidMount() is a good place to put API calls, calls to a server and/or add event listeners
 * State can be modified in componentDidMount() - for the purpose of modals, tooltips etc, but the best place to modify
 state is in the constructor
+* When componentDidMount() is used to make calls to an API with async ....await, the async needs to be placed IN FRONT of componentDidMount(), rather than after it e.g.
+
+```html
+ async componentDidMount() {
+      const fetchedData = await fetchData();
+
+      this.setState({ data: fetchedData });
+
+  }
+```
+
+versus
+
+```html
+const fetchData = async () => {
+```
+
 
 
 **constructor**
@@ -1841,4 +1939,145 @@ e.g.
 
 This puts a space between the checkbox and the todo list item.
 
+<hr>
 
+### Fetching Data with HTTP libraries
+
+React is only concerned with the UI. If we want to fetch data from an API, we need an HTPP library. The most commonly used libraries are:
+* Fetch
+* Axios - most popular
+
+Axios needs to be imported
+```html
+import axios from 'axios';
+```
+
+Adds axios as a dependency:
+```html
+npm install --save axios
+```
+
+### Using axios
+
+An example of using axios in a class-based component:
+
+```html
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class Trip extends Component {
+  state = {
+    locations: []
+  };
+
+  componentDidMount() {
+    this.getLocations;
+  }
+
+  getLocations = () => {
+    axios.get("https://tripplanner.com/132n2r")
+      .then(data => this.setState({ locations: data.data.data }))
+        .catch(err => {
+          console.log(err);
+          return null;
+        });
+
+  .............
+  ```
+
+An example of using axios in a class-based component with async...await - perhaps the easiest way to fetch data
+
+```html
+ getCharacters = async ()  => {
+  try {
+    const response = await axios.get('/character?ID=12345');
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
+```
+
+* For a function to use await, the function itself has to be wrapped as an async function
+
+```html
+getCharacters = async () => {
+  let result = await axios.get("https://fhdsoifhodsifisfisdf")'
+  let { data } = result.data;
+  this.setState({ characters: data});
+}
+```
+
+The difference between a asynchronous function and a synchronous function lies in the fact that asynchronous functions don't block the processing of the code below them
+
+* To make a POST request, pass the params in a seocond argument to the post() method on axios:
+```html
+axios.post('http://hellothisisatest.com', { location: 'London' })
+```
+
+* Axios can also make multiple requests simultaneously by passing an array of arguments to the axios.all() method
+* This returns a single promise object that resolves only when all arguments passed as an array have resolved.
+
+```html
+
+axios.all([
+  axios.get('https://iamatest.com/testing'),
+  axios.get('https://iamalsoatest.com/testing')
+])
+.then(response -> {
+    console.log('Data fetched 1', response[0].test),
+    console.log('Data fetched 2', response[1].test)
+});
+```
+
+Here, two requests are made to this fake aPI.
+The values of the test property of each response is console.logged.
+
+* Axios also provides the spread() method to assign the properties of the response array to separate variables. 
+
+```html
+axios.all([
+  axios.get('https://api.animallover.com/animals'),
+  axios.get('https://api.animallover.com/animals/kangaroo')
+  ])
+  .then(axios.spread((animal1, animal2) =. {
+      console.log('Data fetched 1: ', animal1.data.test);
+      console.log('data fetched2: ', animal2.data.test);
+  }));
+  ```
+
+Axios also provides the means to protect against XSRD (cross-site request forgery), by enabling the ability to embed authentication data when making requests.
+This allows the server to identify requests from unauthorized locations. 
+
+```html
+const explore = {
+  method: 'post',
+  url: '/testing',
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+};
+
+// send the request
+axios(options);
+```
+
+### ES6 Destructuring syntax
+
+
+ES6’s destructuring syntax can be used to pull the values out of the props object e.g.
+
+```
+
+Hi = ({ name }) => {
+  return <div>Hello {name}! </div>;
+}
+
+instead of 
+
+Hi = ({ props }) => {}
+  return <div>Hello {props.name} </div>;
+}
+
+```
+It saves developers from having to write props.name   props.age   props.hairColor etc
+and makes it clear, which props the component expects
