@@ -2111,7 +2111,7 @@ The above prints 'Button was clicked....' to the console upon each button click
 * Counters and events
 
 ```html
-import React { useState}, from React;
+import React, { useState} from React;
 
 const App = () => {
 
@@ -2132,6 +2132,7 @@ const [value, setValue] = useState(0);
   );
 }
 ```
+
 The button has an onClick attribute that received the handleClick function. This is triggered when the button is pressed.
 The initial value of the counter is 0, but this value is increased upon each count, by incrementing the value by one, passing it to the setValue function, which updates the state
 
@@ -2161,3 +2162,45 @@ The event is a synthetic event adds some functionality to the native HTML event
 The event returns the value from the input field every time someone types into it with the event’s target property
 
 ![input](input.png)
+
+* Inline event handlers/ inline handlers
+
+Inline handlers are an option, but can make the code less readable.
+
+Another counter:
+
+```html
+import React, { useState } from 'react';
+ 
+const App = () => {
+  const [count, setCount] = useState(0);
+ 
+  return (
+    <div>
+      Count: 
+      {count}
+      <br />
+      <br />
+      <button
+        type="button"
+        onClick={() => setCount(count + 1)}
+      >
+        Increase Count
+      </button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Renders as follows:
+
+![count](count.png)
+
+* Callback event handlers/callback handlers
+
+Callback handlers are used for the purpose of child - parent communication.
+Props are only passed down the component tree, so callback handlers are used to communicate in the other direction.
+
+
