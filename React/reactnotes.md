@@ -2081,3 +2081,83 @@ Hi = ({ props }) => {}
 ```
 It saves developers from having to write props.name   props.age   props.hairColor etc
 and makes it clear, which props the component expects
+
+
+### Events
+
+The most basic example of how of event handling in React is with a button.
+A button has an onClick attribute which receives a function. This function is then invoked when there event occurs i.e. the button is clicked
+
+```html
+import React from 'react';
+ 
+const App = () => {
+
+  handleClick = () => {
+    console.log('Button was clicked....');
+  }
+ 
+  return (
+    <div>
+      <button type="button" onClick={handleClick}>
+       Click Me
+      </button>
+    </div>
+  );
+}
+```
+The above prints 'Button was clicked....' to the console upon each button click
+
+* Counters and events
+
+```html
+import React { useState}, from React;
+
+const App = () => {
+
+const [value, setValue] = useState(0);
+ 
+   handleClick = () => {
+    setValue(value + 1);
+  }
+ 
+  return (
+    <div>
+      Value: {value}
+ 
+      <button type="button" onClick={handleClick}>
+        Increase value
+      </button>
+    </div>
+  );
+}
+```
+The button has an onClick attribute that received the handleClick function. This is triggered when the button is pressed.
+The initial value of the counter is 0, but this value is increased upon each count, by incrementing the value by one, passing it to the setValue function, which updates the state
+
+* Input fields and events
+
+Example of an input field instead of a button
+
+```
+const App = () => {
+  const [text, setText] = useState('');
+ 
+  handleChange = (event) => {
+    setText(event.target.value);
+  }
+ 
+  return (
+    <div>
+      <input type="text" onChange={handleChange} />
+      {text}
+    </div>
+  );
+}
+
+```
+The input field has an onChange attribute that receives a function - the handleChange function, which takes an event as an arguemtn
+The event is a synthetic event adds some functionality to the native HTML event
+The event returns the value from the input field every time someone types into it with the event’s target property
+
+![input](input.png)
