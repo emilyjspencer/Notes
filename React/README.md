@@ -1787,6 +1787,8 @@ Often this will be an id
 * React components also have several methods that provide opportunities to perform actions at specific points in a component's lifecycle. 
 * They let you define pieces of code you want to execute according to the state of the component like mounting, rendering, updating and un-mounting.
 
+### Mounting/creation phase
+
 * In the mounting phase - four lifecycle methods can be called, of which the only obligatory one is render(), which is
 responsible for rendering 
 
@@ -1843,8 +1845,43 @@ Furthermore, side effects shouldn't be caused in this lifecycle hook.
 ![mounting](mounting.png)
 
 
+### Update phase - component update lifecycle
+
+This stage occurs when the state changes or when props change - which trigger a re-render
+
+The Update lifecycle begins with the execution of the getDerivedStateFromProps() lifecycle hook
+
+##### getDerivedStateFromProps(props, state)
 
 
+##### shouldComponentUpdate
+Then the shouldComponentUpdate(nextProps, nextState) lifecycle hook is executed
+
+
+##### shouldComponentUpdate()
+The shouldComponentUpdate() lifecycle hook allows you to cancel the updating process
+
+* Here you can decide whether you want React to continue evaluating and re-rendering the component - for the purpose of performance optimization
+* Powerful because it allows you to prevent unnecessary update cycles
+
+### render()
+Then the render() method is called - it constructs the virtual DOM for the developer and checks whether it needs to update the real DOM
+
+React then updates all the child components of this component.
+
+### getSnapshotBeforeUpdate()
+Then the getSnapshotBeforeUpdate() lifecycle hook is executed
+
+This takes the previous props and previous state as arguments and returns a snapshot object. 
+It is something of a niche hook  - not used that often. Used for last-minute DOM operations e.g. getting the current scrolling position of the user. Returns a snapshot of these previous props and state
+
+
+### componentDidUpdate()
+Then componentDidUpate() is called. This signals that the updating is finished. Here, side effects are permitted.
+
+componentDidUpdate() should not be called synchronously
+
+  ![update](update.png)
 
 
 <hr>
@@ -1950,17 +1987,97 @@ const deleteStudent = async (id) => {
 
 ### **Hooks**
 
-**useEffect()** - is a React hook
-It allows you to perform side effects in functional components
-What sort of things can be described as a side effect:
-
+**useEffect()** - is a React hook (for functional components naturall)
+* useEffect combines the functionality of all of the class-based lifecycle hooks (which can only be used in classical components)
+* It allows you to perform side effects in functional components
 - fetching data
 - manually changing the DOM
-setting up a subscription -
-(what is meant by setting up a subscription?)
+- setting up a subscription
+
 
 **useEffect()** is sort of like a combination of componentDidMount(),
 componentDidUpdate() and componentWillUnmount()
+
+* componentDidMount() for example is where the developer will make calls to an API, set a timer etc
+
+* By default, useEffect() takes a function that will run for every render cycle
+```html
+useEffect(() => {
+  //////add code 
+}
+```
+This function will be run for every render cycle - runs for every update i.e. state change
+
+### Controlling the behaviour of useEffect
+
+The second argument that is passed to useEffect is always an array and is used to point to all of the variables/data on which the effect depends/ that are used in the effect.
+
+Adding a second argument to the useEffect hook allows the developer to control when the useEffect hook is executed.
+
+```html
+useEffect(() => {
+
+  setTimeout(() => {
+    alert('Fetching data');
+  }, 3000);
+}, [props.animals]);
+```
+
+If there are more effects that depend on different data, multiple useEffect hooks can be used.
+
+An empty array can be passed instead of the data/variables on which the effect depends, if the developer wanted the useEffect hook to only be exeuted when the component is rendered for the first time:
+```html
+useEffect(() => {
+
+  setTimeout(() => {
+    alert('Fetching data');
+  }, 3000);
+}, []);
+```
+Making the second argument that is passed to the useEffect hook an empty array tells React that the effect has no dependencies. Since it should rerun whenever the dependencies change, and the dependencies won't change because there aren't any, the effect will never rerun.
+It will only run once - for the first time - as this is the default.
+
+### useEffect used for cleanup work
+
+The useEffect hook can be used for cleanup work in the same way that componentWillUnmount() is used in classical components to perform any necessary cleanup e.g. canceling network requests, cleaning up any subscriptions that were created in componentDidMount(), invalidating timers
+
+In componentWillUnmount - any code that needs to be run right before the component is removed can be put in componentDidMount()
+
+In the context of functional components - the function that is passed to the useEffect hook can return a function that will run after the first render
+
+```html
+useEffect(() => {
+   
+    const timer = setTimeout(() => {
+      alert('Fetching data');
+    }, 3000);
+    return () => {
+      clearTimeout(timer)
+    };
+  }, []);
+```
+
+The clearTimeout() method clears the timer that was set with the setTimeout() method.
+
+
+### Performance optimization
+
+### Performance optimization with classical components
+
+
+
+### Performance optimization with functional components
+
+With functional components, React.memo can be used.
+
+The entire component needs to be wwrapped with React.memo
+
+```html
+export default React.memo(App)
+```
+
+This uses an optimization technique called memoization. Works by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
+
 
 <hr>
 
