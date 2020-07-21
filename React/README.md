@@ -7,6 +7,11 @@
 * The latter tend to have responsibility for styling etc
 * It is common to have far more presentational components in a React application than stateful components  
 
+From the React docs:
+
+"Components let you split the UI into independent, reusable pieces, and think about each piece in isolation."
+
+
 * Rendering content dynamically 
 
 ```html
@@ -432,11 +437,16 @@ The above renders as follows:
 
 * **State** the state of a component is an object that holds some information that may change over the lifetime of the component
 * It is used to change the component from within 
+* Allows React components to change their output over time in response to user actions, network responses etc.
 * State is a property of the Component class
+* State is  not accessible to any component other than the one that owns and sets it
+* A component's state can be passed down as props to its child components - top-down/unidirectional data flow. 
+
 * It can be accessed via this.state in classical components, which is returned in the
 lifecycle method - render() 
 * Changes to the state result in an update of the UI - when the state
 changes, the component re-renders to reflect the new state in the browser
+* With classical components, the only place where you can assign this.state is the constructor
 
 * With functional components, we can use the hook useState() to manage state
 * Calling the useState hook returns an array with two values - 
@@ -1305,6 +1315,114 @@ Whichever component/components you want to use need to be imported at the top
 
 * <Typography></Typography> component is used for text
 
+### Radium
+
+Radium is a useful package that enables developers to make use of pseudoselectors and media queries with inline styles.
+Without using Radium, these can't be used in the context of inline styling.
+
+The package needs to be installed:
+
+```html
+npm install radium --save
+```
+It needs to be imported into the file in which it is to be used:
+```html
+import Radium form 'radium';
+```
+
+Radium needs to wrap the component in the export:
+```html
+export default Radium(App);
+```
+
+* Radium now provides extra functionality to the App component.
+* It can be used with both functional and classical components.
+
+##### Radium and media queries
+
+An extra StyleRoot component needs to be added when using Radium for the purpose of using media queries with inline styles:
+
+```html
+import Radium, { StyleRoot } from 'radium';
+```
+
+Everything in the return statement then has to be wrapped in this StyleRoot component:
+```html
+return (
+      <StyleRoot>
+      <div className="App">
+        <h1>Test</h1>
+        <p className={classes.join(' ')}>Still testing</p>
+        <button
+          style={style}
+          onClick={this.toggleName}>Toggle Name</button>
+        {characters}
+      </div>
+      </StyleRoot>
+    );
+  ```
+  <hr>
+
+  ### Styled Components
+
+  Styled components can be used for the purpose of styling
+  The styled components library needs to be installed:
+  ```html
+  npm install --saved styled-components"
+  ```
+
+  Needs to be imported into the specific files:
+  ```html
+  import styled from 'styled-components'
+  ```
+
+  The styled object has a method for every html element that exists e.g. .div 
+  .h1 .p  etc
+  These methods when called don't utilize the usual parentheses (), rather they use two backticks ``
+
+  ```html
+  import React from 'react';
+  import styled from 'styled-components';
+
+  const StyledDiv = styled.div`
+    width: 60%;
+              margin: 16px auto;
+              border: 1px solid blue;
+              box-shadow: 0 2px 3px;
+              padding: 16px;
+              text-align: center;
+
+}
+`;
+
+const Person = (props) => {
+
+    const style = {
+        '@media (min-width: 500px)': {
+            width: '450px'
+        }
+
+    };
+
+    return (
+     
+        <div>
+         <StyledDiv>
+        <h1 onClick={props.click}>I am called {props.name}</h1>
+        <h2>I am {props.age} years old</h2>
+        {props.children}
+        <input type="text" onChange={props.changed} value={props.name}></input>
+        </StyledDiv>
+        </div>
+    )
+}
+
+
+export default Person;
+  ```
+
+The result of called the div() method on the styled object is stored in the variable called
+StyledDiv ----  const StyledDiv
 
 
 ### **Conditionals and conditional rendering**
@@ -1480,7 +1598,6 @@ if(this.state.showAnimals) {
 
 So, by default animals is null
 
-Paste the content - the Cat, Dog and Rabbit instances in the if statement and then render the animals variable in its place :
 
 ```html
 import React, { Component } from 'react';
@@ -1600,6 +1717,44 @@ export default App;
 ```
 * When the button is clicked, the content is rendered, when the button is clicked again, the content is hidden. 
 
+More conditional rendering (example taken from the React docs):
+
+```html
+class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+  }
+
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
+
+    return (
+      <div>
+        <Greeting isLoggedIn={isLoggedIn} />
+        {button}
+      </div>
+    );
+  }
+}
+```
+
 ### **Lists**
 
 ```html
@@ -1681,7 +1836,11 @@ const fetchData = async () => {
 
 **getDerivedStateFromProps** - is called just before the elements are rendered in the DOM
 
+getDerivedStateFromProps()
+After the constructor() runs - getDerivedStateFromProps() is executed. The idea is that whenever the props change - you can sink your state to them. This lifecycle hook isn't used a lot.                   
+Furthermore, side effects shouldn't be caused in this lifecycle hook.
 
+![mounting](mounting.png)
 
 
 
@@ -1919,6 +2078,14 @@ e.g.
 ```html
 this.handleClick = this.handleClick.bind(this)
 ```
+From the React docs:
+ "In JavaScript, class methods are not bound by default. If you forget to bind this.handleClick and pass it to onClick, this will be undefined when the function is actually called. This is not React-specific behaviour; it is a part of how functions work in JavaScript. Generally, if you refer to a method without the () after it, such as 
+ ```html
+ onClick={this.handleClick}
+ ```
+ you should bind that method.
+
+
 
 
 ### Adding spaces in React 
@@ -2085,7 +2252,9 @@ and makes it clear, which props the component expects
 
 ### Events
 
-The most basic example of how of event handling in React is with a button.
+* React events are named using camelCase
+* With JSX, a function is passed as the event handler, rather than a string.
+* The most basic example of how of event handling in React is with a button.
 A button has an onClick attribute which receives a function. This function is then invoked when there event occurs i.e. the button is clicked
 
 ```html
@@ -2204,3 +2373,76 @@ Callback handlers are used for the purpose of child - parent communication.
 Props are only passed down the component tree, so callback handlers are used to communicate in the other direction.
 
 
+
+
+
+
+
+From the React docs:
+
+```html
+import React, { Component } from 'react';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick () {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'
+      </button>
+    );
+  }
+}
+
+export default App;
+```
+Renders as follows:
+
+On by default:
+![on](on.png)
+
+Click button:
+
+![off](off.png)
+
+<hr>
+
+### HOCS (Higher Order components)
+
+* HOCs should be housed in their own folder - hoc
+* HOCs are components that wrap other components. When this component is wrapped around another * component, it is added to it in some way or another.
+* It is a convention to name higher order components with the prefix of 'with'
+* A possible use case for a HOC would be for error handling - a HOC could be wrapped around a component that deals with HTTP requests
+
+* Another form of higher order component could be an actual function rather than a functional component.
+This takes two arguments and returns a functional component
+* The first argument is the component that is to be wrapped
+* The second argument is the class name
+```html
+const withHome = (WrappedComponent, className) => {
+  return props => (
+    <div className={className}>
+      <WrappedComponent />
+    </div>
+  );
+}
+```
+
+This HOC has the purpose of adding a div with a certain CSS class around any element and therefore getting that class name.
+
+The export also needs to be wrapped:
+```html
+export default withClass(App, classes.App);
+```
