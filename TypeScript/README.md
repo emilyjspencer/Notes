@@ -260,8 +260,20 @@ Run the specific TS file by entering the following:
 npm run ts-node -- file.ts
 ```
 
-Example
+Examples
 
+quotient.ts
+
+```html
+const quotient = (a: number, b: number, printText: string) => {
+    console.log(printText,  a / b);
+  }
+  
+  console.log(quotient(8, 4, 'Eight divided by four is:'));
+// 'Eight divided by four is: 2'
+```
+
+calculator.ts
 ```html
 
 type Operation = 'multiply' | 'add' | 'divide' | 'subtract' ;
@@ -294,6 +306,46 @@ type Result = number;
   // 0.2
   // 5
 ```
+
+```html
+npm install --save-de @types/node
+```
+
+### Making the projects run from the command line:
+
+Add the filenames to the scripts in package.json, prefixed by the name we want to use in the command line e.g:
+
+package.json
+
+```
+"scripts": {
+    "ts-node": "ts-node",
+    "divide": "ts-node quotient.ts",
+    "calculate": "ts-node calculator.ts
+}
+```
+
+In the quotient.ts file:
+
+```html
+
+const quotient = (a: number, b: number, printText: string) => {
+    console.log(printText,  a / b);
+  }
+
+  //add the following:
+
+ const a: number = Number(process.argv[2])
+  const b: number = Number(process.argv[3])
+  quotient(a, b, `${a} divided by ${b} is:`);
+```
+Then in the command line, I can run:
+```html
+npm run divide 8 4
+```
+
+The output is:
+8 divided by 4 is: 2
 
 
 
