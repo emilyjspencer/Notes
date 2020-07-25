@@ -106,44 +106,7 @@ Prius.displayMake()
 ```
 
 
-Interface
 
-
-```
-const Car = {
-  model: 'Prius',
-  Make: 'Toyota',
-  display() => { console.log('hi'); }
-}
-```
-
-If we look at the object above and try to extract its signature, it would be:
-
-```
-{ model: String,
-  make: String,
-  display(): void
-}
-```
-
-If we want to reuse this signature, we can declare it in the form of an interface.
-To create an interface, we use the keyword interface
-
-```html
-interface ICar {  
-  model: String,  
-  make: String,  
-  display(): void  
-}
-
-const Car: ICar = {  
-  model: 'Prius',  
-  make: 'Toyota',  
-  display() => { console.log('hi'); }  
-}
-
-
-```
 
 
 
@@ -152,5 +115,68 @@ TS consists of three separate parts:
 * Language
 * Compiler
 * Language service
+
+The syntax is similar to but not the same as JS syntax.
+
+The compiler is responsible for type information erasure i.e. removing the typing information, and the code transformations.
+Teh code transformations enable TypeScript code to be transpiled into executable JS. 
+Everything related to the types is removed at compile-time, so TypeScript isn't really statically typed.
+A better word to use would be transpiling - the act of converting code from a human readable format to a machine readable format. With TS, human readable code is converted into another form of human readable code.
+
+The compiler also performs static code analysis - throwing errors and warnings when needed. Can combine the generated code into a single file.
+
+Language service - collects type information from the source code.
+
+
+### TypeScript key language features
+
+### Type annotations
+
+Type annotations in TypeScript are a lightweight way to record the intend contract of a function or variable.
+
+```html
+const greeting = (name: string, age: number, occupation: string): string => {
+    return `Hi there ${name}, you are ${age} years old! and you are a ${occupation}`;
+};
+
+const person = "Beyonce Knowles";
+const age = 38;
+const occupation = "singer";
+
+console.log(greeting(person, age, occupation));
+
+// Hi there Beyonce Knowles, you are 38 years old! and you 
+are a singer
+
+```
+
+### Structural typing
+
+TypeScript is a structurally typed language.
+In structural typing, two elements are considered to be compatible with on another if for each feature within the type of the first element a corresponding and identical feature exists within the type of the second element.
+Two types are considered to be identical if they are compatible with each other.
+
+
+### Type inference
+
+The TypeScript compiler can attempt to infer the type information if no type has been specified. A variable's type can be inferred based on its assigned value and its usage.
+The type inference takes place when initialising variables and memebrs, setting parameter default values, and determing function return types.
+
+Example:
+
+```html
+const add = (a: number, b: number) => {
+
+  return a + b;
+}
+
+console.log(add(4, 10))
+// 14
+```
+
+
+
+
+
 
 
