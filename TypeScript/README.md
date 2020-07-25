@@ -7,7 +7,7 @@ They will always hold the same type of data in that scope.
 * Tends to be less error prone
 * Lends itself to code readability and maintainability
 * Used to support the building of large-scale JS applications, as it offers better development-time tooling, static code analysis, compile-time type checking and code level documentation
-* TypeScript's online playground can be found here: https://www.typescriptlang.org/play/index.html
+* TypeScript's online playground can be found here: https://www.staging-typescript.org/play?#
 
 ##### Adding TypeScript
 
@@ -39,10 +39,10 @@ tsc *.ts
 
 ### Typing 
 
-Typing is useful for ensuring reliability and scalability
-Type checking helps the developer to ensure that their code works as expected
+Typing is useful for ensuring reliability and scalability.
+Type checking helps the developer to ensure that their code works as expected.
 
-Assign a type to a variable by adding a : after the name of the variable and then the name of the type followed by = and the value of the variable
+Assign a type to a variable by adding a : after the name of the variable and then the name of the type followed by = and the value of the variable.
 
 
 ##### The three different types in TypeScript
@@ -166,7 +166,7 @@ Two types are considered to be identical if they are compatible with each other.
 ### Type inference
 
 The TypeScript compiler can attempt to infer the type information if no type has been specified. A variable's type can be inferred based on its assigned value and its usage.
-The type inference takes place when initialising variables and memebrs, setting parameter default values, and determing function return types.
+The type inference takes place when initialising variables and members, setting parameter default values, and determining function return types.
 
 Example:
 
@@ -180,7 +180,7 @@ console.log(add(4, 10))
 // 14
 ```
 
-Type erasure
+### Type erasure
 
 TypeScript removes all type system constructs during compilation
 
@@ -202,12 +202,12 @@ This means that no type information remains at runtime - there is not konwledge 
 Values can be specified as being of a certain type - and the compiler will warn the developer if they are being wrongly used.
 This can reduce runtime errors 
 
-Static code analysis - doesn't warn about wrongful type usage but warns about mispellings or if the developer attemps to use a variable beyond its scope.
+Static code analysis - doesn't warn about wrongful type usage but warns about mispellings or if the developer attempts to use a variable beyond its scope.
 
 * Type annotations - type annotations can function as a type of code level documentation. It's easy to check from a function signature what kind of arguments the function can accept and that type of data it will return.
 Useful for developers who are new to a project
 
-Types can reused all around the code base and a change to a type definition will automateically be reflected wherever that type is used.
+Types can be reused throughout the code base and a change to a type definition will automatically be reflected wherever that type is used.
 
 * Intellisense - is improved when it is known exactly what types of data is being procesed. Can provide hints about available properties.
 
@@ -215,7 +215,7 @@ Types can reused all around the code base and a change to a type definition will
 
 These type annotations and type checking only exist a compile time and not at runtime.
 
-Type inference in TypeScript is not bullet-proof - sometimes the developer might have seemingly declared their types perfectly, but the compiler still states that the property doesn't exist of that kind of usage is not permitted.
+Type inference in TypeScript is not bullet-proof - sometimes the developer might have seemingly declared their types perfectly, but the compiler still states that the property doesn't exist, or that kind of usage is not permitted.
 In such cases, the developer might need to help the compiler by adding an extra type check.
 
 Type errors can be difficult to dicipher. 
@@ -224,9 +224,9 @@ Type errors can be difficult to dicipher.
 ### Setting up TypeScript
 
 TS code isn't executable by itself  - has to first be compiled into executable JS.
-When TS is compiled into JS, the code becomes subject to type erasure; initerfaces, type aliases, type annotations are removed from the code  - resulting in pure ready-to-run JS.
+When TS is compiled into JS, the code becomes subject to type erasure; interfaces, type aliases, type annotations are removed from the code  - resulting in pure ready-to-run JS.
 
-During the build process, all TS code is compiled into JS in a separate folder, the the production environment then runs the code from that folder.
+During the build process, all TS code is compiled into JS in a separate folder to the production environment then runs the code from that folder.
 
 
 Create an npm project:
@@ -260,8 +260,40 @@ Run the specific TS file by entering the following:
 npm run ts-node -- file.ts
 ```
 
+Example
 
+```html
 
+type Operation = 'multiply' | 'add' | 'divide' | 'subtract' ;
+
+type Result = number;
+
+  const calculator = (a: number, b: number, operation: Operation): Result => {
+      switch(operation) {
+      case 'multiply':
+          return a * b;
+      case 'add':
+          return a + b;
+      case 'subtract':
+          return a - b;
+       case 'divide':
+          if(b === 0) throw new Error('Can\t divide by 0!');
+          return a / b;
+       default:
+         throw new Error('Operaton must be multiply, add, divide or subtract')
+      }
+  }
+
+  try {
+      console.log(calculator(1, 5, 'divide'))
+  } catch (e) {
+      console.log('Something went wrong, error message: ', e.message);
+  }
+
+  console.log(calculator(1, 4, 'add'))
+  // 0.2
+  // 5
+```
 
 
 
