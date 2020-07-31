@@ -360,4 +360,85 @@ which tells the Express to serve the Public directory.
 
 
 
+### Creating a fullstack application with Express
+
+Example - using PostgreSQL 
+
+Dependencies need to be installed:
+
+cors - allows different domain locations to communicate with one another - e.g. having the server run on localhost:5000 and the frontend run on localhost:3000
+pg - connects the database with the server in order to run some postgres queries
+
+Installed using npm install
+
+
+#### Middleware
+
+The use of middleware is indicated by the use method e.g. app.use(.......) e.g. app.use(cors());
+
+
+app.use(express.json()); - this gives the developer access to request.body and so that they can get json data
+
+#### Database and relations creation
+
+With fullstack Sinatra applications, instructions for database and table creation are stored in migration files in the db folder.
+With Express, this information can be stored in database.sql
+```html
+CREATE DATABASE bookshelf;
+
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,
+    description VARCHAR(255)
+);
+```
+
+#### Configuration
+
+Configuration information can be put in db.js, allowing the developer to connect the database with the server
+
+```html
+const Pool = require('pg').Pool;
+
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    database: 'bookshelf'
+})
+
+module.exports = pool;
+```
+The following needs to be imported into the server file:
+
+```html
+const pool = require('./db');
+```
+Allows the developer to call the query() method on the pool object in order to insert SQL queries
+
+#### Routing
+
+An example of a post request
+
+```html
+app.post('/books', async (req, res) => {
+    try {
+        console.log(req.body);
+        const { info } = req.body;
+        const newBook = await pool.query("INSERT INTO books (title) VALUES($1) RETURNING *", [title]);
+
+        res.json(newBooks.rows[0]);
+
+    } catch (err) {
+        console.log(err.message);
+    }
+    
+})
+```
+
+#### Postman
+
+Postman is a brilliant tool to use to test HTTP requests.
+
+In Postman, click on Body - raw - JSON dropdown - JSON
+
 
