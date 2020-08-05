@@ -2114,37 +2114,259 @@ Value is the value of the element that triggered the event
 
 ### **Routing**
 
-* The React-Router package can be added to enable routing functionality in React applications 
-* At the top of a file add:
+React doesn't ship with routing functionality.
+However, the react-router-dom package can be added to a React application to enable routing.
+Routers allow you to navigate between various component in an application, changing the url and browser history.
+
+Install the react-router-dom package:
+```html
+npm install --save react-router-dom
+```
+
+react-router-dom is used for web apps
+react-router-native is used for react native applications
+
+**Enabling routing** - choosing a router implementation
+
+For web applications, there are two options:
+<BrowserRouter> - uses the HTML5 History API
+<HashRouter> - uses the hash portion of the URL (window.location.hash)
+
+<BrowserRouter> would be the implementation of choice.
+
+The BrowserRouter component from the react-router-package needs to be imported into either the index.js or the App.js file
+
+In the index.js or App.js file:
+```html
+import { BrowserRouter } from 'react-router-dom';
+```
+Any subcomponents that are rendered within the <BrowserRouter></BrowserRouter> opening and closing tags can then read routes.
+
+So for example:
+
+index.js
+```html
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+
+
+ReactDOM.render(
+  <React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+```
+
+The App component can now read routes
+
+Another example
+
+index.js
+
+```html
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './styling/stylesheet.css';
+import Main from './components/main'
+import {BrowserRouter} from 'react-router-dom'
+
+
+ReactDOM.render(<BrowserRouter><Main/></BrowserRouter>, document.getElementById('root'));
+```
+
+The Main component can now read routes - aka - define the routes in the Main component
+
+NB - a router component can only have one child element. Errors are thrown otherwise.
+
+The main job of a <Router> component is to create a history object to keep track of the location (URL)
+When the location changes because of a navigation action, App, Main etc, the child component is re-rendered
+
+* Other components from the react-router-package can be leveraged to enable routing functionality, e.g. at the top of a file add:
 
 ```html
 import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 ```
+or whichever components you need to use from the react-router-dom package...
 
-Here - multiple components are imported
+* **Redirect** - is used to redirect to a specified page e.g. we could use the Redirect component to define that if a user enters anything other than our defined urls, they are redirected to the homepage. 
+Needs to be placed within <Switch></Switch>
+```html
+<Redirect from=“/“ to=“/posts” />
+```
+Here - if the user goes to localhost:3000, they are redirected to 
+localhost:3000/posts
 
-* Redirect - is used to redirect to a specified page e.g. we could define that if a user enters anything
-other than our defined urls, they are redirected to the homepage. This can be done using the Redirect component
-* Switch stops further evaluation once a match has been made. If the Switch component isn't used, 
+* **Switch** stops further evaluation once a match has been made. If the Switch component isn't used, 
 checks will continue to be made. We want this evaluation to stop once a match has been made.
-* Route 
-* Router should be wrapped around Route
+All routes are rendered if they match the path, so the Switch component can be used to tell react-router to use only one route at any one time.
+Must be wrapped around the route config.
+Tells React to render the first match from a given set of routes
+
+* **Route** is used to define routes in a specified file. Say for example we want to define routes in App.js:
+
+```html
+import React, { Component } from 'react';
+
+import { Route } from 'react-router-dom';
+
+class App extends Component {
+
+  render() {
+
+    return (
+      <div className={styles.App}>
+        <Layout>
+          <Route path=“/“ component={Welcome} />
+          <Route path=“/leotards” component={Leotards}
+          <Route path="/danceshoes" component={DanceShoes} />
+          </Layout>
+      </div>
+    )
+  }
+}
+
+export default App;
+```
+
+The Route component is used for this purpose. When the user goes to localhost:3000, the Welcome component is render. On localhost:3000/leotards, the leotards component is rendered, and the DanceShoes component is rendered for localhost:3000/danceshoes
+
+
+* **Link** is used to render a navigation link
+Click on a link - taken to the location
 
 **exact** keyword 
 * The **exact** keyword can be passed to Route components e.g.
 ```html
 <Route path="/" exact>
 ```
-so that a particular component is rendered only when on a particular page, in the example above, when on the
-homepage
+so that a particular component is rendered for a particular path, e.g. in this case - the homepage
 
-<hr>
 
-### **Navigation**
 
-* Navigation code should be put into a shared folder, in the same way that we use Navigation partials in Rails.
-* Navbars etc are usually found across all pages of an application, so it makes sense to put components relating to aspects of naviation, into a shared folder 
+#### Routing-related props
 
+React router provides some extra information about the loaded route, through props
+
+* history
+* location
+* match
+
+* match - provides information about the matched route
+has the url object - which is the currently loaded url/path
+* history - has methods like replace() push()  - which allows devs to switch to another page, pushing it to the top of the stack etc 
+* location
+
+Routing-related props aren't passed down the component tree
+
+Another way of redirecting:
+
+Instead of using the Redirect component from the react-router-dom package,
+the history prop's replace() method can be used.
+
+Using history.replace() - or however we access it - does the same as redirecting with the <Redirect> component
+
+### Navigaiton Guards
+
+Use cases
+
+To prevent an authenticated user from accessing pages only meant for authenticated users, navigation guards can be utilized.
+
+```html
+
+state = {
+  auth: false
+}
+```
+
+```html
+<Switch>
+  {this.state.auth? <Route path=“/new-post” component={NewPost} /> : null}
+```
+
+Here - by default the user isn't authenticated, so the localhost:3000/new-post route can never be accessed
+
+### Handling unknown routes
+
+The Redirect component from the react-router-dom package can be used to handle unknown routes
+
+The render() method can also be used, e.g.
+
+```html
+<Route render={() => <h1>Not found</h1>}>
+```
+
+This route will catch any routes that haven't been handled prior to it.
+It should always come last
+
+
+
+
+
+#### withRouter higher order component
+
+withRouter allows devs to access the history object's properties and the closest <route>'s match
+
+withRouter passes updated match, history and location props to the wrapped component whenever it renders
+
+withRouter needs to be imported
+```html
+import { withRouter } from 'react-router-dom';
+```
+
+and since it's a hoc, needs to wrap the component's export - in which file it is imported into e.g.
+```html
+export default withRouter(Home);
+```
+Now - the component has location, history and match properties that they didn't have previously.
+
+Thus, withRouter adds the location, match and history props to other components - to the components we wrap in it, making it a good way of making that particular component route-aware
+It will use or get the props containing the information from the nearest loaded route.
+It is one way to provide access to routing-related props which you may need for calling push() on the history prop or for getting information about the loaded route
+
+
+### Using NavLink vs. Link
+
+The NavLink component from the react-router-dom package can be used instead of the Link component to keep track of active links via css. 
+NavLink is similar to the Link component, but it has some extra props/attributees that allow devs to stylise and differentiate the link that is active.
+
+The NavLink component provides an additional activeClassName attribute that the Link component doesn't.
+
+```html
+NavLink: activeClassName.
+```
+```html
+<NavLink
+  to=“/“
+  Exact
+  activeClassName=“my-active’>Home</NavLink>
+```
+The dynamic activeStyle object can also be used to set up styles:
+
+```html
+<li><NavLink 
+       to="/" 
+        exact
+                                  activeClassName="my-active"
+         activeStyle={{
+             color: '#fa923f',
+                                    textDecoration: 'underline'
+    }}>Home</NavLink></li>
+```
+The activeStyle object works in the same was as inline styling.
+
+### Route params
+
+A route parameter looks like this:
+```html
+<Route path="/:id">
+```
 
 ### **defaultProps and propTypes**
 
@@ -2294,7 +2516,7 @@ getCharacters = async () => {
 
 The difference between a asynchronous function and a synchronous function lies in the fact that asynchronous functions don't block the processing of the code below them
 
-* To make a POST request, pass the params in a seocond argument to the post() method on axios:
+* To make a POST request, pass the params in a second argument to the post() method on axios:
 ```html
 axios.post('http://hellothisisatest.com', { location: 'London' })
 ```
@@ -2344,6 +2566,18 @@ const explore = {
 // send the request
 axios(options);
 ```
+
+### Further axios notes
+
+When making a GET request to an API endpoint - the GET request happens asychronously,
+- needs time to fetch the data from the server.
+JS executes code in a synchronous manner - so data returned from the api can't simply be stored in a constant. We don't want to block the execution of the application while waiting for the returned data to arrive. 
+Axios thus uses Promises - a default JS object, introduced with ES6 and available in older browsers.
+The GET request returns a Promise.
+We can then chain the then() method onto it.
+Then then() method takes a function as the input and this function will be executed once the Promise resolves - once the data from the backend has 'arrived'.
+The function then receives a response object as input. This is passed into the function automatically by axios
+
 
 ### ES6 Destructuring syntax
 
@@ -2538,8 +2772,26 @@ Click button:
 
 ### HOCS (Higher Order components)
 
-* HOCs should be housed in their own folder - hoc
-* HOCs are components that wrap other components. When this component is wrapped around another * component, it is added to it in some way or another.
+* HOCs should be housed in their own folder 
+* HOCs are components that wrap other components. When this component is wrapped around another, the wrapping component adds a certain functionality to the wrapped component.
+* With the advent of React 16.2, the built-in "Aux" component - a so called fragment - can be used
+* Looks like 
+```html
+ <>
+````
+```html
+<Aux>
+    <h1>Hi</h1>
+    <h1>there</h1>
+</Aux>
+```
+becomes
+```html
+<>
+    <h1>Hi</h1>
+    <h1>there</h1>
+</>
+```
 * It is a convention to name higher order components with the prefix of 'with'
 * A possible use case for a HOC would be for error handling - a HOC could be wrapped around a component that deals with HTTP requests
 
@@ -2563,3 +2815,61 @@ The export also needs to be wrapped:
 ```html
 export default withClass(App, classes.App);
 ```
+
+### Error handling
+
+Errors can be caught by chaining the catch() method to the then() method. An example:
+```html
+.................. code ommitted for brevity
+
+class Blog extends Component {
+    state = {
+        posts: [],
+        selectedPostId: null,
+        error: false
+    }
+
+    componentDidMount() {
+        axios.get('http://jsonplaceholder.typicode.com/postssfafasdasd')
+          .then(response => {
+              const posts = response.data.slice(0, 4);
+              const updatedPosts = posts.map(post => {
+                  return {
+                      ...post,
+                      author: 'Max'
+                  }
+              })
+              this.setState({ posts: updatedPosts });
+              console.log(response);
+          })
+          .catch(error => {
+             this.setState({error: true})
+          })
+    }
+
+    postSelectedHandler = (id) => {
+        this.setState({ selectedPostId: id});
+    }
+      
+    render () {
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>
+        // if there is an error if there is not not an error
+        if (!this.state.error) {
+          posts = this.state.posts.map(post => {
+            return <Post 
+              key={post.id} 
+              title={post.title} 
+              author={post.author} 
+              clicked={() => this.postSelectedHandler(post.id) }/>
+        })
+    .......... code ommitted for brevity
+
+export default Blog;
+```
+
+Here, the Blog container is given an error property, set to false by default. 
+The endpoint specified in componentDidMount() is incorrect.
+The catch() method is chained to the then() method
+By creating a posts variable and assigning an error message to it - this error message will be
+rendered if there is an error.
+If there isn't an error - then the posts variable is overwritten and the posts array is mapped through - resulting in the posts being rendered to the screen.
