@@ -188,6 +188,28 @@ print(raccoon.is_healthy)
 
 ```
 
+### Inheritance
+
+Parent class = base class
+Child class = derived class - inherits from the parent class
+
+__init__() - is a constructor - called automatically each time the class is used to create a new object 
+
+The child's __init__() function overrides the inheritance of the parent's __init__() function
+
+To keep the inheritance of the parent's __init__() function, add a call to the parent's __intit__() function
+
+super() - makes the child class inherit all the methods and properties from its parent
+
+```html
+class Parent(Child):
+  def __init__(self, firstname, lastname):
+    super().__init__(firstname, lastname)
+```
+
+By using super() you don't have to use the name of the parent element, it will automatically inherit the methods and properties from its parent.
+
+
 ### Data types
 
 * text type: str
@@ -458,10 +480,83 @@ print(sqrt(100))
 
 ### Operators
 
-* Arithmetic operators
-* Assignment operators
-* Comparison operators
-* Logical operators
-* Identity operators
-* Membership operators
-* Bitwise operators
+* Arithmetic operators + - / * ** % //
+* Assignment operators = += -= *= /= %= //= **= &= |= ^= >>= <<=
+* Comparison operators == != > < >= <=
+* Logical operators  and or not
+* Identity operators  is  is not
+* Membership operators in  not in
+* Bitwise operators 
+& AND sets each bit to 1 if both bits are 1
+| OR sets each bit to 1 if one of two bits is 1
+^ XOR set each bit to 1 if only one of two bits if 1
+~ NOT invents all bits
+<< Zero fill left shift  shift left by pushing zeros in from the right and let the leftmost bits fall off
+>> Signed right shif    shift right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off
+
+### Python Collections
+
+* Four types of collection data types in Python:
+
+* List - ordered and mutable
+* Tuple - ordered and immutable
+* Set - unordered and unindexed
+* Dictionary - unirdered mutbale and indexed
+
+
+* Lists
+
+```
+list = ["one", "two", "three", "four", "five", "six"]
+
+print(list[3:5])
+# ['four', 'five']
+```
+
+```html
+list = ["one", "two", "three", "four", "five", "six"]
+
+print(list[:5])
+# ['one', 'two', 'three', 'four', 'five']
+```
+
+List methods
+
+* append() - similar to Ruby's push() method
+* append() adds an item to the end of a list
+
+* insert() - allows you to insert an item at a specified index
+
+
+* remove() - removes a specified item
+
+* pop() - same as Ruby's pop() method - removes an item from the end of a list - or at a specified index
+
+* del() - removes the specified index
+
+* clear() - empties a list
+
+* copy() - copies a list
+
+* list() - also copies a list - or as a constructor can be used to make a new list
+
+* extend() - adds elements from one list to another
+
+* sort() - sorts a list
+
+
+### Tuples
+
+* Tuple - ordered and immutable
+
+
+* Set - unordered and unindexed
+* Dictionary - unirdered mutbale and indexed
+
+
+### Functions
+
+* Arbitrary arguments *args
+
+If you don't know how many arguments will be passed into a function, add a * before the parameter name in the function definition
+* The function will receive a tuple of arguements and can access the items
