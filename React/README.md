@@ -1,5 +1,8 @@
 # Notes 
 
+# ## [Intro](#intro) || [JSX](#jsx || [State](#state) || [Styling(#styling) || [Lifecycle methods](#lifecycle methods) || [Hooks](#hooks) || [Routing](#routing) || [Fetching Data](#fetching data) ||
+
+## Intro
 * A core philosophy of React is to split applications into small pieces - separate, lean, reusable components
 * Ideally, tasks should be delegated to other components
 * There are two types of components - stateful(clever) components and presentational(dumb) components
@@ -37,6 +40,8 @@ import ReactDOM from 'react-dom'
 
 export default App;
 ```
+
+## jsx
 **JSX**
 
 * The layout of React components is mostly written using JSX
@@ -433,7 +438,7 @@ The above renders as follows:
 
 ![output](reactprops.png)
 
-* **State**
+## State
 
 * **State** the state of a component is an object that holds some information that may change over the lifetime of the component
 * It is used to change the component from within 
@@ -1774,6 +1779,7 @@ Often this will be an id
 
 <hr>
 
+## Lifecycle methods
 
 ### **The lifecycle of a component and lifecycle methods**
 
@@ -1985,7 +1991,7 @@ const deleteStudent = async (id) => {
 
 <hr>
 
-### **Hooks**
+## Hooks
 
 **useEffect()** - is a React hook (for functional components naturall)
 * useEffect combines the functionality of all of the class-based lifecycle hooks (which can only be used in classical components)
@@ -2112,7 +2118,7 @@ Value is the value of the element that triggered the event
 
 <hr>
 
-### **Routing**
+## Routing
 
 React doesn't ship with routing functionality.
 However, the react-router-dom package can be added to a React application to enable routing.
@@ -2447,6 +2453,7 @@ This puts a space between the checkbox and the todo list item.
 
 <hr>
 
+## Fetching data
 ### Fetching Data with HTTP libraries
 
 React is only concerned with the UI. If we want to fetch data from an API, we need an HTPP library. The most commonly used libraries are:
@@ -2578,6 +2585,11 @@ We can then chain the then() method onto it.
 Then then() method takes a function as the input and this function will be executed once the Promise resolves - once the data from the backend has 'arrived'.
 The function then receives a response object as input. This is passed into the function automatically by axios
 
+
+When React makes a request to the server, json data is returned - not html pages.
+json data can be sent to the server to create resources
+
+The server to which data is sent is typically a RESTful api - which exposes its endpoint so it can recive data via requests
 
 ### ES6 Destructuring syntax
 
