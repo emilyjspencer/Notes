@@ -198,20 +198,20 @@ print(raccoon.is_healthy)
 * boolean type: bool
 * binary types: bytes, bytearray, memoryview
 
-str - "I am a string"
-int - 10
-float - 10.4
-complex - aj
-list - ["one", "two", "three"]
-tuple - ("one", "two", "three")
-range - range(10)
-set - {"one", "two", "three"}
-dictionary - {"one": "un", "two": "deux", "three": "trois"}
-frozenset - ({"one", "two", "three"})
-boolean - True
-bytes - 
-bytearray -
-memoryview - 
+* str - "I am a string"
+* int - 10
+* float - 10.4
+* complex - aj
+* list - ["one", "two", "three"]
+* tuple - ("one", "two", "three")
+* range - range(10)
+* set - {"one", "two", "three"}
+* dictionary - {"one": "un", "two": "deux", "three": "trois"}
+* frozenset - ({"one", "two", "three"})
+* boolean - True
+* bytes - 
+* bytearray -
+* memoryview - 
 
 
 
@@ -279,6 +279,115 @@ disney_films["Hercules"] = 1997
 print(disney_films)
 ```
 
+### Strings
+
+* Strings in Python are arrays of bytes representing unicide characters
+
+
+* The len() method is used to find the length of a string
+
+```html
+phrase = "ciao"
+print(len(phrase))
+# 4
+```
+
+Access elements in a string 
+```html
+a = "hello"
+print(a[2])
+#l
+```
+* The slice() method - used to return a range of characters
+
+```html
+sentence = "The land before time"
+print(sentence[2:8])
+# e land
+```
+
+* The strip method has similar functionality to the Ruby chomp() method
+* strip() removes whitespace
+
+```html
+sentence = "       Tamagotchis were invented by Akihiro Yokoi     "
+print(sentence.strip())
+Tamagotchis were invented by Akihiro Yokoi
+```
+
+* upper() - converts all of the characters of a string to uppercase
+* lower() - converts all of the characters of a string to lowercase
+* replace() - replaces a string with another string
+```html
+a = "Python was invented by Huido van Rossum"
+print(a.replace("H", "G"))
+Python was invented by Guido van Rossum
+```
+
+* split() - splits a string into substrings 
+```html
+python = "Object Orientated Programming, is, fully, supported"
+print(python.split(","))
+```
+
+### Checking for the presence of a character or phrase in a string:
+
+```html
+text = "Python uses duck typing"
+x = "a" in text
+print(x)
+# False
+
+text = "Python uses duck typing"
+x = "e" in text
+print(x)
+# True
+```
+
+### String concatenation
+
+Concatenate strings using the + operator
+
+
+### Format() method
+Use the format() method to insert variables into strings
+
+```html
+colour = "pink"
+colour2 = "green"
+text = "My favourite colour is {}. My least favourite colour is {}"
+print(text.format(colour, colour2))
+# My favourite colour is pink. My least favourite colour is green
+```
+
+### Escape characters
+
+Escape charactrers \ are used in Python
+
+### Negative indexing
+
+```
+sentence = "The land before time"
+print(sentence[-9:-2])
+# fore ti
+```
+### Other string methods
+
+capitalize()
+casefold() - the same as lower()
+center()
+count() - returns the number of times a specified value occurs in a string
+encode() - returns an encoded version of the string
+endswith() - returns true if the string ends with the specified value
+expandtabs() - sets the tab size of string
+find() - searches the string for a speciifed value and returns the position of where it was found
+index() - returns the position of a specified character
+join() - joins string elements
+split() - converts a string into a list
+swapcase - convert lower case to upper case and vice versa
+
+
+
 ### Formatting
 
 ```html
@@ -297,6 +406,12 @@ nationality = "American"
 print("I am %s" % (nationality))
 #=> "I am American"
 ```
+
+### Booleans
+
+False values include:
+
+() [] "" 0 None False
 
 ### Loops
 
@@ -340,3 +455,13 @@ print(sqrt(100))
 
 #=> 10.0
 ```
+
+### Operators
+
+* Arithmetic operators
+* Assignment operators
+* Comparison operators
+* Logical operators
+* Identity operators
+* Membership operators
+* Bitwise operators
