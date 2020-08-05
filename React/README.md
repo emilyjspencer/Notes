@@ -1,6 +1,6 @@
 # Notes 
 
-# ## [Intro](#intro) || [JSX](#jsx() || [State](#state) || [Styling](#styling) || [Lifecycle methods](#lifecyclemethods) || [Hooks](#hooks) || [Routing](#routing) || [Fetching Data](#fetchingdata) ||
+#  [Intro](#intro) || [JSX](#jsx) || [State](#state) || [Styling](#styling) || [Lifecyclemethods](#lifecyclemethods) || [Hooks](#hooks) || [Routing](#routing) || [FetchingData](#fetchingdata) ||
 
 ## Intro
 * A core philosophy of React is to split applications into small pieces - separate, lean, reusable components
