@@ -560,3 +560,94 @@ List methods
 
 If you don't know how many arguments will be passed into a function, add a * before the parameter name in the function definition
 * The function will receive a tuple of arguements and can access the items
+
+### Virtual environments
+
+pip is a dependency manager for Python.
+Pipenv is a higher-level dependency manager
+
+To install Pipenv - use pip
+```html
+pip3 install --user pipenv
+```
+NB must be pip3 - (think final project)
+
+Pipenv manages dependencies on a per-project basis. To install packages - cd into the project folder and run
+```html
+pipenv install requests
+```
+
+which installs the Requests library
+A Pipfile, similar to a Gemfile or package.json, tracks the project's dependencies.
+
+Create a main.py file
+
+```html
+import requests
+
+response = requests.get('https://httpbin.org/ip')
+
+print('Your IP is {0}'.format(response.json()['origin']))
+```
+Run the script with:
+
+```html
+pipenv run python main.py
+```
+
+Using pipenv run ensures that the installed packages are available to your script.
+
+### Virtualenv
+
+Virtualenv is used to create Python environments - creates a folder which contains all necessary executables to use the packages that a Python project would need and a copy of the pip library which can be used to install other pakcages
+
+The name of the virtual environment can be anything, but it is convention to use **venv**
+
+This creates a copy of Python in any folder that the command is run in
+
+### Activating the virtual environment
+
+To use the virtual environment - it needs to activated:
+```
+source venv/bin/activate
+or 
+source virtualEnvironmentName/bin/activate
+```
+
+We know that we are in the virtual environment if the name of it is appended to the console.
+
+From now on, any package that is installed using pip will be placed in the env folder, isolated from the global Python installation
+
+### Ending a session
+
+```html
+deactivate
+```
+
+### Deleting a virtual environment
+
+```html
+rm -rf virtualEnvironmentName
+```
+
+### pip freeze - (final project)
+
+In order to keep the environment consistent, it's best to freeze the current state of the environemtn packages:
+
+```html
+pip freeze > requirements.txt
+```
+
+This creates a requirements.txt file, which contains a list of all the packages in the current environment, and their versions.
+
+Typing the following enables the developer to see a list of the installed packages:
+```html
+pip list
+```
+
+```html
+pip install -r requirements.txt
+```
+
+
+
