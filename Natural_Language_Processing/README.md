@@ -4,40 +4,69 @@ Natural Language Processing(NLP)
 
 * The 'Natural language' in Natural Language Processing - refers to a language that is used for everyday communication e.g. English, French
 etc
-* NLP can an be described as any kind of computer manipulation of natural language
-to process large amounts of natural language corpora
+* NLP can an be described as any kind of computer manipulation of natural language to process and analyze large amounts of natural language corpora
 * Helps to understand a set of abstract rules from text and the relationship that language has with another
 * Some examples of technologies that are based on NLP include:  predictive text, machine translation 
 * In academia, NLP is commonly known as computational linguistics
 
-### Natural Language Processing Techniques
+### NLP Use cases
 
-**Lemmatisation** - the grouping of inflected forms of words to be analysed as a single item
+NLP serves a lot of use cases when dealing with a lot of unstructured data
+e.g 
+* sentiment analysis is the extraction of the interpretation or subjective meaning of a word from a document or set of documents to determine the attitude of a specific word or set of words
+One of the greatest uses of it is in social media: e.g. Twitter Facebook, to identify trends of public opinion, how often a word appears in a specific tonal context and interpreting the tone of group of words to analyze the general sentiment of tweets for example
+* customer reviews - analyse customers' sentiments about a product through feedback processing
+* Spam detection -  to classify emails as spam
+* speech recognition
+* smart assistants such as Siri, Alexa etc - convert people's words into text, analyze the words
+* fake news detection
+* document summarization
+* autocompletion
+* machine translation
+* predictive typing
+
+### Natural Language pre-processing Techniques
+
+NTLK - the Natural Language Toolkit contains a suite of text processing libraries for classification, stemming, lemmatization, parsing, tokenization, tagging etc
+
+**Tokenization** - the process of splitting string input into a list of tokens (parts of a word). The Natural Language Tooklit(NLTK) - a suite of text processing libraries, provides a method called tokenize() - more speficially word_tokenize() to tokenize words and sent_tokenize() to tokenize sentences
+sent_tokenize splits a chunk of text into separate sentences
+word_tokzenize splits sentences into separate words - or arrays of individual words
+
+**Text lemmatization and stemming**
+
+The goal of both lemmatization and stemming is to reduce inflectional forms of a word to a common base form e.g.
+am are - be
+flower flowers flower's flowers' - flower
+
+**Stemming** - the process of removing the inflectional forms of a word or the suffix from a word and reducing it to its root/base word/stem 
+e.g flying - suffix is ing - if the suffix is removed, we are left with the stem - fly
+Stems stemming stemmed stemmatization are all based on the lemma - stem
+* Tends to be more crude than lemmatization because oftentimes the deriviational affixes will be removed resulting in a stem that has no meaning e.g. negligen
+
+* Stemmers operate wihtout knowing the context of the word - thus can't understand the difference between words whose meanings depends on their use in the setence/depend on parts of speech
+* An example of a stemmer is the Lancaster Stemmer, which we used for ubb
+
+**Lemmatisation** - removes the inflectional endings only and returns the base word - normally aiming to remove the inflectional endings only and returning the base or dictionary form of a word - known as a lemma.
+Therefore, unlike with stemming - the remainin words has a meaning - less crude
 * lemma - is the base form of a word that is used to represent all its other possible forms, the base form under which the word is entered in a dictionary e.g.
 run is the lemma - and run runs, running and ran are forms of the same lexeme
-* The lemmatised form is simply a convenient representation of the headword lemma
 
-**Stemming** - the process of removing the suffix from a word and reducing it to its root word
-e.g flying - suffix is ing - if the suffix is removed, we are left with the stem - fly
-Stems stemming stemmed stemtization are all based on the word (lemma) stem
 
-Stemming is used to reduce the inflectional forms of each word into a common base word or root word or stem word
-(Inflection is a process of word formation, in which a word is modified to express different grammatical categories such as tense, case, voice, aspect, person, number, gender, mood, animacy and definitness)
-
-* An example of a stemmer is the Lancaster Stemm, which we used for ubb 
+With Lemmatization and Stemming, the tokens need to be converted into lowercase characters and the stopwords must be removed. 
+**Stopwords** refer to the most common words in a language, and which don't add much meaning to a sentence. They can be ignored without comprimising the meaning of the sentence i.e. is, at, the etc
 
 **Parsing** -  the analysis of a string of words resulting in a parse tree revealing the syntactic relationships between words which can contain semantics
 
 However, a drawback of parsing is that when and what is parsed is entirely dependant on the user as any paragraph can be phrased any way they choose from individual characters to whole sentences
 
+**Parts of speech tagging**: tagging each word according to is type:
+run - verb
+on - preposition
+cat - noun
 
-**Sentiment analysis** -  is the extraction of the interpretation or subjective meaning of a word from a document or set of documents to determine the attitude of a specific word or set of words
-One of the greatest uses of it is in social media: e.g. Twitter Facebook, to identify trends of public opinion, how often a word appears in a specific tonal context and interpreting the tone of group fo words
-
-NLP serves a lot of use cases when dealing with a lot of unstructured data
-
-When dealing with unstructured data: need to featurize e.g. we have two documents
-
+**Bag-of-words model** - is a feature extraction technique used to convert text input into vectors of numbers. This conversion of text into vectors of numbers is called feature extraction.
+Outputs the occurrence of each word
 
 “Brown cat”
 “white cat"
@@ -48,12 +77,6 @@ A feature based on word count:
 “White cat”  -> (brown, white, cat) => (0, 1, 1)
 
 'brown cat' is transformed into a vectorised word count
-
-### A Bag of words
-A document represented as a vector of word counts is called a Bag of Words
-
-“Brown cat” -> (brown, white, cat) -> (1, 0,1)
-“White cat -> (brown, white, cat) -> (0, 1,1)
 
 Cosine similarity can be used on the vectors to determine similarity
 
@@ -97,6 +120,3 @@ pip3 install nltk
 
 ```
 
-The Natural Language Toolkit (NLTK) library can be used to built NLP programmes for the purpose of text analysis
-
-It provides basic classes for representing data relevant to natural language processing - standard interfaces for performing tasks such as part of speech tagging, syntactic analysis, text classification
