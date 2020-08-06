@@ -26,7 +26,8 @@ One of the greatest uses of it is in social media: e.g. Twitter Facebook, to ide
 * machine translation
 * predictive typing
 
-### Natural Language processing techniques
+
+###  Natural Language processing techniques
 
 NTLK - the Natural Language Toolkit contains a suite of text processing libraries for classification, stemming, lemmatization, parsing, tokenization, tagging etc
 
@@ -132,7 +133,7 @@ T = number of documents with the term
 
 Mathematically, TF-IDF can be expressed as:
 
-[!tfidf](tfidf.png)
+![tfidf](tfidf.png)
 
 We do this so that we can get some sort of word count and also notation on how important a word is relative to the entire corpus
 
