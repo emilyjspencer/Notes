@@ -13,7 +13,8 @@ etc
 
 NLP serves a lot of use cases when dealing with a lot of unstructured data
 e.g 
-* sentiment analysis is the extraction of the interpretation or subjective meaning of a word from a document or set of documents to determine the attitude of a specific word or set of words
+* **sentiment analysis** -  is the extraction of the interpretation or subjective meaning of a word from a document or set of documents to determine the attitude of a specific word or set of words
+
 One of the greatest uses of it is in social media: e.g. Twitter Facebook, to identify trends of public opinion, how often a word appears in a specific tonal context and interpreting the tone of group of words to analyze the general sentiment of tweets for example
 * customer reviews - analyse customers' sentiments about a product through feedback processing
 * Spam detection -  to classify emails as spam
@@ -25,47 +26,63 @@ One of the greatest uses of it is in social media: e.g. Twitter Facebook, to ide
 * machine translation
 * predictive typing
 
-### Natural Language pre-processing Techniques
+### Natural Language processing techniques
 
 NTLK - the Natural Language Toolkit contains a suite of text processing libraries for classification, stemming, lemmatization, parsing, tokenization, tagging etc
 
-**Tokenization** - the process of splitting string input into a list of tokens (parts of a word). The Natural Language Tooklit(NLTK) - a suite of text processing libraries, provides a method called tokenize() - more speficially word_tokenize() to tokenize words and sent_tokenize() to tokenize sentences
-sent_tokenize splits a chunk of text into separate sentences
-word_tokzenize splits sentences into separate words - or arrays of individual words
+**Tokenization** - the process of splitting string input into a list of tokens (parts of a word).
+
+The Natural Language Tooklit(NLTK) - a suite of text processing libraries, provides a method called tokenize() - more specifically word_tokenize() to tokenize words and sent_tokenize() to tokenize sentences
+* sent_tokenize  - splits a chunk of text into separate sentences
+* word_tokzenize  - splits sentences into separate words - or arrays of individual words
 
 **Text lemmatization and stemming**
 
 The goal of both lemmatization and stemming is to reduce inflectional forms of a word to a common base form e.g.
+```html
 am are - be
 flower flowers flower's flowers' - flower
+```
 
 **Stemming** - the process of removing the inflectional forms of a word or the suffix from a word and reducing it to its root/base word/stem 
 e.g flying - suffix is ing - if the suffix is removed, we are left with the stem - fly
+```html
 Stems stemming stemmed stemmatization are all based on the lemma - stem
+```
 * Tends to be more crude than lemmatization because oftentimes the deriviational affixes will be removed resulting in a stem that has no meaning e.g. negligen
 
 * Stemmers operate wihtout knowing the context of the word - thus can't understand the difference between words whose meanings depends on their use in the setence/depend on parts of speech
 * An example of a stemmer is the Lancaster Stemmer, which we used for ubb
 
-**Lemmatisation** - removes the inflectional endings only and returns the base word - normally aiming to remove the inflectional endings only and returning the base or dictionary form of a word - known as a lemma.
-Therefore, unlike with stemming - the remainin words has a meaning - less crude
+**Lemmatisation** - removes the inflectional endings only and returns the base word - known as a lemma.
+Therefore, unlike with stemming - the remaining words has a meaning - less crude
 * lemma - is the base form of a word that is used to represent all its other possible forms, the base form under which the word is entered in a dictionary e.g.
 run is the lemma - and run runs, running and ran are forms of the same lexeme
 
 
 With Lemmatization and Stemming, the tokens need to be converted into lowercase characters and the stopwords must be removed. 
-**Stopwords** refer to the most common words in a language, and which don't add much meaning to a sentence. They can be ignored without comprimising the meaning of the sentence i.e. is, at, the etc
+
+**Stopwords** refer to the most common words in a language, and which don't add much meaning to a sentence. 
+* They can be ignored without comprimising the meaning of the sentence i.e. 
+```html
+is, at, the etc
+```
 
 **Parsing** -  the analysis of a string of words resulting in a parse tree revealing the syntactic relationships between words which can contain semantics
 
 However, a drawback of parsing is that when and what is parsed is entirely dependant on the user as any paragraph can be phrased any way they choose from individual characters to whole sentences
 
-**Parts of speech tagging**: tagging each word according to is type:
+**Parts of speech tagging**: tagging each word according to its type:
 run - verb
 on - preposition
 cat - noun
 
-**Bag-of-words model** - is a feature extraction technique used to convert text input into vectors of numbers. This conversion of text into vectors of numbers is called feature extraction.
+**Bag-of-words model** - is a feature extraction technique used to convert text input into vectors of numbers.
+Machine learning algorithms can't work with raw text directly - so the text needs to be converted into vectors of numbers.
+With ubb - we had to convert the user input(strings) into numerical representation in order for this information to be used.
+(Neural networks don't recognize strings)
+
+This conversion of text into vectors of numbers is called **feature extraction**
 Outputs the occurrence of each word
 
 “Brown cat”
@@ -78,9 +95,17 @@ A feature based on word count:
 
 'brown cat' is transformed into a vectorised word count
 
+To use the bag-of-words model, we have to:
+* - design a vocabulary of known words - also called tokens
+* - choose a measure of the presence of known words
+
+* The structure and order of words is unimportant
+* The number of known words can be reduced when using a bag-of-words model to decrease the required memory and computational resources, by using 
+some of the above text cleaning techniques e.g. removing stop words, stemming, lemmatization 
+
 Cosine similarity can be used on the vectors to determine similarity
 
-![cosinesimilarity](cosinesimiliarity.png)
+![cosinesimilarity](cosinesimilarity.png)
 
 Each document is treated as a vector of features, allowing for mathematical operations such as the cosine similarity to be performed on it
 
@@ -88,10 +113,14 @@ Taking their dot products and dividing it by the multiplication of their magnitu
 
 A bag of words can be improved by adjusting the word counts based on their frequency in the corpus 
 
-Tf-idf - term frequency - inverse document frequency
+**TD-IDF**
 
+* Scoring word frequency has its limitations however since the most frequent words in the document can end up with the highest scores, despite them not offering as much information gain to the model.
+* One approach is to penalize words that are frequent, using TF-IDF - termm frequency-inverse document frequency
+* TD-IDF - is a statistical measure used to evaluate the importance of a word to a document in a corpus
 
-Term frequency - importance of the term within that document
+The TF-IDF scoring value increases proportionally to the number of times a word appears in the document, but is offset by the number of documents in the corpus that contain the word.
+
 
 TF(d, t) = number of occurrences of term t in document d
 Inverse document fréquence - importance of the term in the corpus
