@@ -4,10 +4,11 @@ Natural Language Processing(NLP)
 
 * The 'Natural language' in Natural Language Processing - refers to a language that is used for everyday communication e.g. English, French
 etc
-* NLP can an be described as any kind of computer manipulation of natural language to process and analyze large amounts of natural language corpora
+* NLP can an be described as any kind of computer manipulation of natural language to process, interpret and analyze large amounts of natural language corpora
 * Helps to understand a set of abstract rules from text and the relationship that language has with another
 * Some examples of technologies that are based on NLP include:  predictive text, machine translation 
 * In academia, NLP is commonly known as computational linguistics
+* Its roots can be found in Alan Turing's article “Computing Machinery and Intelligence,” - a seminal paper on artificial intelligence.
 
 ### NLP Use cases
 
@@ -15,7 +16,7 @@ NLP serves a lot of use cases when dealing with a lot of unstructured data
 e.g 
 * **sentiment analysis** -  is the extraction of the interpretation or subjective meaning of a word from a document or set of documents to determine the attitude of a specific word or set of words
 
-One of the greatest uses of it is in social media: e.g. Twitter Facebook, to identify trends of public opinion, how often a word appears in a specific tonal context and interpreting the tone of group of words to analyze the general sentiment of tweets for example
+One of the greatest uses of it is in social media: e.g. Twitter, Facebook, to identify public opinion trends, how often a word appears in a specific tonal context and interpreting the tone of group of words e.g.  analyzing the general sentiment of tweets 
 * customer reviews - analyse customers' sentiments about a product through feedback processing
 * Spam detection -  to classify emails as spam
 * speech recognition
@@ -24,22 +25,27 @@ One of the greatest uses of it is in social media: e.g. Twitter Facebook, to ide
 * document summarization
 * autocompletion
 * machine translation
+* improving accessibility for people with disabilities
 * predictive typing
 
-
-###  Natural Language processing techniques
+ALthough NLP can be conducted in a range of programming languages e.g.  NLP.js, Natural Wink.js packages can be using with Node.js or JavaScript, Python has the largest number of open-source NLP libraries, of which one is NLTK.
 
 NTLK - the Natural Language Toolkit contains a suite of text processing libraries for classification, stemming, lemmatization, parsing, tokenization, tagging etc
 
+Before carrying out larger NLP tasks, data must be 'cleaned' or 'preprocessed'. Without preprocessing, a computer will interpret “and”, “And”, and “<p>and” as being the same. 
+In order to clean the data then, some preprocessing tasks can be used, including:
+
 **Tokenization** - the process of splitting string input into a list of tokens (parts of a word).
 
-The Natural Language Tooklit(NLTK) - a suite of text processing libraries, provides a method called tokenize() - more specifically word_tokenize() to tokenize words and sent_tokenize() to tokenize sentences
+(NLTK) provides a method called tokenize() - more specifically word_tokenize() to tokenize words and sent_tokenize() to tokenize sentences
 * sent_tokenize  - splits a chunk of text into separate sentences
-* word_tokzenize  - splits sentences into separate words - or arrays of individual words
+* word_tokenize  - splits sentences into separate words - or arrays of individual words
 
-**Text lemmatization and stemming**
+**Noise removal** — stripping the text of formatting (e.g. HTML tags)
 
-The goal of both lemmatization and stemming is to reduce inflectional forms of a word to a common base form e.g.
+**Normalisation** - can be split into **text lemmatization and stemming**
+
+The goal of both text lemmatization and stemming is to reduce inflectional forms of a word to a common base form e.g.
 ```html
 am are - be
 flower flowers flower's flowers' - flower
@@ -63,22 +69,52 @@ run is the lemma - and run runs, running and ran are forms of the same lexeme
 
 With Lemmatization and Stemming, the tokens need to be converted into lowercase characters and the stopwords must be removed. 
 
-**Stopwords** refer to the most common words in a language, and which don't add much meaning to a sentence. 
+some 'words' resulting from stemming = mani hardli arriv
+same 'words' after text lemmatization has been carried out = many hardly arrive
+
+
+**Removing stopwords** - stopwords refer to the most common words in a language, and which don't add much meaning to a sentence. 
 * They can be ignored without comprimising the meaning of the sentence i.e. 
 ```html
 is, at, the etc
 ```
 
-**Parsing** -  the analysis of a string of words resulting in a parse tree revealing the syntactic relationships between words which can contain semantics
+**Lowercasing** - converting all words to lowercase
 
-However, a drawback of parsing is that when and what is parsed is entirely dependant on the user as any paragraph can be phrased any way they choose from individual characters to whole sentences
+Once the body of text has been preprocessed, other tasks can be carried out 
 
-**Parts of speech tagging**: tagging each word according to its type:
+**Parsing** -  the analysis of a string of words resulting in a parse tree revealing the syntactic relationships between words which can contain semantics. 
+* Concerned with the segmentation of text based on syntax
+
+However, a drawback of parsing is that when and what is parsed is entirely dependent on the user as any paragraph can be phrased any way they choose from individual characters to whole sentences
+
+Parsing can include:
+
+
+**Parts of speech tagging/ POS tagging**: tagging each word according to its type/ identifying the parts of speech:
 run - verb
 on - preposition
 cat - noun
 
-**Bag-of-words model** - is a feature extraction technique used to convert text input into vectors of numbers.
+
+**Named entity recognition(NER)** = helps to identify the proper nouns in a text e.g. The Tower of London, Jane Fonda, Divergent
+Can provide clues as to the topic of the text
+
+**Dependency grammar trees** - help to understand the relationship between the words in a sentence. example of a Python library for this is spaCy 
+
+**Regex parsing** - Python's re library can be used for the purpose of regex parsing. When coupled with POS tagging, you can identify phrase chunks. On its own, it can find you addresses, emails and many other common patterns within large chunks of text
+
+
+
+**Language Models**
+
+In order for a computer to be able to make sense of a collection of tokenized words, a language model can be used to train the corpus so that the computer can make predictions about the language
+
+Language models are probabilistic computer models of language that are used to figure out the likelihood that given a sound, letter, word or phrase will be used.
+Once a model has been trained, it can be tested out on new texts.
+One of the most common language models is the unigram model, a statistical langauge model commonly known as **'bag-of-words'.**
+
+It is a feature extraction technique used to convert text input into vectors of numbers.
 Machine learning algorithms can't work with raw text directly - so the text needs to be converted into vectors of numbers.
 With ubb - we had to convert the user input(strings) into numerical representation in order for this information to be used.
 (Neural networks don't recognize strings)
@@ -103,6 +139,18 @@ To use the bag-of-words model, we have to:
 * The structure and order of words is unimportant
 * The number of known words can be reduced when using a bag-of-words model to decrease the required memory and computational resources, by using 
 some of the above text cleaning techniques e.g. removing stop words, stemming, lemmatization 
+
+Bag-of-words can be thus used to make predictions concerning topics or the overarching sentiment of a text.
+It is a good model to use if grammar and word order are irrelevant
+
+**N-Grams and NLM**
+
+If the goal is to conduct language prediction, the n-gram mode - a model that can be used to attention to each word's neighbours, can be used.
+Unlike bag-of-words - the n-gram model considers a sequence of some number(n) units and calculates the probability of each unit in a body of language given the preceding sequence of length n
+
+
+
+ 
 
 Cosine similarity can be used on the vectors to determine similarity
 
