@@ -1,5 +1,36 @@
 ### Notes
 
+Create a spec folder with the following command:
+
+```
+rspec --init
+```
+
+This creates a spec_helper.rb file and a .rspec file
+
+* Add dependencies by adding said dependencies to the Gemfile.
+* Create a Gemfile with the following command:
+```
+bundle init
+```
+* Find the latest versions by visiting the RubyGems website.
+* Copy and paste the correct versions into the Gemfile
+* Install the listed dependencies with the following command:
+```
+bundle install
+```
+
+* Let statements
+
+Use let statements to DRY up code - i.e. avoid writing repeated lines of code in the 'setup' phase of our tests:
+
+```
+let(:dockingstation) { DockingStation.new }
+```
+can be placed at the top of the spec file, rather than having 'dockingstation = DockingStation.new' in every single test of the spec file
+
+
+
 # Use of doubles 
 
 **What is a double?**
@@ -7,6 +38,14 @@
 A double is a mock object that stands in for a real object in a test suite
 
 **What is the purpose of using doubles**
+
+Use a double as soon as another class/object is referred to in a class e.g.DockingStation - referring to a bike - use a double
+
+**Verifying doubles/instance doubles**
+
+Can be used to 'overcome the limitations of the London style of mocking', so to speak.
+An error will be thrown if the methods that are defined on the double, don't exist in the actual class
+Define an instance double by using the instance_double keyword
 
 
 **Creating doubles**
@@ -322,4 +361,53 @@ class Ratings
     return "This movie has a rating of #{movie.rating}"
   end
 end
+```
+
+
+Configuring simplecov - to monitor test coverage
+
+In the spec_helper.rb - add the following:
+
+```
+RSpec.configure do |config|
+
+  require 'simplecov'
+require 'simplecov-console'
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::Console,
+  # Want a nice code coverage website? Uncomment this next line!
+  # SimpleCov::Formatter::HTMLFormatter
+])
+SimpleCov.start
+
+RSpec.configure do |config|
+  config.after(:suite) do
+    puts
+    puts "\e[33mHave you considered running rubocop? It will help you improve your code!\e[0m"
+    puts "\e[33mTry it now! Just run: rubocop\e[0m"
+  end
+end
+
+```
+
+In the Gemfile
+
+```
+
+
+source "https://rubygems.org"
+
+
+gem 'rake'
+gem 'rubocop', '0.71.0'
+
+group :test do
+  gem 'rspec'
+  gem 'simplecov' 
+  gem 'simplecov-console'
+end
+
+
+
 ```
