@@ -454,3 +454,13 @@ numbers = [4, 5, 6, 7, 8, 9, 10]
 numbers.drop(4)
 #=> [8,9,10]
 ```
+
+# ||=
+
+||= is called a conditional assignment operator
+
+c || = z 
+
+If c is undefined or falsey - evalute z and set c to the result of the evaluation of z
+
+If c is defined and evaluates to truthey, then don't evaluate z. No assignment takes place
