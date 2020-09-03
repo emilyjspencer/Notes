@@ -461,6 +461,6 @@ numbers.drop(4)
 
 c || = z 
 
-If c is undefined or falsey - evalute z and set c to the result of the evaluation of z
+If c is undefined or falsy - evalute z and set c to the result of the evaluation of z
 
-If c is defined and evaluates to truthey, then don't evaluate z. No assignment takes place
+If c is defined and evaluates to truthy, then don't evaluate z. No assignment takes place
