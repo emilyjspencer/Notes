@@ -13,57 +13,6 @@ end
 ```
 
 
-### Modules
-
-```html
-module Run
-    def run()
-      return "I am running"
-    end
-  end
-  
-  class Cat
-    include Run
-    def initialize(name)
-      @name = name
-    end
-    def name
-        return "My name is " + @name + "!"
-    end
-  end
-  
-  class Dog
-    include Run
-    def initialize(name)
-      @name = name
-    end
-    def name
-        return "My name is " + @name + "!"
-    end
-  end
-  
-  class Duck
-    include Run
-    def initialize(sound)
-      @sound = sound
-    end
-    def make_sound
-        return "I go " + @sound + "!"
-    end
-  end 
-  
-  cat = Cat.new("Robbie")
-  p cat
-  cat.run
-  cat.name
-  dog = Dog.new("Bob")
-  dog.name
-  dog.run
-  duck = Duck.new("quack")
-  duck.make_sound
-  duck.run
-```
-
 ## Arrays
 
 **Convert an array of strings to an array of integers**
@@ -479,6 +428,65 @@ puts newhash
 
 # Modules
 
+Why use modules?
+
+* Modules allow you to share methods between classes
+* Modules can be included into classes - thereby making the modules' methods available to the class(es) into which it's been included
+* Help to DRY up code - i.e if there are methods that we wish to reuse in certain classes but want to keep them in one place - we can put them in the module and then include the module into the respective classes
+
+
+```
+### Modules
+
+```html
+module Run
+    def run()
+      return "I am running"
+    end
+  end
+  
+  class Cat
+    include Run
+    def initialize(name)
+      @name = name
+    end
+    def name
+        return "My name is " + @name + "!"
+    end
+  end
+  
+  class Dog
+    include Run
+    def initialize(name)
+      @name = name
+    end
+    def name
+        return "My name is " + @name + "!"
+    end
+  end
+  
+  class Duck
+    include Run
+    def initialize(sound)
+      @sound = sound
+    end
+    def make_sound
+        return "I go " + @sound + "!"
+    end
+  end 
+  
+  cat = Cat.new("Robbie")
+  p cat
+  cat.run
+  cat.name
+  dog = Dog.new("Bob")
+  dog.name
+  dog.run
+  duck = Duck.new("quack")
+  duck.make_sound
+  duck.run
+```
+
 ```
 require 'digest'
 
@@ -509,3 +517,14 @@ puts person.encrypted_password
 
 #=> 98bd847f2f3dafa500d1602f778503502a21d50f411fd400a12bafe41996ac86
 ```
+
+
+# Encryption
+
+Encryption takes plain text and converts it to encrypted text using a key and encryption algorithm.
+This encrypted text can then be decrypted using that same key and encryption algorithm
+
+# Digest
+
+Takes plain text and generates a hashcode which can be used to verify if the plain text has not been changed.
+Typically one-way
