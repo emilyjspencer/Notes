@@ -464,3 +464,48 @@ c || = z
 If c is undefined or falsy - evalute z and set c to the result of the evaluation of z
 
 If c is defined and evaluates to truthy, then don't evaluate z. No assignment takes place
+
+# merge - is a hash method - allows you to merge hashes
+
+```
+hash1 = {name: 'emily'}
+hash2 = {haircolour: 'brown'}
+newhash = hash1.merge(hash2)
+puts newhash
+
+{:name=>"emily", :haircolour=>"brown"}
+```
+
+
+# Modules
+
+```
+require 'digest'
+
+module Encryption
+  def encrypt(string)
+    Digest::SHA2.hexdigest(string)
+  end
+end
+
+class Person
+  include Encryption
+
+  attr_reader :name
+  attr_accessor :password
+
+  def initialize(name)
+    @name = name
+  end 
+
+  def encrypted_password
+    encrypt(@password)
+  end
+end
+
+person = Person.new("Emily")
+person.password = "I need marmite butter in my life"
+puts person.encrypted_password
+
+#=> 98bd847f2f3dafa500d1602f778503502a21d50f411fd400a12bafe41996ac86
+```
