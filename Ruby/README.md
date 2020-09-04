@@ -404,6 +404,11 @@ numbers.drop(4)
 #=> [8,9,10]
 ```
 
+# fetch
+
+Is a hash method - returns a value from the hash for a given key
+If the default is given, it will be returned
+
 # ||=
 
 ||= is called a conditional assignment operator
@@ -528,3 +533,25 @@ This encrypted text can then be decrypted using that same key and encryption alg
 
 Takes plain text and generates a hashcode which can be used to verify if the plain text has not been changed.
 Typically one-way
+
+# *args
+
+allows you to call a method with any (a variable number of) arguments - including none
+```
+class Person
+
+
+
+def print_all(*args)
+   'Hi'
+end
+
+
+end
+
+hehe = Person.new
+p hehe.print_all(2, 4, 5) #=> 'Hi'
+p hehe.print_all #=> 'Hi'
+p hehe.print_all(1,2,3,4,5,6,7,8,) #=> 'Hi'
+
+```
