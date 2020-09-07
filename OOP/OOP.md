@@ -1,6 +1,6 @@
 # OOP
 
-The four principles of object oriented programming:
+The four main principles of object oriented programming:
 
 * Abstraction
 * Encapsulation
@@ -41,9 +41,9 @@ So new classes can be created to inherit the characteristics of ALL animals and 
 
 # What is the purpose of inheritance?
 
-Inheritance is used to create a specialized version of a class
-Inheritance expresses an 'is-a and/or has-a' relationship between two objects
-It also make code more DRY
+* Inheritance is used to create a specialized version of a class
+* Inheritance expresses an 'is-a and/or has-a' relationship between two objects
+* It also make code more DRY
 
 
 **Inheritance in Rails**
@@ -61,9 +61,9 @@ As a result, the developer has access to useful methods such as find, where, sum
 **Abstraction allows us to design code that is more readable.**
 
 
-* Polymorphism - one name - many meanings
+# Polymorphism - one name - many meanings
 
-The same method can be used for multiple different objects
+The same method can be used for multiple different objects - the same message can be send to different objects to get different results.
 
 Examples of polymorphism in action:
 
@@ -73,4 +73,149 @@ These modules can be included into a variety of different classes to give those 
 * Sessions can be treated like hashes.
 
 
+### Polymorphism in action using inheritance
 
+One way to achieve polymorphism is by using inheritance
+
+```
+class DisneyCharacter
+    def initialize(first_name, hair_colour, movie)
+         @first_name = first_name
+         @hair_colour = hair_colour
+         @movie = movie
+    end
+
+    def introduce
+          puts "Hi. My name is #{@first_name}. I'm from #{@movie}"
+    end
+
+    def bye
+      puts "Nice to meet you"
+    end
+end
+
+class Princess < DisneyCharacter
+    def introduce
+          puts "I'm a princess. I'm #{@first_name}. I'm from #{@movie}"
+    end
+end
+
+class Prince < DisneyCharacter
+    def introduce
+          puts "I'm a prince - #{@first_name}. I'm from #{@movie}"
+    end
+end
+
+class Baddie < DisneyCharacter     
+    def introduce           
+        puts "I'm #{@first_name}. I'm from #{@movie}"     
+    end 
+end 
+
+character = Baddie.new("Evil Queen", "black", "Snow White") 
+character.introduce 
+character.bye
+p character
+character2 = Prince.new("Prince Charming", "black", "Cinderella")
+character2.introduce
+character2.bye
+p character2
+
+#=>
+I'm Evil Queen. I'm from Snow White
+Nice to meet you
+#<Baddie:0x00005627880c3f90 @first_name="Evil Queen", @hair_colour="black", @movie="Snow White">
+I'm a prince - Prince Charming. I'm from Cinderella
+Nice to meet you
+#<Prince:0x00005627880c34c8 @first_name="Prince Charming", @hair_colour="black", @movie="Cinderella">
+```
+
+The Baddie, Prince and Princess classes inherit from the DisneyCharacter class.
+So, they inherit its methods.
+
+Another example
+
+```
+
+class Student
+    attr_accessor :first_name, :surname, :current_course, :new_course
+      
+  def initialize(first_name, surname, current_course, new_course)
+    @first_name = first_name
+    @surname = surname
+    @current_course = current_course
+    @new_course = new_course
+  end
+
+end
+
+class ViewStudent
+  def initialize(student)
+    @student = student
+  end
+
+  def show_student
+    puts "Student: #{@student.first_name} + 
+     " " + #{@student.surname}"
+    puts "Degree course: #{@student.current_course}"
+  end
+end
+
+class ChangeCourse
+  def initialize(student)
+    @student = student
+  end
+
+  def choose
+    puts "What is the student's first name?"
+    @student.first_name = gets.chomp.capitalize
+    puts "What is the student's surname?"
+    @student.surname = gets.chomp.capitalize
+    puts "What course are they currently studying?"
+    @student.current_course = gets.chomp.capitalize
+    puts "What course do they wish to change to?"
+    @student.new_course = gets.chomp.capitalize
+    puts "Student has been updated: #{@student.first_name}   #{@student.surname} who was studying #{@student.current_course} now studies #{@student.new_course}"
+  end
+end
+
+options = [ViewStudent, ChangeCourse]
+
+student = Student.new("betty", "boop", "french german", "arabic")
+
+puts "Select 1 to view student or 2 to update degree course."
+selection = gets.chomp.to_i
+select = options[selection - 1]
+select = select.new(student)
+select.choose
+
+#=>
+
+Select 1 to view student or 2 to update degree course.
+2
+What is the student's first name?
+Betty
+What is the student's surname?
+Boop
+What course are they currently studying?
+French German
+What course do they wish to change to?
+Arabic
+Student has been updated: Betty   Boop who was studying French German now studies Arabic
+
+```
+
+# Duck typing
+
+
+
+
+
+# Encapsulation  - hide the data whenever possible
+
+Encapsulation is practiced by hiding data in instance variables, and only exposing these instance variables and thus the stored data when required, using attr_reader, attr_writer and attr_accessor.
+These allow access to methods outside the class when that functionality is required and only for as much as it is required.
+It allows developer to restrict direct access to an object's data and methods.
+
+
+Encapsulation is also related to the single responsibilty principle - SRP, where every class, module, and method has a responsibility for a single piece of functionality that is encapsulated by that class, module or method.
