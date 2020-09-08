@@ -63,9 +63,9 @@ In Rails, all controllers inherit from the ApplicationController and models inhe
 As a result, the developer has access to useful methods such as find, where, sum and average
 
 
-# Abstraction - simplifying
+# Abstraction - simplifying complex reality by modeling classes appropriate to the problem.
 
-Refers to the concept of hiding unnecessary details from the user - hiding the implementation details form the user.
+and refers to the concept of hiding unnecessary details from the user - hiding the implementation details form the user.
 
 OOP language's objects provide an abstraction that hides the internal implementation details
 
