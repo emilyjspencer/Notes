@@ -1,5 +1,16 @@
 # OOP
 
+# How did OOP come to exist?
+
+Programmers needed to find a way to keep applications maintainable. As applications and programmes grew, small changes would often result in changes in unexpected places or in various parts of the application, where dependencies were.
+The concept of code compartmentalization grew out of this desire to be able to prevent small changes from having a sort of domino effect on the rest of the system.
+Splitting the code up into different units, allowed changes to be made that wouldn't have significant effect on the system.
+
+With most OOP languages, we thus use classes.
+Classes are used to represent objects
+Object's data is encapsulated in variables
+Object's behaviour is encapsulated in methods
+
 The four main principles of object oriented programming:
 
 * Abstraction
@@ -10,7 +21,7 @@ The four main principles of object oriented programming:
 
 # Inheritance
 
-* It allows you to create a more specific and specialized version of a class
+* Inheritance allows you to create a more specific and specialized version of a class
 * The parent class is the super class or base class
 * The child class is the sub class or derived class
 * The parent class is always more generic than the subclasses
@@ -61,7 +72,9 @@ As a result, the developer has access to useful methods such as find, where, sum
 **Abstraction allows us to design code that is more readable.**
 
 
-# Polymorphism - one name - many meanings
+# Polymorphism  - the ability for different types of data/different objects to respond to/make use of a common interface (set of methods/method)
+
+Allows developers to use pre-written code for new pruposes
 
 The same method can be used for multiple different objects - the same message can be send to different objects to get different results.
 
@@ -205,17 +218,60 @@ Student has been updated: Betty   Boop who was studying French German now studie
 
 ```
 
+# Polymorphism using modules
+
+Modules can be used to achieve polymorphism
+Modules allow the developer to define certain methods and then mix these modules into specific classes in order to provide those classes with particular behaviour/functionality.
+Modules must be 'included' into a class using the include keyword
+
+```
+module Sing
+  def sing(lyrics)
+    puts lyrics
+  end
+end
+
+class Singer
+  include Sing
+end
+
+class Actor
+  include Sing
+end
+
+lily = Singer.new
+lily.sing("Ooops I did it again")      
+miles = Actor.new
+miles.sing("Reach for the stars")   
+
+#=> Ooops I did it again
+#=> Reach for the stars
+```
+
 # Duck typing
 
+An object type is defined by its behaviour - by what it can do - not by its class/type or what it is
+Duck typing refers to the fact that Ruby is less concerned with an object's class and more concerned with the methods that are defined on it that can be called and what operations can be performed on it.
+
+If it walks like a duck and talks like a duck then it probably is a duck
+If an object walks like a duck or acts like a string, treat it as if it is a duck or string
+
+Should aim to treat objects according to the methods they define rather than the classes from which they inherit or the modules they include.
 
 
 
 
 # Encapsulation  - hide the data whenever possible
 
-Encapsulation is practiced by hiding data in instance variables, and only exposing these instance variables and thus the stored data when required, using attr_reader, attr_writer and attr_accessor.
+
+* Encapsulation is to do with the idea of hiding aspects of an object's functionality from the rest of the code base. 
+* Provides a sort of data protection - data can't be easily changed
+* It is what defines the boundaries of an application and does so by using classes to represent objects. These classes expose interfaces (collections of methods) - which are used to interact with the objects.
+The object's data is encapsulated in variables and the object's behaviour is encapsulated in methods.
+
+
+Practiced by hiding data in instance variables, and only exposing these instance variables and thus the stored data when required, using attr_reader, attr_writer and attr_accessor.
 These allow access to methods outside the class when that functionality is required and only for as much as it is required.
-It allows developer to restrict direct access to an object's data and methods.
+It allows developers to restrict direct access to an object's data and methods.
 
-
-Encapsulation is also related to the single responsibilty principle - SRP, where every class, module, and method has a responsibility for a single piece of functionality that is encapsulated by that class, module or method.
+Encapsulation is also related to the single responsibility principle - SRP, where each class, module, and method has a responsibility for a single piece of functionality that is encapsulated by that class, module or method.
