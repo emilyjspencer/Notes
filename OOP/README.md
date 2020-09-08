@@ -65,11 +65,24 @@ As a result, the developer has access to useful methods such as find, where, sum
 
 # Abstraction - simplifying
 
+Refers to the concept of hiding unnecessary details from the user - hiding the implementation details form the user.
+
+OOP language's objects provide an abstraction that hides the internal implementation details
+
+Coffee machine analogy
+
+Users of a coffee machine don't need to know how exactly their coffee is made. 
+They only need to know what buttons to press i.e. how to use the machine.
+They don't need to know the implementation details - how the methods work.
+They only need to understand the interface - know what methods can be used/called.
+
 * :) is an abstraction of a much more complex depiction of a face.
 * It is a simplified version of a face, but it is still understood to represent a smiling face/happiness.
 * In terms of programming, it can be said that Ruby is an abstraction of lower level code  (Ruby is a high level programming language)
 
 **Abstraction allows us to design code that is more readable.**
+
+
 
 
 # Polymorphism  - the ability for different types of data/different objects to respond to/make use of a common interface (set of methods/method)
