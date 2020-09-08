@@ -258,7 +258,62 @@ If an object walks like a duck or acts like a string, treat it as if it is a duc
 
 Should aim to treat objects according to the methods they define rather than the classes from which they inherit or the modules they include.
 
+Duck typing in action
 
+```
+class French  
+  def greet  
+    'Salut!'  
+  end  
+  
+  def say_no  
+    'non'  
+  end  
+end  
+  
+class German  
+  def greet  
+    'Hallo!'  
+  end
+
+  def say_no  
+    'Nein'  
+  end  
+end  
+  
+class Dutch 
+  
+  def greet
+    'Hallo'  
+end  
+  
+  def say_no  
+    'Nee'  
+  end  
+end  
+  
+def do_something(language)  
+  language.say_no  
+end  
+puts do_something(French.new)  
+puts do_something(German.new)
+puts do_something(Dutch.new)  
+  
+def greet(language)  
+  language.greet  
+end  
+puts greet(German.new)  
+puts greet(French.new)
+puts greet(Dutch.new) 
+
+non
+Nein
+Nee
+Hallo!
+Salut!
+Hallo
+
+```
 
 
 # Encapsulation  - hide the data whenever possible
