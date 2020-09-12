@@ -21,6 +21,7 @@ The four main principles of object oriented programming:
 
 # Inheritance
 
+* Inheritance helps you to reduce redundant code - makes code more DRY
 * Inheritance allows you to create a more specific and specialized version of a class
 * The parent class is the super class or base class
 * The child class is the sub class or derived class
@@ -70,6 +71,7 @@ As a result, the developer has access to useful methods such as find, where, sum
 
 and refers to the concept of hiding unnecessary details from the user - hiding the implementation details from the user.
 * The complexity/implementation details are hidden from you
+* Hides the complexity and details to only show/expose the essentials
 
 OOP language's objects provide an abstraction that hides the internal implementation details
 
@@ -97,8 +99,8 @@ We can hide properties and methods of a class from the outside
 
 Gives us the following benefits:
 
-* Simpler interface
-* Reduces the impact of change
+* Reduces complexity - results in a more simple interface 
+* Isolates the impact of changes - reduces the impact of change
 
 If we change a private method - it won't impact the rest of the application because the changes won't 'leak' to the outside
 
@@ -110,7 +112,9 @@ If we change a private method - it won't impact the rest of the application beca
 
 # Polymorphism  - the ability for different types of data/different objects to respond to/make use of a common interface (set of methods/method)
 
-Allows developers to use pre-written code for new pruposes
+* Polymorphism literally means: 'many forms'
+
+* Polymorphism allows developers to use pre-written code for new purposes
 
 The same method can be used for multiple different objects - the same message can be send to different objects to get different results.
 
@@ -120,7 +124,7 @@ Examples of polymorphism in action:
 These modules can be included into a variety of different classes to give those classes certain methods that they otherwise wouldn't have
 * ActiveRecord Relations - can be treated like arrays
 * Sessions can be treated like hashes.
-
+* Polymorphism can allow you to remove the need for lengthy if/else statements 
 
 ### Polymorphism in action using inheritance
 
@@ -352,12 +356,14 @@ Hallo
 ```
 
 
-# Encapsulation  - hide the data whenever possible
+# Encapsulation  
 
+* The grouping of related variables and functions into units
+* This reduces complexit and allows the developer to reuse the object(s) in different parts of the programme/application
 
-* Encapsulation is to do with the idea of hiding aspects of an object's functionality from the rest of the code base. 
+* It could also be argued that encapsulation is also to do with the idea of hiding aspects of an object's functionality from the rest of the code base. 
 * Provides a sort of data protection - data can't be easily changed
-* It is what defines the boundaries of an application and does so by using classes to represent objects. These classes expose interfaces (collections of methods) - which are used to interact with the objects.
+* Encapsulation is what defines the boundaries of an application and does so by using classes to represent objects. These classes expose interfaces (collections of methods) - which are used to interact with the objects.
 The object's data is encapsulated in variables and the object's behaviour is encapsulated in methods.
 
 
