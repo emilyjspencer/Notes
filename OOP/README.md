@@ -90,6 +90,11 @@ Perhaps these methods would form the CoffeeMachine's private interface
 * We don't need to know how the DVD player takes us to the home menu
 * We don't need to know or understand how the DVD player records
 
+
+
+
+
+
 * :) is an abstraction of a much more complex depiction of a face.
 * It is a simplified version of a face, but it is still understood to represent a smiling face/happiness.
 * In terms of programming, it can be said that Ruby is an abstraction of lower level code  (Ruby is a high level programming language)
