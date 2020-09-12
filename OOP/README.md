@@ -69,7 +69,7 @@ As a result, the developer has access to useful methods such as find, where, sum
 # Abstraction - simplifying complex reality by modeling classes appropriate to the problem.
 
 and refers to the concept of hiding unnecessary details from the user - hiding the implementation details from the user.
-* The complexity/implementation detials are hiddem from you
+* The complexity/implementation details are hidden from you
 
 OOP language's objects provide an abstraction that hides the internal implementation details
 
