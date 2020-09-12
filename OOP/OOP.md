@@ -121,7 +121,7 @@ If we change a private method - it won't impact the rest of the application beca
 
 * Polymorphism allows developers to use pre-written code for new purposes
 
-The same method can be used for multiple different objects - the same message can be send to different objects to get different results.
+The same method can be used for multiple different objects - the same message can be send to different objects to get different results e.g. add a render() method to different objects and the render() method will behave differently according to the type of the object that is being referenced - will result in different outcomes
 
 Examples of polymorphism in action:
 
