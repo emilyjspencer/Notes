@@ -49,6 +49,9 @@ The methods in the Animal class are more general - apply to all animals.
 Depending on the species and types of animal, there would need to be different methods for different species and animals i.e. not shared with all animals.
 So new classes can be created to inherit the characteristics of ALL animals and then add the extra characteristics
 
+* If there are many objects that share a lot of common characteristics - attributes, functions, a superclass can be created which implements these characteristics.
+Then, the other objects can inherit from the superclass - meaning that they will automatically 'inherit' these characteristics.
+* To make each object unique, extra attributes and methods can be added
 
 # What is the purpose of inheritance?
 
@@ -63,13 +66,46 @@ In Rails, all controllers inherit from the ApplicationController and models inhe
 As a result, the developer has access to useful methods such as find, where, sum and average
 
 
-# Abstraction - simplifying
+# Abstraction - simplifying complex reality by modeling classes appropriate to the problem.
+
+and refers to the concept of hiding unnecessary details from the user - hiding the implementation details from the user.
+* The complexity/implementation detials are hiddem from you
+
+OOP language's objects provide an abstraction that hides the internal implementation details
+
+Examples of abstraction in practice in the real world:
+
+1 - Coffee machine - We know how/learn how to use the coffee machine - just press a few buttons
+* We don't need to know anything else.
+* We don't need to know how the coffee is made - how much water should be poured into the cup at the end - how many coffee beans should be used - the temperature of the water etc
+* All of this complexity is hidden from us.
+The implementation details are hidden from us.
+Perhaps these methods would form the CoffeeMachine's private interface
+
+2 - DVD player - We know how/learn how to use the dvd player - just press a few buttons - insert the dvd player etc
+* We don't need to know anything else
+* We don't need to know how the DVD player plays the disc
+* We don't need to know how the DVD player takes us to the home menu
+* We don't need to know or understand how the DVD player records
 
 * :) is an abstraction of a much more complex depiction of a face.
 * It is a simplified version of a face, but it is still understood to represent a smiling face/happiness.
 * In terms of programming, it can be said that Ruby is an abstraction of lower level code  (Ruby is a high level programming language)
 
+We can apply the same understanding to code.
+We can hide properties and methods of a class from the outside
+
+Gives us the following benefits:
+
+* Simpler interface
+* Reduces the impact of change
+
+If we change a private method - it won't impact the rest of the application because the changes won't 'leak' to the outside
+
+
 **Abstraction allows us to design code that is more readable.**
+
+
 
 
 # Polymorphism  - the ability for different types of data/different objects to respond to/make use of a common interface (set of methods/method)
