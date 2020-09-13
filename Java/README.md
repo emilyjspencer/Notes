@@ -77,5 +77,62 @@ public class Converstion {
 }
 ```
 
-# Structure of a Java program
+# Declaring variables
+
+* In Ruby, the type of variable doesn't need to be declared.
+* In JavaScript it doesn't either - although let/const/var(ES5) need to prefix the variable name
+* In Java, the variable's type must also be declared:
+
+```
+public class Human {
+	public static void main(String[] args) {
+    String name = "Mag";
+    int yearOfBirth = 1964;
+    System.out.println(name);
+	}
+}
+```
+
+# Primitive Data Types
+* In Java - whole numbers are stored in the int primitive data type
+* Ints hold pos neg numbers and zero
+* Don’t hold floats
+* Doubles are to some extent the Ruby equivalent of floats - confusing 
+* Doubles can hold decimals and fractions. They can also hold integers however.
+
+```
+public class Attendance{
+  public static void main(String[] args) {
+    
+    double percentageAttendance = 97.4;
+    System.out.println(percentageAttendance);
+  }
+}
+
+#=> 97.4
+```
+
+Other primitive data types:
+
+* booleans
+* char - for any character - the value must be enclosed in single quotes
+
+
+# Objects
+
+Objects have built-in behaviour
+
+* Strings - defined with String
+
+# Naming variables
+
+
+Variables can only start with a letter of $ - nothing else
+
+# Static checking - helps catch bugs in the code before the code is run e.g
+
+boolean sing 'Get wavy'
+
+
+
 
