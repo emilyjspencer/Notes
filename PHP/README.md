@@ -522,4 +522,4 @@ mushrooms
 pizza
 quiche
 
-Like Ruby, the break keyword can be used to break out of a loop
+Like Ruby, the **break** keyword can be used to break out of a loop
