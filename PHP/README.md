@@ -248,3 +248,74 @@ The acronyms BIDMAS, BODMAS or PEMDAS can be helpful for remembering the order o
 
 += -= *= /= &=
 
+
+# Functions
+
+Define a function in PHP with the following syntax:
+```
+
+```
+function sayHello()
+{
+  echo "Hello!;
+}
+```
+
+* function keyword
+* curly braces to define a block
+* ; to indicate the end of a statement
+* camelCase
+
+```
+<?php
+function first()
+{
+  return "Hi\n";
+}
+
+function second()
+{
+  return "Bye!\n";
+}
+
+function third()
+{
+  return "Hi again!\n";
+}
+
+echo first() . second() . third();
+```
+
+Functions without return statements return NULL - represents the absence of a value
+
+```
+<?php
+function calculateArea($height, $width) {
+  return $height * $width;
+}
+
+echo calculateArea(3, 4);
+
+function calculateVolume($height, $width, $depth) {
+  return $height * $width * $depth;
+
+}
+
+echo calculateVolume(45, 2, 1);
+
+#=> 1290
+```
+Unlike with Ruby, we have to prefix arguments with $ e.g. $height
+
+### Default parameters
+
+```
+function speak($name = "person with no name")
+{
+  echo "Hello, $name!";
+};
+
+speak("Emily"); //  Hello, Emily!
+
+speak(); //  Hello, person with no name
+```
