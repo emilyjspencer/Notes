@@ -46,3 +46,160 @@ Single line comments
 //
 Multi-line comments 
 /* */
+
+### Escape characters - like any other language
+Use backslash
+
+No need for escape characters:
+```
+<html>
+  <head>
+    <title>PHP Test</title>
+  </head>
+  <body>
+    <?php echo "The weather's lovely today"; ?> 
+  </body>
+</html>
+```
+
+Need for escape characters:
+```
+<html>
+  <head>
+    <title>PHP Test</title>
+  </head>
+  <body>
+    <?php echo 'The weather\'s lovely today'; ?> 
+  </body>
+</html>
+```
+
+```
+<?php
+
+ echo "1. Go for a run";
+ echo "\n2. Fill in bullet journal";
+```
+
+### String concatenation in PHP
+
+* Use the . operator - concatenation operator
+
+```
+<?php
+  echo "\nConcatenate " . " strings with " . " the concatenation operator";
+```
+
+### Declaring variables
+
+Declared variables must be prefixed with a $ (sigil)
+
+* Variables names must start with a letter or _
+* Variables in PHP should use snake case 
+
+```
+<?php
+
+  $dog = "Bob";
+  $biography = "\n I am a hoe";
+  $favorite_food = "\n" . "tur" . "duck" . "en";
+```
+```
+<?php
+
+  $name = "Bob";
+  $language = "Spanish";
+  
+  echo "Hi, I am " . $name .
+  echo "\n and I am learning " . $language;
+```
+
+### String interpolation with PHP/ parsing
+
+Interpolate variables into strings through the use of curly brackets
+
+```
+<?php
+  $a = "cats";
+  $b = "cute";
+  $c = "friendly";
+
+  echo "He likes ${a} because they are ${b} and loved ${c}.";
+
+```
+
+### Variable reassignment
+
+Variables can be reassigned
+
+```
+<?php
+
+$language = "Ruby";
+$other = $language;
+
+  echo "My favourite language used to be $language.";
+  
+  $language = "JavaScript";
+  
+  echo "\nBut now my favorite is $language.";
+```
+
+#=> 
+I'm a fickle person, my favorite movie used to be Mary Poppins.
+But now my favorite is Care Bears.
+
+During assignment, the computer will first evaluate everything to the right of the assignment operator
+and return a sinle value.
+
+### Concatenating assignment operator -    .=
+
+```
+<?php
+  echo "One two three";
+
+  $sentence = "\n four";
+
+  echo $sentence;
+
+
+  $sentence .= ", five";
+  
+   echo $sentence;
+   
+   $sentence .= ", six";
+
+   echo $sentence;
+```
+
+### Reference assignment operator
+
+Assign by reference
+
+When a variable is assigned to another variable, the computer finds a new 
+space in memory which it associates with the left operand, and it stores a copy of 
+the right operand's value there.
+
+This new variable holds a copy of the value held by the original variable, but it's 
+an independent entity; changes made to either variable won't affect the other:
+
+The assignment operator =& can be used to assign by reference - that is to say that the variable
+on the left of the operator should point or refer to the exact same data as the variable on the
+right.
+
+```
+<?php
+ 
+  $first= "pizza";
+
+  $second =& $first; 
+
+  $second .= ", mozzarella bites";
+
+  $second .= ", doughnuts";
+    
+ 
+  echo "\nYour order is: $first.";
+  ```
+
+#=> Your order is: pizza, mozzarella bites, doughnuts.
