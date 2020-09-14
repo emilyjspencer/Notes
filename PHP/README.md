@@ -252,7 +252,7 @@ The acronyms BIDMAS, BODMAS or PEMDAS can be helpful for remembering the order o
 # Functions
 
 Define a function in PHP with the following syntax:
-```
+
 
 ```
 function sayHello()
@@ -310,6 +310,7 @@ Unlike with Ruby, we have to prefix arguments with $ e.g. $height
 ### Default parameters
 
 ```
+<?php
 function speak($name = "person with no name")
 {
   echo "Hello, $name!";
@@ -319,3 +320,25 @@ speak("Emily"); //  Hello, Emily!
 
 speak(); //  Hello, person with no name
 ```
+
+### Defining global variables
+
+Global variables can be declared in PHP using the **global** keyword.
+This tells PHP to look in the global scope for the variable, instead of the local
+scope of the function.
+
+
+### In-built functions 
+
+PHP has many in-built functions such as:
+
+getttype()
+abs()
+round()
+var_dump()
+substr_count()
+strrev()
+strtolower()
+str_repeat()
+rand()
+getrandmax()
