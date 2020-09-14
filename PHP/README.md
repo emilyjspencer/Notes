@@ -342,3 +342,26 @@ strtolower()
 str_repeat()
 rand()
 getrandmax()
+
+```
+<?php
+
+function convertToUpper($sentence) {
+  $result = strtoupper($sentence);
+  return $result;
+}
+
+echo convertToShout(minniemouse);
+```
+
+MINNIEMOUSE
+
+```
+function tipGenerously($num) {
+
+  $total = $num = $num * 1.2;
+  return ceil($total);
+}
+
+echo tipGenerously(100);
+```
