@@ -342,6 +342,11 @@ strtolower()
 str_repeat()
 rand()
 getrandmax()
+pi()
+min()
+max()
+sqrt()
+
 
 ```
 <?php
@@ -365,3 +370,156 @@ function tipGenerously($num) {
 
 echo tipGenerously(100);
 ```
+
+### Creating constants in PHP
+
+- Constants are global and can be used across the whole file
+- Use the define() function
+define(name, value, case-insensitive)
+
+Parameters:
+
+name: Specifies the name of the constant
+value: Specifies the value of the constant
+case-insensitive: Specifies whether the constant name should be case-insensitive. Default is false
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+define("FOOD", "Pizza", true);
+echo FOOD;
+
+define("food", "Pizza");
+echo food;
+?>
+</body
+</html>
+```
+
+
+### Loops in PHP
+
+The following types of loop exist in PHP:
+
+* while - as long as the specified condition is true
+* do...while - loops once then repeats for as long as the specified condition is true
+* for - when the number of times to loop is known
+* foreach - loops once for each element in an array
+
+### While loop
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php  
+$x = 0;
+ 
+while($x <= 50) {
+  echo "$x <br>";
+  $x+=5;
+}
+?>  
+
+</body>
+</html>
+```
+0
+5
+10
+15
+20
+25
+30
+35
+40
+45
+50
+
+### Do....whilte
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php 
+$x = 0;
+
+do {
+  echo " $x <br>";
+  $x+= 3;
+} while ($x <= 20);
+?>
+
+</body>
+</html>
+```
+0
+3
+6
+9
+12
+15
+18
+
+### For loop:
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php  
+for ($x = 0; $x <= 200; $x+=20) {
+  echo "$x <br>";
+}
+?>  
+
+</body>
+</html>
+```
+
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+200
+
+### Foreach
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php  
+$food = array("apples", "chips", "mushrooms", "pizza", "quiche"); 
+
+foreach ($food as $x) {
+  echo "$x <br>";
+}
+?>  
+
+</body>
+</html>
+
+```
+
+apples
+chips
+mushrooms
+pizza
+quiche
+
+Like Ruby, the break keyword can be used to break out of a loop
