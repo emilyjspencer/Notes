@@ -203,3 +203,48 @@ right.
   ```
 
 #=> Your order is: pizza, mozzarella bites, doughnuts.
+
+### Integers
+
+```
+<?php
+
+  $integer = 21; 
+  echo $integer;
+  $integer2 = 41;
+  echo "\n $integer2";
+  $float = 1.2;
+  echo "\n $float";
+```
+
+```
+<?php
+
+  $last_month = 1187.23;
+  $this_month = 1089.98;
+  echo $last_month - $this_month;
+
+97.25
+```
+```
+<?php
+
+  echo 8 **2;
+
+  #=> 64
+```
+
+### Order of operations
+
+Operations will be evaluated in the following order:
+
+Any operation wrapped in parentheses/brackets (())
+Exponents/indices (**)
+Multiplication (*) and division (/)
+Addition (+) and subtraction (-).
+The acronyms BIDMAS, BODMAS or PEMDAS can be helpful for remembering the order of precedence for these arithmetic operations.
+
+### Mathematical assignment operators - are the same as with any other language
+
++= -= *= /= &=
+
