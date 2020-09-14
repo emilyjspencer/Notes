@@ -523,3 +523,125 @@ pizza
 quiche
 
 Like Ruby, the **break** keyword can be used to break out of a loop
+
+
+
+### Arrays in PHP
+
+
+### PHP forms
+
+### PHP sessions
+
+
+### PHP JSON
+
+<hr>
+### Object Oriented Programming with PHP
+
+PHP5 onwards enables the developer to write PHP code in an object-oriented style
+
+Classes
+
+```
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+class Person {
+
+  public $name;
+  public $age;
+
+  
+  function set_name($name) {
+    $this->name = $name;
+  }
+  function get_name() {
+    return $this->name;
+  }
+  function set_age($age) {
+      $this->age = $age;
+  }
+  function get_age() {
+      return $this->age;
+  }
+  
+
+}
+
+$man = new Person();
+$woman = new Person();
+$man->set_name('Bob');
+$woman->set_name('Mary');
+
+echo $man->get_name();
+echo "<br>";
+echo $woman->get_name();
+?>
+ 
+</body>
+</html>
+```
+Bob
+Mary
+
+* $this - refers to the current object and is only available inside methods
+* instanceof() method can be used to check if an object belongs to a specific class
+
+
+### Constructors in PHP
+
+* Constructors are automatically called upon initialization of an object
+
+* __construct() is called
+
+* Has the same functionality as constructor() in JavaScript and initialize() in Ruby
+
+```
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+class Person {
+  public $name;
+  public $age;
+
+  function __construct($name, $age) {
+    $this->name = $name; 
+    $this->age = $age;
+  }
+  function get_name() {
+    return $this->name;
+  }
+  function get_age() {
+    return $this->age;
+  }
+}
+
+$man = new Person("Pierre", 40);
+echo $man->get_name();
+echo "\n";
+echo $man->get_age();
+?>
+ 
+</body>
+</html>
+```
+
+=> Pierre
+40
+
+### Destructor
+
+A destructor is called when the code has finished being evaluated.
+If a __destruct() function is created, PHP will automatically call the function at the end of the script
+
+### Access modifiers
+
+**Public** - the property or method can be accessed from everywhere. This is the default.
+**Protected** - the property of method can be accessed within the class and by classes derived from that class
+**Private** - the property or method can ONLY be accessed within the class
