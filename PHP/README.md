@@ -791,3 +791,27 @@ print_r($people);
 
 Array ( [0] => Tobin [1] => Michael [2] => Bob [3] => Daniel [4] => Thomas [5] => Henry )
 ```
+
+### Associative arrays
+
+* Simply refers to arrays contain key/value pairs
+* => is used to separate each key from its respective pair
+* To print associative arrays - use the print_r() function
+
+```
+<?php
+
+
+$films_and_actors = ["The Sixth Sense" => "Bruce Willis",
+"Titanic" => "Leonardo DiCaprio",
+"Tootsie" => "Dustin Hoffman",
+"Barefoot in the Park" => "Robert Redfood"];
+
+echo implode(", ", $films_and_actors);
+
+print_r($films_and_actors);
+
+// Bruce Willis, Leonardo DiCaprio, Dustin Hoffman, Robert RedfoodArray ( [The Sixth Sense] => Bruce Willis [Titanic] => Leonardo DiCaprio [Tootsie] => Dustin Hoffman [Barefoot in the Park] => Robert Redfood )
+
+```
+
