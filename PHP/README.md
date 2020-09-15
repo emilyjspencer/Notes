@@ -642,6 +642,23 @@ If a __destruct() function is created, PHP will automatically call the function 
 
 ### Access modifiers
 
-**Public** - the property or method can be accessed from everywhere. This is the default.
-**Protected** - the property of method can be accessed within the class and by classes derived from that class
-**Private** - the property or method can ONLY be accessed within the class
+* **Public** - the property or method can be accessed from everywhere. This is the default.
+* **Protected** - the property of method can be accessed within the class and by classes derived from that class
+* **Private** - the property or method can ONLY be accessed within the class
+
+
+* void - means that it doesn't return any value
+
+
+* Mathematical functions
+
+* octdec() converts an octal string to a decimal
+* deg2rad() - converts degrees to radians
+* cos() - gets the cosine of a specified value
+* round() - to round . Second argument is the number of decimal points to round to
+* log() - take the natural log
+* abs() - take the absolute value
+* acos() - take the inverse/arc cosine
+* rad2deg() - converts radians to degrees
+* floor() - rounds down to the nearest whole number
+
