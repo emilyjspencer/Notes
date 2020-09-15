@@ -662,3 +662,95 @@ If a __destruct() function is created, PHP will automatically call the function 
 * rad2deg() - converts radians to degrees
 * floor() - rounds down to the nearest whole number
 
+
+### Arrays in PHP
+
+* Zero-based indexed
+* count() function can be used to find the length of the array
+* array() function can be used to create an array
+* echo() can't be used to print out the contents of an array - need to use
+print_r()
+```
+<?php
+$numbers = [7, 201, 33, 88, 91];
+
+print_r($numbers);
+
+Array ( [0] => 7 [1] => 201 [2] => 33 [3] => 88 [4] => 91 )
+
+```
+
+* implode() method is used to convert an array into a string
+* The first argument of the implode method acts as the separator between each element that was in the 
+previous array
+```
+
+<?php
+
+
+$statement = ["This is a string, " PHP", " is different\n"];
+
+$numbers = [7, 201, 33, 88, 91];
+
+echo implode("!", $statement);
+#=> This is a string! PHP! is different
+```
+
+
+### Accessing elements in array
+
+```
+<?php
+
+
+$round_one = ["X", "X", "first winner"];
+
+$round_two = ["second winner", "X", "X", "X"];
+
+$round_three = ["X", "X", "X", "X", "third winner"];
+
+$winners = ["first winner", "second winner", "third winner"];
+echo $winners[0];
+echo "\n";
+echo $winners[1];
+echo "\n";
+echo $winners[2];
+echo "\n";
+
+
+
+
+
+$round_one = ["X", "X", "first winner"];
+
+$round_two = ["second winner", "X", "X", "X"];
+
+$round_three = ["X", "X", "X", "X", "third winner"];
+
+
+
+$winners = [$round_one[2], $round_two[0], $round_three[4]];
+
+print_r($winners);
+```
+
+### Adding items to an array 
+
+* Add items to the end of an array through the use of 
+[] and the assignment operator
+
+```
+<?php
+
+$an_array = ["a", "b"];
+
+$an_array[] = "c";
+
+echo implode(", ", $an_array); 
+#=> a b c
+
+```
+
+PHP also provides array_pop()  and array_push() methods to remove items from the end 
+of the array and add items to the end of the array
+
