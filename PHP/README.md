@@ -708,11 +708,9 @@ Your password is: <?php echo $_POST["password"]; ?>
 </body>
 </html>
 ```
-
-![phpform](phpform.png)
-
 The form data is sent and displayed on the same page, in this example
 
+![phpform](formphp.png)
 
 
 
