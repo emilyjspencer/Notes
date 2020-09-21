@@ -783,6 +783,26 @@ Form validation ensures that a form can only be submitted if the required fields
 been entered is valid - e.g. the user has entered a valid email address, they've used a mix of letters, numbers and 
 special characters etc
 
+Two things can be used in the form action:
+
+1 - htmlspecialcharacters() function - which converts special characters i.e. * % $ into HTML entities
+* This prevents malicious attackers from carrying out XSS or Cross-site scripting attacks on forms, by injecting CSS or JavaScript
+
+2 - $_SERVER["PHP_SELF"]  - a super global variable that returns the filename of the file whose code is currently being executed.
+* Data is sent to the same page so error messages appear on the same message as the form i.e. "Please enter a valid email", "Please enesure that your password is at least eight characters long"
+
+However $_SERVER["PHP_SELF"] is vulnerable to attackers, who can use XSS (Cross-site scripting) attacks on forms to inject client-side scripts e.g. JavaScript, CSs into web pages.
+By adding a / they can executed XSS commands, for example they can add script tags, into which they can placed JS code. This could be used to redirect users to another server where they might be faced with malicious code.
+
+It's the htmlspecialcharacters() function that, when used in conjuction with the super global variable $_SERVER["PHP_SELF"] can prevent the super global variable from being manipulated.
+
+```
+form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"> method-"post"
+```
+
+
+
+
 
 
 
