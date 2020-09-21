@@ -6,12 +6,13 @@
 * PHP frameworks include Laravel, Symphony and CakePHP
 * PHP often used to create dynamic web pages
 * PHP files have the file extension .php
+* echo is akin to Ruby's 'puts' or 'prints' in that it prints output to the screen
 * PHP is not always case-sensitive so Echo can be used to print out rather than echo
 * PHP is designed to interact with HTML to create dynamic behaviour by using the following tags:
 ```
 <?php ................... ?>
 ```
-<?php is opening tag
+<?php is the opening tag
 ?>  is the closing tag
 ```
 <h1>I am an H1</h1>
@@ -442,7 +443,7 @@ while($x <= 50) {
 45
 50
 
-### Do....whilte
+### Do....while
 
 ```
 <!DOCTYPE html>
@@ -880,6 +881,120 @@ echo $gender;
 This outputs:
 
 ![cleanuserinput](cleandatabeforesubmitting.png)
+
+### Making fields required in forms
+
+```
+<!DOCTYPE HTML>  
+<html>
+<head>
+  <title>Adding required fields to forms</title>
+<style>
+.required {color: red;}
+</style>
+</head>
+<body>  
+
+<?php
+
+$name = $username = $email = $gender = $comment = $github = "";
+
+$nameRequired =  $usernameRequired = $emailRequired = $genderRequired = $githubRequired = "";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["name"])) {
+    $nameRequired = "Name is required";
+  } else {
+    $name = clean_input($_POST["name"]);
+  }
+
+  if (empty($_POST["username"])) {
+      $usernameRequired = "Username is required";
+  } else {
+      $username = clean_input($_POST["username"]);
+  }
+  
+  if (empty($_POST["email"])) {
+    $emailRequired = "Email is required";
+  } else {
+    $email = clean_input($_POST["email"]);
+  }
+    
+  if (empty($_POST["github"])) {
+    $github = "";
+  } else {
+    $github= clean_input($_POST["github"]);
+  }
+
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = clean_input($_POST["comment"]);
+  }
+
+  if (empty($_POST["gender"])) {
+    $genderRequired = "Gender is required";
+  } else {
+    $gender = clean_input($_POST["gender"]);
+  }
+}
+
+function clean_data($input) {
+  $input = trim($input);
+  $input = stripslashes($input);
+  $input = htmlspecialchars($input);
+  return $input;
+}
+?>
+
+
+<p><span class="required">* required field</span></p>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+  Name: <input type="text" name="name">
+  <span class="required">* <?php echo $nameRequired;?></span>
+  <br><br>
+  Username: <input type="text" name="username">
+  <span class="required">* <?php echo $usernameRequired;?></span>
+  E-mail: <input type="text" name="email">
+  <span class="required">* <?php echo $emailErr;?></span>
+  <br><br>
+  Github <input type="text" name="github">
+  <span class="required">* <?php echo $githubRequired;?></span>
+  <br><br>
+  Comment: <textarea name="comment" rows="5" cols="50"></textarea>
+  <br><br>
+  Gender:
+  <input type="radio" name="gender" value="female">Female
+  <input type="radio" name="gender" value="male">Male
+  <input type="radio" name="gender" value="other">Other
+  <span class="required">* <?php echo $genderRequired;?></span>
+  <br><br>
+  <input type="submit" name="submit" value="Submit">  
+</form>
+
+<?php
+echo "<h2>You entered:</h2>";
+echo $name;
+echo "<br>";
+echo $username;
+echo "<br>";
+echo $email;
+echo "<br>";
+echo $github;
+echo "<br>";
+echo $comment;
+echo "<br>";
+echo $gender;
+?>
+
+</body>
+</html>
+```
+
+Outputs:
+
+![requiredfields](required_fields.png)
 
 
 
