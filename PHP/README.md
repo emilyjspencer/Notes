@@ -712,6 +712,34 @@ The form data is sent and displayed on the same page, in this example
 
 ![phpform](formphp.png)
 
+A GET request could also be used to send the data, but this isn't advisable as the data entered by the user
+is passed in the url as query params, and thus their data isn't protected.
+
+Example of using the GET superglobal and get http method:
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form with GET</title>
+</head>
+<body>
+
+<form action="index.php" method="get>
+Username: <input type="text" name="username">
+Password: <input type="text" name="password">
+<input type="submit">
+</form>
+
+Welcome <?php echo $_GET["username"]; ?><br>
+Your password is: <php echo $_GET["password"]; ?>
+
+</body>
+</html>
+```
+
+![formphpget](formphpget.png)
+
 
 
 
