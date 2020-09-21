@@ -35,3 +35,7 @@
 * What is meant by an associative array
 * How do you remove key/value pairs from an associate array in PHP
 * How do you concatenate arrays
+* What does the readline() method do
+* What are superglobals
+* Which superglobals are used to collect form data
+

@@ -11,8 +11,8 @@
 ```
 <?php ................... ?>
 ```
-<?php is the start
-?>  is the end
+<?php is opening tag
+?>  is the closing tag
 ```
 <h1>I am an H1</h1>
 <?php echo "<p>This is interpreted by PHP and converted to HTML</p>";?>
@@ -36,6 +36,7 @@ For example, if the following code were placed in playing.php:
 echo "I'm learning PHP!!!";
 #=> I'm learning PHP!!!
 ```
+only the opening tag is required.
 
 ### Comments in PHP
 
@@ -124,7 +125,7 @@ Interpolate variables into strings through the use of curly brackets
   $b = "cute";
   $c = "friendly";
 
-  echo "He likes ${a} because they are ${b} and loved ${c}.";
+  echo "He likes ${a} because they are ${b} and very ${c}.";
 
 ```
 
@@ -142,7 +143,7 @@ $other = $language;
   
   $language = "JavaScript";
   
-  echo "\nBut now my favorite is $language.";
+  echo "\nBut now my favourite language is $language.";
 ```
 
 #=> 
@@ -150,7 +151,7 @@ I'm a fickle person, my favorite movie used to be Mary Poppins.
 But now my favorite is Care Bears.
 
 During assignment, the computer will first evaluate everything to the right of the assignment operator
-and return a sinle value.
+and return a single value.
 
 ### Concatenating assignment operator -    .=
 
@@ -286,7 +287,7 @@ function third()
 echo first() . second() . third();
 ```
 
-Functions without return statements return NULL - represents the absence of a value
+Functions without return statements return NULL - representing the absence of a value
 
 ```
 <?php
@@ -332,20 +333,21 @@ scope of the function.
 
 PHP has many in-built functions such as:
 
-getttype()
+getttype() - determine the type 
 abs()
 round()
+ceil() - rounds a number up to the nearest integer (even if the float is closer to the number below)
 var_dump()
 substr_count()
-strrev()
-strtolower()
-str_repeat()
-rand()
+strrev() - reverse a string
+strtolower() - convert to lower case characters
+str_repeat() - repeat a string a specified number of times
+rand() - generate a random number
 getrandmax()
 pi()
-min()
-max()
-sqrt()
+min() - find the minimum number
+max() - find the maximum number
+sqrt() - find the square root
 
 
 ```
@@ -543,6 +545,14 @@ PHP5 onwards enables the developer to write PHP code in an object-oriented style
 
 Classes
 
+* Define classes with the class keyword
+* Use access modifiers - public, private, protected to define to what degree variables
+can be accessed
+public - publicly accessible - other objects can call
+private - only accessible within the class
+protected - accessible within the class and its child classes
+* Close a class with } not end
+
 ```
 
 <!DOCTYPE html>
@@ -645,6 +655,69 @@ If a __destruct() function is created, PHP will automatically call the function 
 * **Public** - the property or method can be accessed from everywhere. This is the default.
 * **Protected** - the property of method can be accessed within the class and by classes derived from that class
 * **Private** - the property or method can ONLY be accessed within the class
+
+### Inheritance in PHP
+
+A child class inherits all of the public and protected methods from its parent class.
+
+Define an inherited class using the extends keyword
+
+### Form handling in PHP
+
+* The superglobals $_GET and $_POST are used to collect form data
+* Forms use the usual attributes such as **action** - to specify where the form data should
+be submitted to, and **method** to specify whether the data is being submitted
+using a GET/POST request etc
+
+example:
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form</title>
+</head>
+<body>
+ 
+  <form action="index.php" method="post>
+  Username: <input type="text" name="username">
+  Password: <input type="text" name="password">
+  <button type="submit"></button>
+  </form>
+
+</body>
+</html>
+
+```
+Here an HTTP POST method is used to sent the form data which is sent to
+index.php
+
+```
+<html>
+<body>
+
+<form action="index.php" method="post">
+Username: <input type="text" name="username">
+Password: <input type="text" name="password">
+<input type="submit">Submit</input>
+</form>
+
+Welcome <?php echo $_POST["username"]; ?><br>
+Your password is: <?php echo $_POST["password"]; ?>
+
+</body>
+</html>
+```
+
+![phpform](phpform.png)
+
+The form data is sent and displayed on the same page, in this example
+
+
+
+
+
+
 
 
 * void - means that it doesn't return any value
@@ -794,7 +867,7 @@ Array ( [0] => Tobin [1] => Michael [2] => Bob [3] => Daniel [4] => Thomas [5] =
 
 ### Associative arrays
 
-* Simply refers to arrays contain key/value pairs
+* Simply refers to arrays that contain key/value pairs
 * => is used to separate each key from its respective pair
 * To print associative arrays - use the print_r() function
 
@@ -834,3 +907,15 @@ print_r($names);
 
 // 1, 22Array ( [Billy] => 2 )
 ```
+
+
+### Concatenating Arrays
+
+We can concatenate arrays using the + operator
+* The + operator is called the union operator
+* It takes two array operands and returns a new array with any unique keys from the second array
+appended to the first array
+
+### Prompting users for input
+
+We can prompt the user for input by using the readline() method, which is considered to be the equivalent of Ruby's gets() method
