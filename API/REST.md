@@ -3,12 +3,16 @@
 * REST is an architectual style or design pattern for APIs, created by Roy Fielding
 * It is one way to send data over HTTP
 * It is considered to be the traditional approach to sending and retrieving data over HTTP
-* The newer approach is through the use of GraphQL
+* The newer approach is through the use of GraphQL whose philosophy is quite different to that of REST's.
 * REST stands for Representational State Transfer - meaning that when an API is called, the server transfers a representation of 
 the state of the resource to the client
+* REST is therefore said to be resource-based
 * The representation of the state of the resource can be in JSON format, XML or HTML - most often JSON.
 * Resources are the objects that the API can provide information about .e.g a post, a user, a photo
-* Each resource has a unique identifier
+* Each resource has its own address which identifies it e.g.
+/users/20 - a unique identifier
+* All operations done to the resource are done with HTTP requests to its URL
+* The action depends on the HTTP method used
 * A RESTful API is one that adheres to a set of constraints
 * A RESTful application allows the client to access and manipulate textual representations of the resources by using
 a uniform and predefined set of stateless operations
@@ -65,6 +69,9 @@ The client can request code from the server, and the response will contain code.
 
 
 ### The limitations of REST
+
+While this resource-based approach works in a lot of cases, there are other situations where it would be preferable
+to use GraphQL, because the use of REST can be awkward:
 
 * Multiple requests for related resources
 
