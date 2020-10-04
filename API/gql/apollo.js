@@ -1,6 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server')
 
-let persons = [
+let people = [
   {
     name: "Benjamin Button",
     phone: "23748559494",

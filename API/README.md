@@ -252,7 +252,68 @@ Create a new instance of Apollo Server which is passed two parameters:
 - sn object which contains the resolvers of the server
 
 
-These are the code which define how GraphQL queries are responded to
+These define how GraphQL queries are responded to
+
+```
+const { ApolloServer, gql } = require('apollo-server')
+
+let people = [
+  {
+    name: "Benjamin Button",
+    phone: "23748559494",
+    street: "21 Cherry Tree Lane",
+    city: "London",
+    id: "3d594650-3436-11e9-bc57-8b80ba54c431"
+  },
+  {
+    name: "Veruca Salt",
+    phone: "084938230",
+    street: "10 I want it Now",
+    city: "Chipping Campden",
+    id: '3d599470-3436-11e9-bc57-8b80ba54c431'
+  },
+  {
+    name: "Lorraine Warren",
+    street: "666 I see dead people",
+    city: "Bridgeport",
+    id: '3d599471-3436-11e9-bc57-8b80ba54c431'
+  },
+]
+
+const typeDefs = gql`
+  type Person {
+    name: String!
+    phone: String
+    street: String!
+    city: String! 
+    id: ID!
+  }
+
+  type Query {
+    personCount: Int!
+    allPeople: [Person!]!
+    findPerson(name: String!): Person
+  }
+`
+
+const resolvers = {
+  Query: {
+    personCount: () => persons.length,
+    allPeople: () => persons,
+    findPerson: (root, args) =>
+      persons.find(p => p.name === args.name)
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+})
+
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`)
+})
+```
 
 ```
 npm filename.js
@@ -260,6 +321,8 @@ npm filename.js
 
 The above starts a GraphQL-playground, at http://localhost:4000/graphql. 
 * Useful for making queries to the server.
+
+
 
 If I enter the following query:
 
@@ -275,3 +338,22 @@ query {
 I get the following back:
 ![apollo](apollo.png)
 
+The following query:
+
+```
+query {
+  findPerson(name: "Lorraine Warren") {
+    phone 
+    city 
+    street
+  }
+}
+```
+
+returns:
+
+![apollo](apollo2.png)
+
+Its resolver is:
+```
+(root, args) => people.find(p => p.name === args.name)
