@@ -2,7 +2,7 @@
 
 GraphQL is an API design architecture, developed by Facebook but with a different approach to REST which is
 much more flexible.
-* It has become a popular means of communication between web applications server
+* It has become a popular means of communication between web applications and servers
 * The GraphQL philosophy is very different from the resource-based approach of REST.
 * A GraphQL server can help us to overcome the challenges associated with a REST-based approach
 * If there were a situation where the developer were using a REST API, and would have
@@ -136,3 +136,44 @@ There is a direct link betwen a GraphQL query and the returned JSON object.
 * The query can describe what sort of data it wants as a response
 * This is different to the resource-based approach of REST, whereby the type of request and the URL
 don't describe the data that is expected to be returns
+
+
+Creating a project:
+
+```
+npm init
+```
+
+```
+npm install apollo-server graphql
+```
+
+Save the file with an extension of .js
+
+Create a new instance of Apollo Server which is passed two parameters:
+- typeDefs - contains the GraphQL schema
+- sn object which contains the resolvers of the server
+
+
+These are the code which define how GraphQL queries are responded to
+
+```
+npm filename.js
+```
+
+The above starts a GraphQL-playground, at http://localhost:4000/graphql. 
+* Useful for making queries to the server.
+
+If I enter the following query:
+
+```
+query {
+  allPeople{
+    name
+    phone
+  }
+}# Write your query or mutation here
+```
+
+I get the following back:
+![apollo](apollo.png)
