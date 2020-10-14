@@ -1,13 +1,14 @@
 ### TypeScript
 
-* Is a typed superset of JS, built by Microsoft, aimed at making the language more scalable and reliable. Being a superset of JS means that it includes all of the features of JS as well as its own additional features
-*  Bein a typed version means means that the developer can specify the types of different variables at the time of declaration
+* Is a typed superset of JS, built by Microsoft, aimed at making the language more scalable and reliable. Being a superset of JS means that it is a sort of layer around JavaScript includes all of the features and methods of JS as well as its own additional features
+*  Being a typed version means means that the developer can specify the types of different variables
 They will always hold the same type of data in that scope.
-* Compiles to regular Javascript
+* TypeScript compiles to regular Javascript
 * Tends to be less error prone
 * Lends itself to code readability and maintainability
 * Used to support the building of large-scale JS applications, as it offers better development-time tooling, static code analysis, compile-time type checking and code level documentation
 * TypeScript's online playground can be found here: https://www.staging-typescript.org/play?#
+
 
 ##### Adding TypeScript
 
@@ -35,6 +36,19 @@ This JavaScript file with the same filename but a different extension, and which
 To compile all TypeScript files in any folder
 ```
 tsc *.ts
+```
+
+### Running a TypeScript file
+
+* Compile it first:
+```
+tsc fileName.ts
+```
+This creates a JavaScript file with the name name
+
+* Run this JavaScript file:
+```
+node fileName.js
 ```
 
 ### Typing 
