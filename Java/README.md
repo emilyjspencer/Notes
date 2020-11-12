@@ -94,11 +94,18 @@ public class Human {
 ```
 
 # Primitive Data Types
-* In Java - whole numbers are stored in the int primitive data type
+* Primitive data types are the most simple of data types
+* They don't have built-in behaviour
+* The different primitive data types in Java are:
+boolean, long, short, int, double, float, char, byte
+* In Java - whole numbers are stored in the int 
 * Ints hold pos neg numbers and zero
 * Don’t hold floats
-* Doubles are to some extent the Ruby equivalent of floats - confusing 
-* Doubles can hold decimals and fractions. They can also hold integers however.
+* Doubles hold very large numbers and decimals
+* Char - a single character. Must be enclosed in single quotes
+* Byte - stores whole numbers from -128 to 127
+* Primitive data types always have a value
+* They start with a lowercase letter
 
 ```
 public class Attendance{
@@ -112,26 +119,76 @@ public class Attendance{
 #=> 97.4
 ```
 
-Other primitive data types:
+# Non-primitive data types
 
-* booleans
-* char - for any character - the value must be enclosed in single quotes
+The non-primitive data types are:
+* strings
+* classes
+* arrays
+
+They are called reference types because they refer to objects
+
+* Non-primitive data types can be null
+* They start with an uppercase letter
+
+# Scientific numbers
+
+* A floating point number can also be a scientific number with an 'e' to indicate the power of 10:
 
 
-# Objects
+# Equality
 
-Objects have built-in behaviour
+When checking for equality with primitive data types - we can use equality operator
+== !=   >=   <=
 
-* Strings - defined with String
+When checking for equality with non-primitive data types - we can't use the primitive equality operator - have to use the built-in method equals()
+e.g.
+```
+
+String sentence1 = "Hi there!";
+String sentence2 = "Hi!";
+System.out.println(sentence1.equals(sentence2));
+```
+
 
 # Naming variables
 
 
-Variables can only start with a letter of $ - nothing else
+Variables can only start with a letter or $ - nothing else
 
 # Static checking - helps catch bugs in the code before the code is run e.g
 
 boolean sing 'Get wavy'
+
+
+# String concatenation
+
+Use the + to concatenate string
+
+# Classes and Objects
+
+In order to have the data types we want, we need to be able to create them, as only a few data types actually exist.
+For this purpose, we can define classes, which act as blueprints for the new data structure - defining what the new data structure will look like and what it's made up of.
+Classes are used to model more complex pieces of data.
+To create the actual data type - we have to instantiate the class.
+
+* To define a class in Java  - use the class keyword
+* The class is enclosed within curly braces
+* Another term for attributes in Java is fields
+* If you don't want a variable to be overwritten, declare it as being final e.g.
+```
+public class Person
+  final String name = "Betty";
+
+  public static void main(String[] args) {
+    Person woman = new Person();
+    woman.name = "Amy";
+    System.out.println(name);
+  }
+}
+```
+
+Will throw an error
 
 
 
