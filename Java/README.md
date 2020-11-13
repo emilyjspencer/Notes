@@ -193,3 +193,53 @@ Will throw an error
 
 
 
+# Methods
+
+The keywords static or public can be used with methods
+
+* If the public keyword is used - that method can't be accessed without calling the method
+on an instance of the class
+* If the static keyword is used - the method can be called without being called on an instance of a class
+
+```
+public class Person {
+  static void nameThem(String name) {
+    System.out.println(fname + "is a teacher");
+  }
+
+  public static void main(String[] args) {
+    myMethod("Billy");
+    myMethod("Benny");
+    myMethod("Bathsheba");
+  }
+}
+// Billy is a teacher
+// Benny is a teacher
+// Bathsheba is a teacher
+```
+
+```
+
+public class Student {
+ 
+  
+  public void speak() {
+    System.out.println("I love music");
+  }
+
+  
+  public void playInstrument(String instrument) {
+    System.out.println("I play the " + instrument);
+  }
+
+
+  public static void main(String[] args) {
+    Student student = new Student();     
+    student.speak();      // Call the fullThrottle() method
+    student.playInstrument('violin);      
+  }
+}
+
+// I love music
+// I play the violin
+```
