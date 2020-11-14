@@ -371,3 +371,75 @@ that we use to build applications
 # How Java works under the hood
 
 
+
+
+
+# Writing a Java program
+
+* Open Intellij Idea CE
+* Go to new project
+* Select Java in side panel on the left
+* Select the jdk
+* Press next
+* Create project from template and select command line app
+* Press next
+* Give it a name
+* Can give it a package name
+
+Package at the top of the Main.java indicates the package that the file belongs to
+
+In Main.java
+
+```
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+	System./out/.println(“I like to play the piano”);
+    }
+}
+package com.company;
+
+public class Main {
+
+    public static void main(String[] args) {
+	System./out/.println(“I like to play the piano”);
+    }
+}
+```
+
+Press the green play button to test output
+
+To actually compile the code, the Java Virtual Machine must be invoked, using the javac command.
+
+Can be done in two ways
+
+Find where the file is and go to it .e.g
+
+Open the terminal
+
+Cd src
+Cd com
+cd packageName
+Ls
+
+Main.java file is there
+
+Then run
+```
+javac main.java
+```
+
+To invoke the compiler
+
+Now, there should be a Main.class and a Main.java file
+
+Execute the code by running:
+```
+java Main.java
+```
+
+The output will look like this:
+
+![java_musical](java_musical.png)
