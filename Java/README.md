@@ -2,9 +2,12 @@
 
 * Statically-typed object-oriented programming language
 * It is a compiled language
-* One of the most popular programming languages
 * Created in 1995 by Sun Microsystems 
-* Its Virtual Machine ensures the same Java code can be run on different operating systems and platforms
+* Its Virtual Machine ensures the same Java code can be run on different operating systems and platforms, making it platform-independent
+* Architecture neutral
+* Interpreted
+* Multithreaded
+* Distributed
 * Being a statically-typed langauge - each variable/attribute's type must be declared, unlike in Ruby - which is a dynamically-typed language, and thus doesn't
 * Java is also a lower-level language than Ruby and thus is more verbose; it takes more lines of code to achieve the same functionality in Java than it does in Ruby
 * A common IDE is IntelliJ
@@ -160,6 +163,14 @@ Variables can only start with a letter or $ - nothing else
 
 boolean sing 'Get wavy'
 
+# Control flow
+
+if
+else if
+else
+
+Can also use a ternary operator as you would with JavaScript
+
 
 # String concatenation
 
@@ -235,7 +246,7 @@ public class Student {
 
   public static void main(String[] args) {
     Student student = new Student();     
-    student.speak();      // Call the fullThrottle() method
+    student.speak();     
     student.playInstrument('violin);      
   }
 }
@@ -243,3 +254,120 @@ public class Student {
 // I love music
 // I play the violin
 ```
+
+
+# Constructors
+
+Constructors are called automatically when an instance of a class is created
+* All classes have constructors by default
+* If one isn't created by the develope, Java creates one
+
+```
+
+public class Person {
+  String name; 
+  String occupation;
+
+ 
+  public Person(String name, String occupation) {
+    name = "John"; 
+    occupation = "developer";
+  }
+
+  public static void main(String[] args) {
+    Person man = new Person(); // 
+    System.out.println(man.name);
+    System.out.println(man.occupation);
+  }
+}
+
+// John
+// developer
+```
+
+# Some string methods
+
+* length() - returns length of string
+* indexOf("h") - returns the index of the specified character
+* toUpperCase() - converts the string to a string with upper case letters
+* toLowerCase() - converts the string to a string with lower case letters
+* replace("h", "i")  - replaces the first character with the second character
+* startsWith("k") - 
+* endsWith("k") - 
+
+
+# Java arrays
+
+To define an array of strings:
+```
+String[] fruit = {"apple", "orange", "banana", "strawberry"};
+```
+
+To define an array of integers:
+```
+int[] numbers = { 1, 2, 3, 4, 5, 6};
+```
+
+* Java arrays have a fixed length
+* You can't add or remove items to an array
+* If items need to be added or removed - a collection class needs to be used
+
+sort() - 
+
+# Constants
+
+Constants are also known as final variables
+* They have a fixed value - can't be changed once set
+* Use capital letters
+* If a constant must contain multiple words - separate each word with an underscore
+
+# Logical operators
+
+&& - logical and 
+|| - logical or
+! - not
+
+# Loops
+
+* For loop - used if we know how many times we need to loop
+
+for(int i = 0; i < 10; i++) {
+  //
+}
+
+* While loop - code is executed for as long as the condition is said to be true
+
+while (condition) {
+
+    if(condition)
+      break;
+}
+ 
+* Do...while - Code is executed once first and then the condition is checked and the code is run for as long as the condition is said to be true
+
+do {
+  
+} while (condition);
+
+
+# For-each loop -  useful for iterating over an array or  collection.
+
+int[] numbers = {10, 2, 30, 4};
+for (int number : numbers)
+
+JDK = Java Development Kit
+
+Used to built Java applications
+* Contains a compiler, JRE - the Java Runtime Environment and a library of classes
+that we use to build applications
+
+# Java editions
+
+* Java SE - Java Standard Edition - core Java platform. Contains libraries
+* Java EE - Java Enterprise Edition - used for building large scale distributed systems. Built on top of Java SE and provides additional libraries
+* Java EE - Java Micro Edition - subset of Java SE, for mobile device. Provides libraries specific to mobile devices
+* Java Card - used in smart cards
+
+# How Java works under the hood
+
+
