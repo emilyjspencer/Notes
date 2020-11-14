@@ -123,7 +123,7 @@ public class Attendance{
 #=> 97.4
 ```
 
-# Non-primitive data types
+# Non-primitive data types/reference types
 
 The non-primitive data types are:
 * strings
@@ -134,6 +134,9 @@ They are called reference types because they refer to objects
 
 * Non-primitive data types can be null
 * They start with an uppercase letter
+
+* When dealing with reference types, memory must be allocated
+* When dealing with primitve types, memory needn't be allocated as memory is allocated and released by the Java Runtime Environment
 
 # Scientific numbers
 
@@ -159,6 +162,20 @@ System.out.println(sentence1.equals(sentence2));
 
 
 Variables can only start with a letter or $ - nothing else
+Variables should be written using camelcase
+
+![javavariables](javavariables.png);
+
+Variable values can be reassigned:
+
+![java_reassign](java_reassign_variable.png);
+
+![reassigning](reassigning.png);
+
+If the final keyword is used, the value can't be reassigned - an error will be thrown:
+
+![java_final](java_final.png);
+
 
 # Static checking - helps catch bugs in the code before the code is run e.g
 
@@ -188,14 +205,50 @@ Use the + to concatenate string
 
 Order of primitive types from smallest to largest:
 
-byte -> short -> char -> int -> long -> float -> double
+boolean -> byte -> short -> char -> int -> float -> long -> double
 
 * Narrowing casting  - converting a larger type to a smaller type. Must be done manually
 
 Order of primitive types from largest to smallest:
 
-double -> float -> long -> int -> char -> short -> byte
+double -> long -> float ->  int -> char -> short -> byte -> boolean
 
+The more bytes we have, the greater the number of numbers that can be stored
+
+* byte - takes 1 byte
+* boolean - takes 1 byte - 8 bits
+* short - takes 2 bytes - 16 bits
+* char - takes 2 bytes - 16 bits
+* int - takes 4 bytes - 32 bits
+* float - takes 4 bytes - 32 bits
+* long - takes 8 bytes - 64 bits
+* double takes 8 bytes - 64 bits
+
+* When dealing with large numbers - an underscore can be used to separate every three digits
+e.g
+
+342_854_930
+
+The correct primitive type should be used, otherwise an error will be thrown e.g. for a number such as 9_342_854_930
+if the following was written:
+```
+short myNumber = 9_342_854_930
+```
+
+an error would be thrown.
+An error would also be thrown if int were used.
+We need to use long instead. However, an L has to be added as a suffix to the number too - otherwise an error will still be thrown:
+
+```
+
+long myNumber = 9_342_854_930L
+```
+or 
+```
+long myNumber = 9_342_854_930l
+```
+
+Likewise, when dealing with floats - a suffix of F or f needs to be added
 
 # Classes and Objects
 
