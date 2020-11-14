@@ -2,7 +2,8 @@
 
 * Statically-typed object-oriented programming language
 * It is a compiled language
-* Created in 1995 by Sun Microsystems 
+* Created in 1995 by James Gosling at Sun Microsystems, which was acquired by Oracle in 2010
+* Named after Java Arabica coffee - hence the logo
 * Its Virtual Machine ensures the same Java code can be run on different operating systems and platforms, making it platform-independent
 * Architecture neutral
 * Interpreted
@@ -175,6 +176,26 @@ Can also use a ternary operator as you would with JavaScript
 # String concatenation
 
 Use the + to concatenate string
+
+# Casting/type conversion
+
+* Two types of casting: widening casting and narrowing casting
+
+* Type casting occurs when value of one primitive data type is assigned to another type
+
+* Widening casting happens automatically - converting a smaller type to a large type size
+
+
+Order of primitive types from smallest to largest:
+
+byte -> short -> char -> int -> long -> float -> double
+
+* Narrowing casting  - converting a larger type to a smaller type. Must be done manually
+
+Order of primitive types from largest to smallest:
+
+double -> float -> long -> int -> char -> short -> byte
+
 
 # Classes and Objects
 
@@ -370,9 +391,21 @@ that we use to build applications
 
 # How Java works under the hood
 
+There are two steps involved:
+* Compilation
+* Execution
 
-
-
+During compilation - IntelliJ uses the Java compiler to compile the code into a different format called Java Bytecode
+* The Java compiler comes with the Java development kit - jdk
+* The Java compiler takes Java code and compiles it down to Java Bytecode which is
+a cross-platform format.
+* When Java applications are run, JVM is loaded in the memory.
+* It takes bytecode as the input and translates it to the native code for the underlying operating system. 
+* Main.class is the bytecode representation of the java file - Main.java
+* If you are on a Windows machine, the JVM will taketh java bytecode and translate it into code that a Windows machine will understand
+* If you are on a Mac, the JVM will take the java bytecode and translate it into code that a Mac machine will understand
+This architecture is what makes Java platform independent
+* C# and Python have the same architecture
 
 # Writing a Java program
 
@@ -443,3 +476,13 @@ java Main.java
 The output will look like this:
 
 ![java_musical](java_musical.png)
+
+
+The alternative is to go to the src folder and enter the filepath
+```
+Java com.company.Main
+```
+
+
+
+
