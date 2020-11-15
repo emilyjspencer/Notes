@@ -141,6 +141,21 @@ They are called reference types because they refer to objects
 * When dealing with reference types, memory must be allocated
 * When dealing with primitve types, memory needn't be allocated as memory is allocated and released by the Java Runtime Environment
 
+Another significant difference between the two is with regards to memory management
+
+```
+public static void main(String[] args) {
+  byte x = 1;
+  byte y = x;
+x = 2;
+System.out.println(y);
+}
+// 1
+```
+
+If the value of x is changed, y won't be affected because x and y are completely independent of each other because the two variables are at different memory locations
+
+
 # Importing classes
 
 To make use of other classes, we can import them.
@@ -211,7 +226,7 @@ Use the + to concatenate string
 
 # Casting/type conversion
 
-* Two types of casting: widening casting and narrowing casting
+* Two types of casting: widening casting(implicit) and narrowing casting(explicit)
 
 * Type casting occurs when value of one primitive data type is assigned to another type
 
@@ -376,14 +391,187 @@ public class Person {
 
 # Some string methods
 
+Strings are zero-based indexed
+
 * length() - returns length of string
 * indexOf("h") - returns the index of the specified character
 * toUpperCase() - converts the string to a string with upper case letters
 * toLowerCase() - converts the string to a string with lower case letters
 * replace("h", "i")  - replaces the first character with the second character
 * startsWith("k") - 
-* endsWith("k") - 
+* endsWith("k") -
+* charAt() - returns the character at a specified index
+* What does codePointAt() do
+* contains()  - checks if a string contains a certain character or characters
+* concat()  - appends one string to another
+* endsWith() - check if a string ends with a specified character
+* equals()  - checks if two strings are equal. With primitive data types == is used instead
+* format()  - returns a formatted string using the specified local, format string and args
+* compareTo()  - compares two strings lexicographically
+* indexOf() - returns the index of the first occurrence of a specified character in a string
+* replace()  - replaces a character with another character
+* replaceAll()  - replaces each substring of string that matches the given regex with the given replacement
+* replaceFirst()  - replaces the first occurrence of a substring that matches the given regular expression with the given replacement
+* split()  - splits a string into an array of substrings - converts a string into an array
+* startsWith()  - checks that a string starts with a specified character
+* trim()  - removes whitespace from front and back
+* valueOf()  - 
+* toUpperCase()  - makes all characters of a string uppercase
+* toString()  - converts something to a string
+* toLowerCase() - makes all characters of a string lowercase
+* toCharArray() 
+* substring()  - extracts characters from string starting at specified position and extracts the specified number of characters
+* regionMatches() 
+* matches()  - looks for a match against a regex returns matchs
+* isEmpty() - checks whether a string is empty or not
+* intern() 
+* hashCode()- returns the hash code of a string
+* getChars() - copies characters from a string to an array of characters
 
+Adding a number and a string
+
+String a = "10";
+int b = 50;
+String e = a + b;   // e will be 1050  ----- a String
+
+Java String methods in action:
+
+There are lots of string methods in Java - some of these methods are the same as or similar to JavaScript string methods
+
+A string literal is a string value
+
+The String class is defined in the java.lang package
+
+We don’t need to import that package as it is automatically imported
+In theory, because String is a reference type, it should be instantiated using the new operator, but there is a shortcut, enabling us to simpl write it as if it were a primitive type:
+```
+String greeting = "salut"
+```
+
+String concatenation
+
+```
+public static void main(String[] args) {
+       String name = “Giselle”;
+       String adjective = “beautiful”;
+
+
+System./out/.println(name + “ “ + adjective);
+
+   }
+```
+// Outputs
+
+Giselle beautiful
+
+indexOf() method
+
+```
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.indexOf(“s”));
+
+    }
+} //2
+
+```
+
+Concat
+
+```
+
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.concat(adjective));
+
+    }
+} // Gisellebeautiful
+```
+
+endsWith()
+```
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.endsWith(“e”));
+
+    }
+} // true
+```
+
+
+startsWith()
+```
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.startsWith(“e”));
+
+    }
+} //false
+```
+
+contains()
+
+```
+
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.contains(“e”));
+
+    }
+} // true
+```
+
+charAt()
+```
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.charAt(4));
+
+    }
+} // l
+
+```
+
+equals()
+```
+public class Main {
+
+    public static void main(String[] args) {
+        String name = “Giselle”;
+        String adjective = “beautiful”;
+
+	System./out/.println(name.equals(adjective));
+
+    }
+} // false
+
+```
+
+format()
 
 # Java arrays
 
@@ -401,7 +589,19 @@ int[] numbers = { 1, 2, 3, 4, 5, 6};
 * You can't add or remove items to an array
 * If items need to be added or removed - a collection class needs to be used
 
-sort() - 
+sort() - sorts array elements in ascending numerical order args - array, fromIndex, toIndex
+copy() - 
+fill() - 
+compare() - 
+equals() - 
+hashcode() - 
+binarySearch()
+copyOf()
+deepEquals() - returns true if two arrays are deeply equal
+toString()
+deepHashCode() - 
+deepToString() - 
+copyOfRange() - 
 
 ### Printing arrays in Java
 
