@@ -99,7 +99,6 @@ public class Human {
 
 # Primitive Data Types
 * Primitive data types are the most simple of data types
-* They don't have built-in behaviour
 * The different primitive data types in Java are:
 boolean, long, short, int, double, float, char, byte
 * In Java - whole numbers are stored in the int 
@@ -110,6 +109,8 @@ boolean, long, short, int, double, float, char, byte
 * Byte - stores whole numbers from -128 to 127
 * Primitive data types always have a value
 * They start with a lowercase letter
+* Primitive types don't have members
+* They don't have built-in behaviour
 
 ```
 public class Attendance{
@@ -132,11 +133,25 @@ The non-primitive data types are:
 
 They are called reference types because they refer to objects
 
-* Non-primitive data types can be null
+* Non-primitive data types/ reference types can be null
 * They start with an uppercase letter
+* Reference types have members
+* Reference types have built-in behaviour
 
 * When dealing with reference types, memory must be allocated
 * When dealing with primitve types, memory needn't be allocated as memory is allocated and released by the Java Runtime Environment
+
+# Importing classes
+
+To make use of other classes, we can import them.
+To import a class use the import keyword e.g.
+```
+import java.util.Date;
+```
+
+to import the Date class
+
+![import_date_java](import_date_java.png)
 
 # Scientific numbers
 
@@ -387,6 +402,24 @@ int[] numbers = { 1, 2, 3, 4, 5, 6};
 * If items need to be added or removed - a collection class needs to be used
 
 sort() - 
+
+### Printing arrays in Java
+
+Array elements can't be printed directly in Java. Need to import the Arrays class:
+```
+import java.util.Arrays;
+```
+
+Add it to the top of the file
+
+Then use the Arrays.toString method
+or use a for loop, as below:
+
+An example:
+
+![printingarrays](printingarrays.png)
+
+
 
 # Constants
 
