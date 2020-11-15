@@ -899,10 +899,10 @@ public class Pool {
 }
 ```
 
-An error is thrown :
+Error not thrown:
 
 ![throwerrorjava](throwerrorjava.png);
 
-Error not thrown:
+Error thrown:
 
-!throwerrorjava2](throwerrorjava2.png);
+![throwerrorjava2](throwerrorjava2.png);
