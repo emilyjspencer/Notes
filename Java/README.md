@@ -406,7 +406,7 @@ Strings are zero-based indexed
 * concat()  - appends one string to another
 * endsWith() - check if a string ends with a specified character
 * equals()  - checks if two strings are equal. With primitive data types == is used instead
-* format()  - returns a formatted string using the specified local, format string and args
+* format()  - returns a formatted string using the specified locale, format string and args
 * compareTo()  - compares two strings lexicographically
 * indexOf() - returns the index of the first occurrence of a specified character in a string
 * replace()  - replaces a character with another character
@@ -571,7 +571,39 @@ public class Main {
 
 ```
 
-format()
+format() - formats a string
+
+
+
+# List of format specifiers
+
+%a - floating point
+%b - any type
+%c - character
+%d - integer - including byte short in long
+%e -  floating point
+%f - floating point
+%g - floating point
+%h - any type
+%n - none
+%o - integer
+%s - any type
+%t - Date/Time
+%x - integer
+
+# Date and Time Formatting
+
+%tA - Sunday Monday etc
+$ta - Sun Mon
+%tB - January February
+%tb - Jan Feb
+%tC - year as two digits
+%tc - date and time formatted as Fri April 22 07:45:42 PST 2019
+
+### Hash codes
+
+A hashcode is an integer value that is associated with each object in Java - a unique id number allocated by JVM , 32bit/4byte signed integer - allows an object to be managed by a hash-based data structure
+
 
 # Java arrays
 
@@ -605,7 +637,19 @@ copyOfRange() -
 
 ### Printing arrays in Java
 
-Array elements can't be printed directly in Java. Need to import the Arrays class:
+It is easy enough to print a specified item in an array:
+```
+ public static void main(String[] args) {
+
+                String [] favouriteFood = {"pizza", "pasta", "toad in the hole"};
+
+                System.out.println((favouriteFood[1]));
+            }
+```
+Outputs:    pasta
+
+However, it gets more complicated when you want to print out the full list of items in an array as part of a longer sentence/passage
+Need to import the Arrays class:
 ```
 import java.util.Arrays;
 ```
@@ -613,11 +657,22 @@ import java.util.Arrays;
 Add it to the top of the file
 
 Then use the Arrays.toString method
-or use a for loop, as below:
+
+**or use a for loop, as below:**
 
 An example:
 
 ![printingarrays](printingarrays.png)
+
+
+
+# String interpolation in Java
+
+With Ruby, string interpolation is easy enough: use #{variablename} 
+
+With Java, it is more complicated
+
+
 
 
 
@@ -771,4 +826,81 @@ Java com.company.Main
 
 
 
+# Error handling in Java
 
+The try...catch clause can be used to handle exceptions in Java
+
+* In the try block - the code that is to be put under test is put
+
+* In the catch block - the code that is to be executed when an error is found, is put
+
+```
+public class Person {
+  public static void main(String[ ] args) {
+    try {
+      String name = "Emma";
+      String[] hobbies = {"painting", "photography", "badminton"};
+      System.out.println(hobbies[10]);
+    } catch (Exception e) {
+      System.out.println("Something went wrong.");
+    }
+  }
+} 
+```
+Outputs:    Something went wrong
+
+
+### finally keyword
+
+The finally keyword can be used to execute code after the try...catch has been executed, regardless of the result
+
+```
+public class Person {
+  public static void main(String[] args) {
+    try {
+      String name = "Bob";
+      int age = 59;
+      int salary = 70_000;
+      String[] friends = {"Harry", "Billy", "Tom", "Fred", "Marjory", "Belinda", "Will", "Dick", "Hamlet"}
+      System.out.println(friends[14]);
+    } catch (Exception e) {
+      System.out.println("Something went wrong.");
+    } finally {
+      System.out.println("The 'try catch' block is finished.");
+    }
+  }
+}
+```
+
+
+### Creating custom error messages - super important
+
+The throw statement can be used to create a custom error:
+
+The throw statement is used in conjunction with an exception type, of which there are many: e.g. ArithmeticException, SecurityException etc
+
+Example: - throw an error if 
+
+```
+public class MyClass {
+  static void getTemperature(int temp) {
+    if (temp < 20) {
+      throw new ArithmeticException("Unable to go in the pool - too cold");
+    }
+    else {
+      System.out.println("Warm enough to enter the pool!");
+    }
+  }
+
+  public static void main(String[] args) {
+    getTemperature(15); //
+    getTemperature(25); //
+  }
+}
+```
+
+An error is thrown 
+![throwerrorjava(throwerrorjava.png);
+
+Erorr not thrown
+!!throwerrorjava2(throwerrorjava2.png);
