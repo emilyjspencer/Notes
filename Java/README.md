@@ -882,7 +882,7 @@ The throw statement is used in conjunction with an exception type, of which ther
 Example: - throw an error if 
 
 ```
-public class MyClass {
+public class Pool {
   static void getTemperature(int temp) {
     if (temp < 20) {
       throw new ArithmeticException("Unable to go in the pool - too cold");
@@ -899,8 +899,10 @@ public class MyClass {
 }
 ```
 
-An error is thrown 
-![throwerrorjava(throwerrorjava.png);
+An error is thrown :
 
-Erorr not thrown
-!!throwerrorjava2(throwerrorjava2.png);
+![throwerrorjava](throwerrorjava.png);
+
+Error not thrown:
+
+!throwerrorjava2](throwerrorjava2.png);
