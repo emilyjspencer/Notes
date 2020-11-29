@@ -33,11 +33,8 @@ const [first, second ...rest] = remaining
 console.log(first, second) // 1 2
 console.log(remaining) // [3,4,5]
 ```
-The variabels first and second receive the first two integers of the array as their values.
+The variables first and second receive the first two integers of the array as their values.
 The remaining integers are collected into an array of their own array which is then assigned to the variable remaining.
-
-
-
 
 
 
@@ -462,3 +459,107 @@ const eduardo = new Person('Eduardo', 8)
 eduardo.greet()
 ```
 
+
+# splice() and splice()
+
+* slice() - non-destructive method
+* splice() - destructive method
+
+slice() - as it's a non-destructive method- it doesn't change the original array - it copies elements from the original array to a new array
+
+* splice() - as it's a destructive method - it modifies the original array - removes the items from the original array
+
+* slice() takes 2 arguments - index at which to start copying and the index at which to stop copying
+* splice() can take up to 3 arguments - index at which to start extraction, number of items to extract and the elements to add
+
+# imperative vs declarative programming
+
+* declarative programming - also functional programming - example - map()
+* imperative programming - example - for loop
+
+* imperative - how
+* declarative - what
+
+* imperative - you explain how you want something to be done - the for loop is more detailed and has more complex syntax than the map() method for example - with the map() method, the implementation details are hidden
+
+# spread operator - 
+
+...
+
+can be used to copy a whole array 
+
+# indexOf() function
+
+indexOf() returns the index of the specified element.
+* It returns -1 if it doesn't exist
+
+indexOf() can be used to check the presence of an element in an array
+
+```
+const filteredArray = (arr, elem) => {
+  let newArr = [];
+  
+   for(let i = 0; i < arr.length; i++) {
+     if (arr[i].indexOf(elem) === -1) {
+       newArr.push(arr[i])
+     }
+   }
+
+  return newArr;
+}
+
+console.log(filteredArray([[3, 2, 3], [1, 6, 3], [3, 13, 26], [19, 3, 9]], 3));
+```
+
+Here, the function only returns the nested arrays that DON'T contain the specified number  - the last argument  - in this case - 3.
+indexOf() has been used and so has a for loop
+
+
+ # Iterate through the keys of an object
+
+ Sometimes you may need to iterate through all the keys within an object. This requires a specific syntax in JavaScript called a for...in statement. For our users object, this could look like:
+
+for (let user in users) {
+  console.log(user);
+}
+
+// logs:
+Mag
+Mog
+Mig
+Mug
+
+
+# Mixins in JavaScript
+
+Inheritance is often used to share behavour - allow objects to share methods
+
+However, there are some cases when inheritance isn't the best.
+* It is better to use mixins for unrelated objects
+
+```
+
+let student = {
+  name: "Dan",
+  hairColour: "brown"
+};
+
+let bus = {
+  colour: "red",
+  firstStop: "Kingston"
+};
+
+
+let aboutMixin = function(obj) {
+    obj.describe = function() {
+      console.log("I don't know what I am")
+    }
+}
+
+aboutMixin(student)
+aboutMixin(bus)
+
+student.describe() // I don't know what I am
+bus.describe()  // I don't know what I am
+```
+<hr>
